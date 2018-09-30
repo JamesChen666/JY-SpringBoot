@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/class/list",
+                idField: "Id",
+                textField: 'ClassName',
+                treeGridModel: 'adjacency',
+                sortName: "Id",
+                colNames: ['Id', "班级名称", "班级编号","所属校区","所属院系","所属专业","年级", "毕业年份","辅导员","备注"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'ClassName', index: 'ClassName', align: "center", width: 200},
+                    {name: 'ClassNo', index: 'ClassNo', align: "center", width: 100},
+                    {name: 'CampusName', index: 'CampusName', align: "center", width: 200},
+                    {name: 'FacultyName', index: 'FacultyName', align: "center", width: 100},
+                    {name: 'SpecialtyName', index: 'SpecialtyName', align: "center", width: 100},
+                    {name: 'Grade', index: 'Grade', align: "center", width: 100},
+                    {name: 'GraduationYear', index: 'GraduationYear', align: "center", width: 100},
+                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200},
+                    {name: 'Remark', index: 'Remark', align: "center", width: 300}
+                ],
+                pager: "#pager",
+                ExpandColumn: "ClassName",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "班级管理-新增班级",
+                                btnName: "新增班级",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/class/add",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "班级管理-修改班级",
+                                btnName: "修改班级",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/class/edit?id={id}",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/class/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/class/export"
+                            },
+                            {
+                                type: "SetManager",
+                                btnName: "设置辅导员",
+                                title:"班级管理-设置辅导员",
+                                label:'辅导员',
+                                load: "/class/manager",
+                                listId: "#list",
+                                btnCode: "SetManager",
+                                save:"/class/setManager"
+                            }
+                        ]
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">班级名称/班级编号/年级：</div>
+        <input  name="sm_ClassName-ClassNo-Grade" type="text" value="" />
+        <div class="adv-select-label">所属专业：</div>
+        <input class="easyui-combobox" name="s_SpecialtyCode"
+               data-options="required:false,
+                             valueField: 'SpecialtyCode',
+                             textField: 'SpecialtyName',
+                             url: '/specialty/gridList'">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnSearch">重置查询</button>
+    </div>
+</div>
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

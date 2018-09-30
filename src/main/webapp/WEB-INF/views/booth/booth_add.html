@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+
+        <tr>
+            <td class="left b">场地名称:</td>
+            <td>
+                <input class="easyui-combobox" name="PlaceId" data-options="required:true,
+                                                                         valueField:'Id',
+                                                                         textField:'Title',
+                                                                         url:'/electionField/electionList'"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">展位号:</td>
+            <td>
+                <input class="easyui-textbox" name="BoothNumber" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">备注:</td>
+            <td>
+                <input class="easyui-textbox" name="Remark" data-options="required:true"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

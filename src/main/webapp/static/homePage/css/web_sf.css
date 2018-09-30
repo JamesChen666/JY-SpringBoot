@@ -1,0 +1,706 @@
+/*通用样式开始*/
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 微软雅黑;
+}
+html{
+    overflow: auto;
+    height: 100%;
+}
+body{
+    font-size: 14px;
+    color: #323232;
+    background: #ffffff;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+img{
+    border: 0;
+}
+.bt-l{
+    float: left;
+}
+
+.bt-r{
+    float:right;
+}
+
+.clear:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.bt-box-1024{
+    width: 1200px;
+    margin: 0 auto;
+    height: auto;
+}
+
+.c32{
+    color: #323232 !important;
+}
+.c95{
+    color: #959595 !important;
+}
+.c955{
+    color: #959595;
+}
+.cff{
+    color: #ffffff !important;
+}
+.cge{
+    color: #2d634e;
+}
+.marginleft20{
+    margin-left: 20px;
+}
+.marginleft10{
+    margin-left: 10px;
+}
+.lia{
+    text-align: center;
+}
+/*xiaoli*/
+.text-l{
+    text-align: left;
+}
+.text-c{
+    text-align: center;
+}
+.text-r{
+    text-align: right;
+}
+.margintop15{
+    margin-top: 15px;
+}
+.margintop20{
+    margin-top:20px !important;
+}
+.margintop30{
+    margin-top: 30px !important;
+}
+.margintop40{
+    margin-top: 40px !important;
+}
+.margintop50{
+    margin-top: 50px !important;
+}
+.h50{
+    height: 50px;
+}
+.h70{
+    height: 59px;
+}
+.pl20{
+    padding-left: 20px;
+}
+/*主体样式*/
+.bg{
+    width: 100%;
+    background: #2d634e;
+
+}
+.header{
+    height: 160px;
+    position: relative;
+}
+.header>img{
+    margin-top: 20px;
+}
+.search>a{
+    margin: 10px 0 0 25px;
+}
+.line2{
+    height: 2px;
+    width: 100%;
+    background: #2d634e;
+}
+.search>form{
+    margin-top: 30px;
+    line-height: 40px;
+    font-size: 14px;
+}
+.search>form>input{
+    width: 220px;
+    height: 40px;
+    border: 1px solid #EDEDED;
+    padding-left: 50px;
+    border-right: 0;
+    background: #ffffff url("../img/main_06.png") no-repeat 10px center;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:#BBBBBB;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:#BBBBBB;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:#BBBBBB;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:#BBBBBB;
+}
+.search>form>button{
+    cursor: pointer;
+    width: 60px;
+    height: 40px;
+    color: #ffffff;
+    background: #ffd200;
+    border: 0;
+    outline: none;
+}
+.nav{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+}
+.nav-li>li{
+    text-align: center;
+    float: left;
+    height: 60px;
+    color: #ffffff;
+    line-height: 60px;
+    width: 120px;
+    margin-right: 60px;
+}
+.nav-li>li:hover{
+    border-bottom: 2px solid #FFE108;
+    line-height: 60px;
+    cursor: pointer;
+    transition: color .3s;
+}
+.nav_active{
+    border-bottom: 2px solid #FFE108;
+    line-height: 60px !important;
+    cursor: pointer;
+}
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+.swiper-slide1>a>img{
+    height: 400px;
+}
+.swiper-pagination2{
+    z-index: 1000;
+}
+.swiper-pagination-bullet{
+    opacity: 1;
+}
+.swiper-pagination2>.swiper-pagination-bullet{
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background:#ffffff;
+}
+.swiper-pagination2>.swiper-pagination-bullet-active{
+    background:#2d634e;
+    border-radius: 5px;
+}
+.swiper-pagination1>.swiper-pagination-bullet{
+    background:rgba(29,117,215,.6);
+}
+.swiper-pagination1>.swiper-pagination-bullet-active{
+    background:rgba(29,117,215,1);
+    border-radius: 5px;
+}
+.box{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content:space-between;
+}
+.box1{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+}
+
+.btn{
+    width: 150px;
+    height: 40px;
+    background: #2d634e;
+    line-height: 40px;
+    padding-left: 15px;
+}
+.btn>img{
+    vertical-align: middle;
+    margin-right:5px;
+}
+
+.news{
+    width: 100%;
+    border: 1px solid #eeeeee;
+    height: 380px;
+    padding:15px 20px;
+}
+.title{
+    color: #323232;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    height: 40px;
+    line-height: 40px;
+}
+.news>a:hover .title{
+    color: #2d634e;
+}
+.news>a:hover i{
+    background: #2d634e;
+}
+.title>i{
+    display: inline-block;
+    height: 3px;
+    width: 3px;
+    background:#C0BBB5;
+    margin-right: 11px;
+    vertical-align: middle;
+    transition: all .3s;
+}
+.news div{
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+}
+.news-btn{
+    display: block;
+    width: 122px;
+    height: 42px;
+    line-height: 42px;
+    background: #f5f5f5;
+    border: 1px solid#eeeeee;
+    margin: 0 auto;
+    color: #2d634e;
+}
+.ggt{
+    margin: 30px auto;
+}
+
+select {
+    cursor: pointer;
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: solid 1px #EDEDED;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    width: 200px;
+    height: 40px;
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: #F9F9F8 url("../img/main_69.png") no-repeat scroll 175px center ;
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    padding-right: 25px;
+    padding-left: 8px;
+    outline: none;
+}
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; }
+
+.link{
+    width: 100%;
+    background: #404040;
+}
+.link>div{
+    height: 120px;
+    padding-top: 20px;
+}
+
+.margintop10{
+    margin-top: 10px !important;
+}
+.index-xiala{
+    display: none;
+    width:240px;
+}
+.index-xiala>li{
+    padding: 0 5px;
+    width:200px;
+    height: 50px;
+    color: #323232;
+    background: #ffffff;
+    border-bottom: 1px solid #EDEDED;
+}
+.index-xiala>li:hover{
+    color: #2d634e;
+    transition: all .3s;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{
+    margin: 0 5px;
+}
+.text-head{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: #2d634e;
+    padding:0 20px;
+}
+.text-head img{
+    vertical-align: middle;
+}
+.weibo{
+    padding:16px 20px;
+    width: 100%;
+}
+.guanzhu{
+    width: 100%;
+    height: 122px;
+    background: #F5F5F4;
+    color: #2d634e;
+    border: 1px solid #eeeeee;
+    padding: 20px 20px 10px;
+}
+.guanzhu>p{
+    margin-top: 5px;
+}
+.guanzhu>p>a{
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    background: #2d634e;
+}
+
+.guanzhu>p>u{
+    margin-top: 5px;
+}
+.guanzhu>p>a>img{
+    vertical-align: middle;
+}
+.bor{
+    border: 1px solid #eeeeee;
+}
+.weibo>p{
+    min-height: 50px;
+    line-height: 25px;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    -o-line-clamp:2;
+    -webkit-box-orient: vertical;
+}
+.weibo>.clear{
+    border-bottom: 1px dashed #eeeeee;
+    padding-bottom: 5px;
+}
+.weibo>.clear img{
+    vertical-align: middle;
+}
+.weibo>.clear>a:last-child span{
+    display: inline-block;
+    padding-right: 9px;
+    border-right: 1px solid #2d634e;
+    color: #2d634e;
+}
+.in-video{
+    height: 302px;
+}
+.video-list{
+    padding: 0 10px;
+}
+.video-list>div{
+    width: 220px;
+    height: 220px;
+    border: 2px solid #2d634e;
+}
+.video-list2{
+    display: none;
+}
+.video-list3{
+    display: none;
+}
+.hide{
+    display: none !important;
+}
+
+.in-video>.text-head>div{
+    cursor: pointer;
+}
+.active1{
+    background: #4c7a68;
+}
+.line{
+    height: 1px;
+    width: 100%;
+    background: #eeeeee;
+    margin-top: 30px;
+}
+.line2{
+    border: 1px dashed #2d634e;
+    width: 100%;
+    margin-top: 15px;
+}
+.i-banner>img{
+    width: 100%;
+    height: 220px;
+}
+.nav-bar{
+    padding-left: 10px;
+    line-height: 40px;
+    height: 40px;
+    background: #eaefed;
+    margin-top: 15px;
+}
+.nav-bar>img{
+    vertical-align: middle;
+    margin-right: 8px;
+}
+.news-pro-t{
+    font-size: 20px;
+    color: #2d634e;
+    margin: 20px auto;
+    font-weight: bold;
+}
+.news-pro-data>span{
+    margin-right: 50px;
+}
+.news-pro-data>span>img{
+    vertical-align: middle;
+    margin-right: 5px;
+}
+.news-zw>p{
+    line-height: 24px;
+}
+.news-list{
+    width: 990px;
+}
+.news-list>a{
+    font-size: 15px;
+    font-weight: bold;
+}
+.news-list>p.c32{
+    line-height: 24px;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    -o-line-clamp:2;
+    -webkit-box-orient: vertical;
+}
+.news-tabs{
+    height: 68px;
+    padding-top: 30px;
+}
+.news-tabs>a{
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    background: #ffffff;
+    border: 1px solid #EDEDED;
+    vertical-align:middle;
+    margin-right: 5px;
+}
+.news-tabs>a:hover{
+    transition: all ease-in-out .5s;
+    background: #2d634e;
+    color: #ffffff;
+}
+.news-tabs-active{
+    background: #2d634e !important;
+    color: #ffffff;
+}
+.news-tabs input{
+    width:45px;
+    height: 30px;
+    border: 1px solid #EDEDED;
+}
+.news-tabs label{
+    margin: auto 5px;
+    vertical-align:middle;
+}
+
+.news-tabs span{
+    margin-left:20px;
+    vertical-align:middle;
+
+}
+.xcb>img{
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-left: 50px;
+}
+.news-list2>a{
+    border-left: 3px solid #2d634e;
+    padding-left: 20px;
+}
+.news-list2>p{
+    padding-left: 20px;
+}
+.p20{
+    padding: 0 20px;
+}
+.p50{
+    padding: 0 50px;
+}
+.com-btn>a{
+    display: inline-block;
+    min-width: 94px;
+    height: 34px;
+    line-height: 34px;
+    background: #E1DFDA;
+    margin-left: 50px;
+    margin-bottom: 100px;
+}
+.com-btn>a:hover{
+    transition: all .3s;
+    background: #2d634e;
+    color: #ffffff!important;
+}
+.xcb2{
+    margin-right: 70px!important;
+}
+.news-list3>div{
+    border-left: 3px solid #2d634e;
+    padding-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #2d634e;;
+}
+.news-list3>div>span{
+    font-size: 14px;
+    font-weight: normal;
+}
+.news-list3>p>a.bt-r{
+    width: 94px;
+    height: 34px;
+    line-height: 34px;
+    background: #2d634e;
+    color: #ffffff;
+}
+.news-list3>p{
+    margin-top: 8px;
+}
+.login{
+    background: url("../img/login.png") no-repeat center center;
+    background-size: cover;
+}
+.login form{
+    background: #ffffff;
+    width: 400px;
+    height: 500px;
+    padding-top: 100px;
+}
+.login form p{
+    font-size: 20px;
+
+}
+.login form  input{
+    display: block;
+    width: 250px;
+    height: 40px;
+    border: 1px solid #EBE9E7;
+    margin: 0 auto;
+    padding-left: 38px;
+}
+.login form  button{
+    width: 250px;
+    height: 40px;
+    border: none;
+    background: #2d634e;
+    display: block;
+    margin: 0 auto;
+}
+.login form  a{
+    display: block;
+}
+.login form  input[type=text]{
+    background: url("../img/login_06.png") no-repeat 10px center;
+}
+.login form  input[type=password]{
+    background: url("../img/login_06-10.png") no-repeat 10px center;
+}
+.form2{
+    width: 750px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.form2>label>input{
+    width: 350px;
+    height: 50px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-left: 50px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+.form2>label>span{
+    display: inline-block;
+    min-width: 100px;
+    text-align: right;
+}
+.yuedu{
+    width: 335px;
+    line-height: 30px;
+    margin-left: 150px;
+    margin-bottom: 50px;
+}
+.yuedu>a{
+    background: url("../img/register_03.png") no-repeat left center;
+    padding-left: 35px;
+}
+.tishi{
+    width: 100%;
+    min-height: 60px;
+    background: #f5f5f5;
+    padding: 20px;
+    line-height: 30px;
+    border-radius: 5px;
+}
+.btn2>button{
+    width: 180px;
+    height: 50px;
+    line-height: 50px;
+    border: none;
+    cursor: pointer;
+    background: #2d634e;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 50px 40px;
+}
+.onepai{
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -moz-line-clamp: 1;
+    -o-line-clamp:1;
+    -webkit-box-orient: vertical;
+}
+.lxdw{
+    border-collapse: collapse;
+    width: 340px;
+}
+.lxdw>thead{
+    width: 100%;
+    background: #EBEEEB;
+
+}
+.lxdw>thead>tr{
+    height: 50px;
+}
+.lxdw>tbody>tr{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #EFEEEC;
+}
+.lxdw>tbody>tr:nth-child(even){
+    background: #F7F7F6;
+}

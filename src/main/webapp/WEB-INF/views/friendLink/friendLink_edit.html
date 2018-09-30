@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+
+</head>
+<body>
+<from id="from" action="/friendLink/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">标题</td>
+            <td>
+                <input class="easyui-textbox"  name="title" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">链接类型代码</td>
+            <td>
+                <select name="TypeCode" class="easyui-combobox" data-options="required:true" id="code">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">跳转地址</td>
+            <td>
+                <input class="easyui-textbox"  name="redirectUrl"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">排序</td>
+            <td>
+                <input class="easyui-numberbox" type="number" name="sort" data-options="required:true">
+            </td>
+        </tr>
+        <!--<tr>
+            <td class="left b">是否启用</td>
+            <td>
+                <select class="easyui-combobox" name="isEnabled" data-options="required:true">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </td>
+        </tr>-->
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+<script>
+    $(function () {
+        var html = "";
+        var url = '/friendlinktype/list';
+        $.post(url, {page: 1, rows: 50, sidx: "Id", sord: "asc"}, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                html += '<option value ="' + data[i].TypeCode + '">' + data[i].TypeName + '</option>';
+            }
+            $('#code').append(html);
+        })
+
+    });
+</script>
+</body>
+</html>

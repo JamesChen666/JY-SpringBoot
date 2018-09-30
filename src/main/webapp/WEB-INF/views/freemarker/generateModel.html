@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<div class="content" style="padding: 0% 0% 0% 30%">
+    <from id="from">
+        <div>
+            <label>数据库表名称:</label>
+            <input class="easyui-textbox" style="width: 20%;" name="tableName" data-options="required:true">
+        </div>
+        <div>
+            <label>项目包名(/src/java目录下): </label>
+            <input class="easyui-validatebox" style="width: 20%;" name="packageName" data-options="required:true">
+        </div>
+        <div>
+            <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">确定</a>
+        </div>
+    </from>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#btn').bind('click', function () {
+            var tableName = $("input[name=tableName]").val();
+            var packageName = $("input[name=packageName]").val();
+            if (tableName==null||tableName==""){
+                alert('表名不能为空');
+                return;
+            }
+            if (packageName==null||packageName==""){
+                alert('包名不能为空');
+                return;
+            }
+            $.post("/templates/table",{tableName:tableName,packageName:packageName},function (data) {
+                alert(data.msg);
+            })
+        });
+    });
+</script>
+</body>
+</html>

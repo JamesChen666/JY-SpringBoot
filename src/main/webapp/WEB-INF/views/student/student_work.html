@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" method="post" action="/student/work/${student.Id}">
+    <input type="hidden" name="StudentId" value="${student.Id}">
+    <fieldset>
+        <legend>学生基础信息</legend>
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="right b width150">姓名</td>
+                <td>
+                    <div>${student.RealName}</div>
+                </td>
+                <td class="right b width150">学号</td>
+                <td>
+                    <div>${student.StudentNumber}</div>
+                </td>
+                <td class="right b width150">身份证号</td>
+                <td>
+                    <div>${student.IdCard}</div>
+                </td>
+                <td class="right b width150">考生号</td>
+                <td>
+                    <div>${student.ExamineNumber}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right b width150">政治面貌</td>
+                <td>
+                    <div>${student.zzmm}</div>
+                </td>
+                <td class="right b width150">学历</td>
+                <td>
+                    <div>${student.xl}</div>
+                </td>
+                <td class="right b width150">培养方式</td>
+                <td>
+                    <div>${student.pyfs}</div>
+                </td>
+                <td class="right b width150">师范生类别</td>
+                <td>
+                    <div>${student.sfslb}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right b width150">班级</td>
+                <td>
+                    <div>${student.bj}</div>
+                </td>
+                <td class="right b width150">生源地</td>
+                <td>
+                    <div>${student.OriginCode}</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>签约信息</legend>
+        <table class="tb1">
+            <tr>
+                <td class="right b ">毕业去向</td>
+                <td>
+                    <input id="cc" class="easyui-combobox" name="GraduationWhereAboutCode" data-options=" required:true,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/student/graduationWhereAboutCode'">
+                </td>
+                <td class="right b ">升学类型</td>
+                <td>
+                    <input id="cc" class="easyui-combobox" name="HighGradeTypeCode" data-options=" required:false,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/dictionary/dictionaryCode/SXLXDM'">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">签约单位</td>
+                <td>
+                    <input class="easyui-textbox" name="CorporationName"
+                           data-options="required:true">
+                </td>
+                <td class="right b">单位性质</td>
+                <td>
+                    <input id="cc" class="easyui-combobox" name="CorpNatureCdoe" data-options=" required:true,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/dictionary/dictionaryCode/DWXZDM'">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">单位行业</td>
+                <td>
+                    <input id="cc" class="easyui-combobox" name="CorpIndustryCode" data-options=" required:true,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/dictionary/dictionaryCode/HYFLDM'">
+                </td>
+                <td class="right b">单位隶属部门</td>
+                <td>
+                    <input id="cc" class="easyui-combobox" name="UnderDepartmentCode" data-options=" required:true,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/dictionary/dictionaryCode/DWLSBMDM'">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">单位所在地</td>
+                <td>
+                    <input class="easyui-combotreegrid" name="CorpOrginCode" data-options="
+                                                                  panelWidth:500,
+                                                                  labelPosition:'left',
+                                                                  url:'/area/combotreeList',
+                                                                  idField:'AreaCode',
+                                                                  treeField:'AreaName',
+                                                                  columns:[[
+                                                                      {field:'AreaName',title:'名称',width:200},
+                                                                      {field:'AreaCode',title:'代码',width:100},
+                                                                      {field:'Sort',title:'排序',width:100}
+                                                                  ]]">
+                </td>
+                <td class="right b">单位组织机构代码</td>
+                <td>
+                    <input class="easyui-textbox" name="CorpOrganizationCode"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">工作职位类别</td>
+                <td>
+                    <input id="cc" class="easyui-combobox" name="JobTypeCode" data-options=" required:true,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/dictionary/dictionaryCode/ZWLBDM'">
+                </td>
+                <td class="right b">单位联系人</td>
+                <td>
+                    <input class="easyui-textbox" name="CorpContactor"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">单位联系人职务</td>
+                <td>
+                    <input class="easyui-textbox" name="ContactorPostion"
+                           data-options="required:true">
+                </td>
+                <td class="right b">联系人电话</td>
+                <td>
+                    <input class="easyui-textbox" name="CorpContactPhone"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">联系人邮箱</td>
+                <td>
+                    <input class="easyui-textbox" name="CorpContactEmail"
+                           data-options="required:true">
+                </td>
+                <td class="right b">联系人传真</td>
+                <td>
+                    <input class="easyui-textbox" name="CorpContactFax"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">单位地址</td>
+                <td>
+                    <input class="easyui-textbox" name="CorpAddress"
+                           data-options="required:true">
+                </td>
+                <td class="right b">单位邮编</td>
+                <td colspan="3">
+                    <input class="easyui-textbox" name="CorpPostCode"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">备注</td>
+                <td colspan="3">
+                    <textarea rows="5" name="Remark"
+                              data-options="required:true" style="width:500px"></textarea>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <div class="panel1">
+        <a id="savebtn" href="javascript:void(0);" class="easyui-linkbutton">保 存</a>
+    </div>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+<script>
+    $(function () {
+        $("#savebtn").on("click",function () {
+           var args =  $('input,select,textarea').formJsonSerialize();
+            $.post("/student/saveWork",args,function (data) {
+                if (data.flag){
+                    alert(data.msg)
+                    window.location.href="/student/viewWork";
+                }else {
+                    alert(data.msg);
+                    return;
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>

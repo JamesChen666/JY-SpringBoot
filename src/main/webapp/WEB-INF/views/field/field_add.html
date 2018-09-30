@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">字段代码</td>
+        <td>
+            <input class="easyui-textbox"  name="fieldCode"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">中文名</td>
+        <td>
+            <input class="easyui-textbox"  name="cnTitle"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">英文名</td>
+        <td>
+            <input class="easyui-textbox"  name="enTitle"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">是否允许修改</td>
+        <td>
+            <select class="easyui-combobox"  name="isAllotUpdate"
+                    data-options="required:true">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">是否审核</td>
+        <td>
+            <select class="easyui-combobox"  name="isNeedAudit"
+                    data-options="required:true">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">排序</td>
+        <td>
+            <input class="easyui-numberbox"  name="sort" data-options="required:true">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

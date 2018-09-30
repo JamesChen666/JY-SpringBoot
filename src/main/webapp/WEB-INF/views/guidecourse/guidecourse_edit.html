@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/guidecourse/edit/${id}" class="easyui-form">
+    <input name="Id" value="${id}" type="hidden">
+    <table class="tab1" cellpadding="3">
+        <tbody>
+        <tr>
+            <td class="left b">课程名称:</td>
+            <td>
+                <input class="easyui-textbox" name="fullName" data-options="required:true"/>
+            </td>
+            <td class="left b">上课地点:</td>
+            <td>
+                <input class="easyui-textbox" name="place" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">任课老师:</td>
+            <td>
+                 <input class="easyui-combotreegrid"  name="jobNumber"
+                                                          data-options="panelWidth:200,
+                                                              labelPosition:'left',
+                                                              url:'/teacher/teachingTeacher',
+                                                              idField:'Id',
+                                                              treeField:'Name',
+                                                              columns:[[
+                                                                  {field:'Name',title:'名称',width:200}
+                                                              ]]">
+            </td>
+            <td class="left b">上课时间:</td>
+            <td>
+                <input class="easyui-datetimebox" name="classDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">报名截止时间:</td>
+            <td>
+                <input class="easyui-datetimebox" name="signEndDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">课程介绍:</td>
+            <td>
+                <textarea  style="width: 300px;height: 150px" name="description" ></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

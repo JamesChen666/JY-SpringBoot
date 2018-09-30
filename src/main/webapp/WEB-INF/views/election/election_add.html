@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+
+        <tr>
+            <td class="left b">招聘名称:</td>
+            <td>
+                <input class="easyui-textbox" name="Title" data-options="required:true"/>
+            </td>
+            <td class="left b">招聘会地点:</td>
+            <td>
+                <input class="easyui-textbox" name="Address" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">面向行业:</td>
+            <td>
+                <input class="easyui-combobox" name="IndustryCode"
+                       data-options="required:true,
+                       valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/HYFLDM'">
+            </td>
+            <td class="left b">场地名称:</td>
+            <td>
+                <input class="easyui-combobox" name="PlaceId"
+                       data-options="required:true,
+                       valueField: 'Id',
+                       textField: 'Title',
+                       url: '/electionField/electionList'">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="left b">职位:</td>
+            <td>
+                <input class="easyui-combobox" name="PositionId"
+                       data-options="required:true,
+                       valueField: 'Id',
+                       textField: 'Title',
+                       url: '/postion/postionList'">
+            </td>
+            <td class="left b">展位:</td>
+            <td>
+                <input class="easyui-combobox" name="BoothId"
+                       data-options="required:true,
+                       valueField: 'Id',
+                       textField: 'BoothNumber',
+                       url: '/booth/boothList'">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="left b">举办日期:</td>
+            <td>
+                <input class="easyui-datebox" name="RunDate" data-options="required:true"/>
+            </td>
+            <td class="left b">报名截止时间:</td>
+            <td>
+                <input class="easyui-datebox" name="SignEndDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">招聘要求/说明:</td>
+            <td>
+                <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                          name="Description" rows="5" style="width:100% !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        <!--<tr>
+            <td class="left b">创建人:</td>
+            <td>
+                <input class="easyui-textbox" name="UserId" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">创建时间:</td>
+            <td>
+                <input class="easyui-datebox" name="CreateDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">是否启用:</td>
+            <td>
+                <input class="easyui-textbox" name="IsEnabled" data-options="required:true"/>
+            </td>
+        </tr>-->
+    </tbody>
+</table>
+</body>
+</html>

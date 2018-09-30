@@ -1,0 +1,224 @@
+﻿.second_menu_icon {
+    background-image: url(../images/icon/second_menu_icwhite.png);
+}
+
+.left_menu_item.index_01 {
+    background-image: url(../images/icon/index_01.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_01:hover {
+        background-image: url(../images/icon/index_01_hover.png);
+    }
+
+.left_menu_item.index_02 {
+    background-image: url(../images/icon/index_02.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_02:hover {
+        background-image: url(../images/icon/index_02_hover.png);
+    }
+
+.left_menu_item.index_03 {
+    background-image: url(../images/icon/index_03.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_03:hover {
+        background-image: url(../images/icon/index_03_hover.png);
+    }
+
+.left_menu_item.index_04 {
+    background-image: url(../images/icon/index_04.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_04:hover {
+        background-image: url(../images/icon/index_04_hover.png);
+    }
+
+.left_menu_item.index_05 {
+    background-image: url(../images/icon/index_05.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_05:hover {
+        background-image: url(../images/icon/index_05_hover.png);
+    }
+
+.left_menu_item.index_06 {
+    background-image: url(../images/icon/index_06.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_06:hover {
+        background-image: url(../images/icon/index_06_hover.png);
+    }
+
+.left_menu_item.index_07 {
+    background-image: url(../images/icon/index_07.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_07:hover {
+        background-image: url(../images/icon/index_07_hover.png);
+    }
+
+.left_menu_item.index_08 {
+    background-image: url(../images/icon/index_08.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_08:hover {
+        background-image: url(../images/icon/index_08_hover.png);
+    }
+
+.left_menu_item.index_09 {
+    background-image: url(../images/icon/index_09.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_09:hover {
+        background-image: url(../images/icon/index_09_hover.png);
+    }
+
+.left_menu_item.index_10 {
+    background-image: url(../images/icon/index_10.png);
+    background-position-x: 20px;
+}
+
+    .left_menu_item.index_10:hover {
+        background-image: url(../images/icon/index_10_hover.png);
+    }
+
+.nav-menu01 {
+    background: #4d98dd url(../images/icon/nav-menu01.png) center center no-repeat; 
+}
+
+.nav-menu02 {
+    background: #f8b033 url(../images/icon/nav-menu02.png) center center no-repeat; 
+}
+
+.nav-menu03 {
+    background: #a3d14b url(../images/icon/nav-menu03.png) center center no-repeat; 
+}
+
+.nav-menu04 {
+    background: #f38787 url(../images/icon/nav-menu04.png) center center no-repeat;
+}
+
+.nav-menu05 {
+    background: #77cfd5 url(../images/icon/nav-menu05.png) center center no-repeat; 
+}
+
+.nav-menu06 {
+    background: #ce95eb url(../images/icon/nav-menu06.png) center center no-repeat; 
+}
+
+.nav-menu07 {
+    background: #ce95eb url(../images/icon/nav-menu07.png) center center no-repeat; 
+}
+
+.iconul {
+    overflow: hidden;
+}
+
+    .iconul span {
+        display: block;
+        padding: 20px 20px 20px 28px;
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-size: 27px 27px;
+        color: #999;
+        font-size: 12px;
+    }
+
+    .iconul li {
+        border: 2px solid #fff;
+        background: #41576A;
+        float: left;
+        margin: 5px;
+        padding: 2px;
+        cursor: pointer;
+    }
+
+        .iconul li:hover {
+            border: 2px solid #e6ebee;
+        }
+ 
+
+.icon-01 {
+    background-image: url(../images/icon/index_01.png);
+    background-position-x: 20px;
+}
+
+.icon-02 {
+    background-image: url(../images/icon/index_02.png);
+    background-position-x: 20px;
+}
+
+.icon-03 {
+    background-image: url(../images/icon/index_03.png);
+    background-position-x: 20px;
+}
+
+.icon-04 {
+    background-image: url(../images/icon/index_04.png);
+    background-position-x: 20px;
+}
+
+.icon-05 {
+    background-image: url(../images/icon/index_05.png);
+    background-position-x: 20px;
+}
+
+.icon-06 {
+    background-image: url(../images/icon/index_06.png);
+    background-position-x: 20px;
+}
+
+.icon-07 {
+    background-image: url(../images/icon/index_07.png);
+    background-position-x: 20px;
+}
+
+.icon-08 {
+    background-image: url(../images/icon/index_08.png);
+    background-position-x: 20px;
+}
+
+.icon-09 {
+    background-image: url(../images/icon/index_09.png);
+    background-position-x: 20px;
+}
+
+.icon-10 {
+    background-image: url(../images/icon/index_10.png);
+    background-position-x: 20px;
+}
+
+.icon-11 {
+    background-image: url(../images/icon/index_11.png);
+    background-position-x: 20px;
+}
+
+.icon-12 {
+    background-image: url(../images/icon/index_12.png);
+    background-position-x: 20px;
+}
+
+.icon-13 {
+    background-image: url(../images/icon/index_13.png);
+    background-position-x: 20px;
+}
+
+.icon-14 {
+    background-image: url(../images/icon/index_14.png);
+    background-position-x: 20px;
+}
+
+.icon-15 {
+    background-image: url(../images/icon/index_15.png);
+    background-position-x: 20px;
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/specialty/list",
+                idField: "Id",
+                textField: 'SpecialtyName',
+                treeGridModel: 'adjacency',
+                sortName: "Id",
+                colNames: ['Id', "专业名称", "专业代码","专业国标码","专业方向","培养层次","学制","所属校区","所属院系","管理员" ,"备注"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'SpecialtyName', index: 'SpecialtyName', align: "center", width: 200},
+                    {name: 'SpecialtyCode', index: 'SpecialtyCode', align: "center", width: 100},
+                    {name: 'GbCode', index: 'GbCode', align: "center", width: 100},
+                    {name: 'SpecialtyDirection', index: 'SpecialtyDirection', align: "center", width: 100},
+                    {name: 'LevelCode', index: 'LevelCode', align: "center", width: 100},
+                    {name: 'SchoolLength', index: 'SchoolLength', align: "center", width: 100},
+                    {name: 'CampusName', index: 'CampusName', align: "center", width: 100},
+                    {name: 'FacultyName', index: 'FacultyName', align: "center", width: 100},
+                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200},
+                    {name: 'Remark', index: 'Remark', align: "center",  width: 200}
+                ],
+                pager: "#pager",
+                ExpandColumn: "SpecialtyName",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "专业管理-新增专业",
+                                btnName: "新增专业",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/specialty/add",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "专业管理-修改专业",
+                                btnName: "修改专业",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/specialty/edit?id={id}",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/specialty/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/specialty/export"
+                            },
+                            {
+                                type: "SetManager",
+                                btnName: "设置管理员",
+                                title:"专业管理-设置专业管理员",
+                                label:'专业管理员',
+                                load: "/specialty/manager",
+                                listId: "#list",
+                                btnCode: "SetManager",
+                                save:"/specialty/setManager"
+                            }
+                        ]
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">专业名称/专业代码/专业国标码：</div>
+        <input  name="sm_SpecialtyName-SpecialtyCode-GbCode" type="text" value="" />
+        <div class="adv-select-label">所属院系：</div>
+        <input class="easyui-combobox" name="s_FacultyCode"
+               data-options="required:false,
+                             valueField: 'FacultyCode',
+                             textField: 'FacultyName',
+                             url: '/faculty/gridList'
+                             ">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnSearch">重置查询</button>
+    </div>
+</div>
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

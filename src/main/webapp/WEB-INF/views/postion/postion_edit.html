@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/postion/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">单位</td>
+            <td>
+                <input class="easyui-combobox" name="corpId" data-options="required:true,
+                                                                         valueField: 'Id',
+                                                                         textField: 'CorpName',
+                                                                         url: '/corp/corpList'">
+            </td>
+            <td class="left b">职位名称</td>
+            <td>
+                <input class="easyui-textbox" name="title" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">工作地点</td>
+            <td>
+                <input class="easyui-textbox" name="workAddress"
+                       data-options="required:true">
+            </td>
+            <td class="left b">所属行业代码</td>
+            <td>
+                <input class="easyui-combobox" name="industryCode"
+                       data-options="required:true,
+                       valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/HYFLDM'">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">职位类型</td>
+            <td>
+                <input class="easyui-combobox" name="typeCode"
+                       data-options="required:true,
+                       valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/ZWLBDM'">
+            </td>
+            <td class="left b">面向专业</td>
+            <td>
+                <input class="easyui-textbox" name="面向专业" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">学历要求</td>
+            <td>
+                <input class="easyui-combobox" name="levelCode"
+                       data-options="required:true,
+                       valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/JYXLDM'">
+            </td>
+            <td class="left b">岗位类型</td>
+            <td>
+                <input class="easyui-combobox" name="positionTypeCode"
+                       data-options="required:true,
+                       valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/GWLXDM'">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">招聘类型</td>
+            <td>
+                <select class="easyui-textbox" name="recuitTypeCode">
+                    <option value="1">社会招聘</option>
+                    <option value="2">校园双选会招聘</option>
+                    <option value="3">专场招聘</option>
+                </select>
+            </td>
+            <td class="left b">招聘人数</td>
+            <td>
+                <input class="easyui-textbox" name="peopleCount"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">工作年限</td>
+            <td>
+                <input class="easyui-textbox" name="workYearLimit"
+                       data-options="required:true">
+            </td>
+            <td class="left b">月薪</td>
+            <td>
+                <input class="easyui-textbox" name="salary" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">职位联系人</td>
+            <td>
+                <input class="easyui-textbox" name="contactor"
+                       data-options="required:true">
+            </td>
+            <td class="left b">联系人电话</td>
+            <td>
+                <input class="easyui-textbox" name="contactPhone" validType="mobile"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">职位职能</td>
+            <td>
+                <!--<input class="easyui-textbox" name="functions"
+                       data-options="required:true">-->
+                <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                          name="functions" rows="5" style="width:60% !important;height:80px !important;"></textarea>
+
+            </td>
+            <!-- </tr>
+             <tr>-->
+            <td class="left b">职位要求</td>
+            <td>
+            <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                      name="requirement" rows="5" style="width:60% !important;height:80px !important;"></textarea>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">招聘简章</td>
+            <td>
+            <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                      name="recuitFiles" rows="5" style="width:100% !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">是否发布至自行联系</td>
+            <td>
+                <!--<input class="easyui-textbox" name="isPortal"
+                       data-options="required:true">-->
+                <select class="easyui-combobox" name="isPortal" data-options="required:true">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+        </tr>
+        <!--<tr>
+            <td class="left b">审核状态</td>
+            <td>
+                &lt;!&ndash;<input class="easyui-textbox" name="status" data-options="required:true">&ndash;&gt;
+                <select class="easyui-combobox" name="status" data-options="required:true">
+                    <option value="1">通过</option>
+                    <option value="2">不通过</option>
+                    <option value="3">未审核</option>
+                </select>
+            </td>
+            <td class="left b">审核人</td>
+            <td>
+                <input class="easyui-textbox" name="examineUserId"
+                       data-options="required:true">
+            </td>
+        </tr>-->
+        <!--<tr>
+            <td class="left b">审核时间</td>
+            <td>
+                <input class="easyui-datebox" name="examineDate"
+                       data-options="required:true">
+            </td>
+            <td class="left b">审核意见</td>
+            <td>
+                <input class="easyui-textbox" name="examineRemark"
+                       data-options="required:true">
+            </td>
+        </tr>-->
+        </tbody>
+    </table>
+</from>
+<script src="/static/homePage/js/fieldValidation.js" type="text/javascript"></script>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

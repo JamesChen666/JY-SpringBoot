@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+        <tr>
+            <td class="left b">学生:</td>
+            <td>
+                 <select id="cc" class="easyui-combogrid" name="studentId"
+                                                             data-options="
+                                                             panelWidth:400,
+                                                             idField:'Id',
+                                                             textField:'RealName',
+                                                             url:'/student/gridList',
+                                                             columns:[[
+                                                                 {field:'RealName',title:'姓名',width:100},
+                                                                 {field:'StudentNumber',title:'学号',width:100},
+                                                                 {field:'ClassName',title:'班级',width:200}
+                                                             ]]
+                                                         "></select>
+            </td>
+            <td class="left b">教师:</td>
+            <td>
+                <input class="easyui-combotreegrid"  name="JobNumber"
+                                                         data-options="panelWidth:200,
+                                                             labelPosition:'left',
+                                                             url:'/teacher/combotreeList',
+                                                             idField:'Id',
+                                                             treeField:'Name',
+                                                             columns:[[
+                                                                 {field:'Name',title:'名称',width:200}
+                                                             ]]">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">预约日期:</td>
+            <td>
+                <input class="easyui-datebox" name="ClassDate" data-options="required:true"/>
+            </td>
+            <td class="left b">开始时间:</td>
+            <td>
+                <input class="easyui-timespinner" name="StartHour" data-options="required:true,showSeconds:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">结束时间:</td>
+            <td>
+                <input class="easyui-timespinner" name="EndHour" data-options="required:true,showSeconds:true"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

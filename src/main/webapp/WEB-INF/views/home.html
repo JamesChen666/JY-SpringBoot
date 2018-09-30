@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四川师范大学-就业信息网</title>
+    <link rel="stylesheet" href="/static/homePage/css/swiper-4.2.6.min.css">
+    <link href="/static/homePage/css/web_sf.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/homePage/css/calendar.css">
+</head>
+<body>
+<!--页头-->
+<div class="bg">
+    <div class="header bt-box-1024 clear">
+        <img src="/static/homePage/img/logo.png" alt="">
+        <div class="bt-r search" >
+            <form   action=""  class=" text-r">
+                <button  class="bt-r">搜 索</button>
+                <input type="text" class="bt-r" placeholder="输入关键字">
+            </form>
+        </div>
+        <div class="nav">
+            <ul class="bt-box-1024 nav-li clear" id="nav">
+            </ul>
+        </div>
+    </div>
+</div>
+<!--导航轮播-->
+<div class="swiper-container"   id="swiper1">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide swiper-slide1">
+            <a href="">
+                <img src="/static/homePage/img/index-banner.png"  alt="">
+            </a>
+        </div>
+        <div class="swiper-slide swiper-slide1">
+            <a href="">
+                <img src="/static/homePage/img/index-banner.png"  alt="">
+            </a>
+        </div>
+        <div class="swiper-slide swiper-slide1">
+            <a href="">
+                <img src="/static/homePage/img/index-banner.png"  alt="">
+            </a>
+        </div>
+    </div>
+    <div class="swiper-pagination swiper-pagination2" style="bottom:0px;left: 50%;right: 50%;transform: translate(-50%,-50%);"></div>
+</div>
+<!--主要内容-->
+<div class="bt-box-1024  box margintop30" style="height: 420px">
+    <!--快速入口-->
+    <div style="width: 260px">
+        <div class="btn cff" >
+            <img src="/static/homePage/img/index-02_14-18.png" alt="">
+            <b>用户登录</b>
+        </div>
+        <a href="/login" >
+            <img class="margintop20" src="/static/homePage/img/index-02_24.png" alt="">
+        </a>
+        <a href="/login" >
+            <img class="margintop10" src="/static/homePage/img/index-02_34.png" alt="">
+        </a>
+        <a href="/login" >
+            <img class="margintop10" src="/static/homePage/img/index-02_36.png" alt="">
+        </a>
+    </div>
+    <!--通知公告-->
+    <div style="width: 572px">
+        <div class="btn cff" >
+            <img src="/static/homePage/img/index-02_14-16.png" alt="">
+            <b>通知公告</b>
+        </div>
+        <div class="news margintop20" style="height: 360px;overflow:hidden">
+            <div style="height: 290px;overflow:hidden" id="tzgg">
+
+            </div>
+            <a href="/home/?code=1&page=1&rows=5&sidx=Id&sord=asc" class="news-btn text-c">查看更多 > ></a>
+        </div>
+    </div>
+    <!--快速入口-->
+    <div style="width: 312px">
+        <div class="btn cff" >
+            <img src="/static/homePage/img/index-02_kj.png" alt="">
+            <b>快捷入口</b>
+        </div>
+        <div class="text-c margintop20" style="height:360px;border: 1px solid #F3F2F0" >
+            <a href="/login" id="kjrk1">
+                <img class="margintop20" src="/static/homePage/img/index-xg04_27.png" alt="">
+            </a>
+            <a href="/login" id="kjrk2" style="width: 270px;height: 90px;">
+                <img class="margintop20" src="/static/homePage/img/index-xg04_27-32.png" alt="">
+            </a>
+            <a href="/login" id="kjrk3" style="width: 270px;height: 90px;">
+                <img class="margintop20" src="/static/homePage/img/index-xg04_27-36.png" alt="">
+            </a>
+        </div>
+
+    </div>
+</div>
+<div class="bt-box-1024   box margintop30" style="height: 380px">
+    <!--招聘日历-->
+    <div style="width: 350px;">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-xg02_39rl.png" alt="">
+                <b class="cff">来校招聘单位日程</b>
+            </div>
+            <a href="" class="bt-r cff">
+                更多 > >
+            </a>
+        </div>
+        <div id="ca"></div>
+    </div>
+    <!--今日来校招聘-->
+    <div class="bor " style="width: 380px">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-jr02_39-42%20.png" alt="">
+                <b class="cff">今日来校招聘</b>
+            </div>
+            <a href="/home/?code=3" class="bt-r cff">
+                更多 > >
+            </a>
+        </div>
+        <div class="news" style="height: 320px;border: 0;overflow:hidden" >
+            <table class="lxdw">
+                <thead>
+                <tr>
+                    <td class="pl20" width="100">单位名称</td>
+                    <td width="100">招聘时间</td>
+                    <td width="87">地点</td>
+                    <td >操作</td>
+                </tr>
+                </thead>
+                <tbody id="lxdw">
+                <!--<tr>
+                    <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>
+                    <td width="100">2018-08-28</td>
+                    <td width="87">成都郫都区</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                    <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>
+                    <td width="100">2018-08-28</td>
+                    <td width="87">成都郫都区</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                    <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>
+                    <td width="100">2018-08-28</td>
+                    <td width="87">成都郫都区</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                    <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>
+                    <td width="100">2018-08-28</td>
+                    <td width="87">成都郫都区</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                    <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>
+                    <td width="100">2018-08-28</td>
+                    <td width="87">成都郫都区</td>
+                    <td>操作</td>
+                </tr>
+                <tr>
+                    <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>
+                    <td width="100">2018-08-28</td>
+                    <td width="87">成都郫都区</td>
+                    <td>操作</td>
+                </tr>-->
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--自行联系-->
+    <div class="bor " style="width: 410px">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-02_39-42.png" alt="">
+                <b class="cff">自行联系</b>
+            </div>
+            <a href="/home/?code=2" class="bt-r cff">
+                更多 > >
+            </a>
+        </div>
+        <div class="news" style="height: 320px;border: 0;overflow:hidden"  id="zxlx">
+
+        </div>
+    </div>
+</div>
+<!--公告图-->
+<div class="bt-box-1024 ggt" >
+    <a href="">
+        <img src="/static/homePage/img/index-02_66.png" alt="">
+    </a>
+</div>
+<div class="bt-box-1024   box margintop30" style="height: 302px">
+    <!--就业办公室电话及邮箱-->
+    <div class="bor " style="width: 310px">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-dh02_56.png" alt="">
+                <b class="cff">就业办公室电话及邮箱</b>
+            </div>
+            <!--<a href="" class="bt-r cff">
+                更多 > >
+            </a>-->
+        </div>
+        <div class="news" style="height: 260px;border: 0;background: url(/static/homePage/img/index-bg04_82.png) bottom center no-repeat" >
+            <p >
+                <img src="/static/homePage/img/index-dh04_76.png" style="vertical-align: middle" alt="">
+                <span class="marginleft10">办公室 ：028-84767065</span>
+            </p>
+            <p class="margintop20">
+                <img src="/static/homePage/img/index-dh04_76.png" style="vertical-align: middle" alt="">
+                <span class="marginleft10">就业科 ：028-84768877,84760653</span>
+            </p>
+            <p class="margintop20">
+                <img src="/static/homePage/img/index-cz04_76-79.png" style="vertical-align: middle" alt="">
+                <span class="marginleft10">就业科传真 ：028-84768877</span>
+            </p>
+            <p class="margintop20">
+                <img src="/static/homePage/img/index-dh04_76.png" style="vertical-align: middle" alt="">
+                <span class="marginleft10">
+                        <span>办公室（成龙校区）：028-84483388</span>
+                        <br>
+            <p class="margintop20" style="margin-left: 30px">scsdzjc@126.com</p>
+            </span>
+            </p>
+        </div>
+    </div>
+    <!--微博-->
+    <!--<div class="bor" style="width: 310px;">
+        <div class="text-head">
+            <img src="/static/homePage/img/index-02_39.png" alt="">
+            <b class="cff">微博</b>
+        </div>
+        <div class="weibo">
+            <div class="guanzhu text-c">
+                <img src="/static/homePage/img/index-02_51.png" alt="">
+                <p class="box">
+                    <u >四川大学招生就业处</u>
+                    <a href="">
+                        <img src="/static/homePage/img/index-02_55.png" alt="">
+                        <span class="cff">加关注</span>
+                    </a>
+                </p>
+            </div>
+            <p class="margintop20">
+                2018级普通本科录取批次以下省份可以查询： 陕西体育类、艺术类、普通类 ;广西体育类、艺术类、普通类 ;河北艺体类、普通类 ;河南艺术类、普通类 ;重庆体育类、普通类 ;湖南艺术类、普通类;甘肃体育类、艺术
+            </p>
+            <div class="clear margintop10">
+                    <span class="bt-l">
+                        2018-08-06
+                    </span>
+                <a href="" class="bt-r" style="margin-left: 9px">
+                    <img src="/static/homePage/img/index-02_59-62.png" alt="">
+                    <span>评论</span>
+                </a>
+                <a href="" class="bt-r" >
+                    <img src="/static/homePage/img/index-02_59.png" alt="">
+                    <span>转发</span>
+                </a>
+            </div>
+        </div>
+    </div>-->
+    <!--就业指导栏目-->
+    <div class="bor " style="width: 850px">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-zd02_56-71.png" alt="">
+                <b class="cff">就业指导栏目</b>
+            </div>
+            <a href="/home/?code=6&page=1&rows=5&sidx=Id&sord=asc" class="bt-r cff">
+                更多 > >
+            </a>
+        </div>
+        <div class="news" style="height: 260px;border: 0;overflow:hidden" id="jyzdlm">
+
+        </div>
+    </div>
+</div>
+<!--专栏-->
+<div class="bt-box-1024 box margintop30" style="height: 302px">
+    <div class="bor " style="width: 585px">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-02_56-71.png" alt="">
+                <b class="cff">各学院（专业）毕业生人数及联系信息专栏</b>
+            </div>
+            <a href="/home/?code=4" class="bt-r cff">
+                更多 > >
+            </a>
+        </div>
+        <div class="news" style="height: 302px;border: 0;overflow:hidden" id="bylx">
+
+        </div>
+    </div>
+    <div class="bor " style="width: 585px">
+        <div class="text-head clear">
+            <div class="bt-l">
+                <img src="/static/homePage/img/index-02_56-73.png" alt="">
+                <b class="cff">相关下载</b>
+            </div>
+            <a href="/home/?code=5" class="bt-r cff">
+                更多 > >
+            </a>
+        </div>
+        <div class="news" style="height: 302px;border: 0;overflow:hidden" id="xzxx">
+
+        </div>
+    </div>
+</div>
+<div class="bt-box-1024 bor in-video margintop30">
+    <div class="text-head  clear" style="padding-left: 0px">
+        <div class="bt-l active1" style="width: 170px;padding-left: 20px" id="btn1">
+            <img src="/static/homePage/img/index-02_56-78.png" alt="">
+            <b class="cff">就业指导视频</b>
+        </div>
+        <div class="bt-l" style="width: 170px;padding-left: 20px" id="btn2">
+            <img src="/static/homePage/img/index-02_56-80.png" alt="" >
+            <b class="cff">招聘单位视频</b>
+        </div>
+        <div class="bt-l" style="min-width: 240px;padding-left: 20px" id="btn3">
+            <img src="/static/homePage/img/index-xg02_70.png" alt="" >
+            <b class="cff">学生优秀创业者报告会视频</b>
+        </div>
+        <a href="" class="bt-r cff" id="gdsp">
+            更多 > >
+        </a>
+    </div>
+    <div class="video-list   margintop20 box1" id="jyzdsp">
+
+    </div>
+    <div class="video-list hide margintop20 box1" id="zpdwsp">
+
+    </div>
+    <div class="video-list  hide margintop20 box1" id="yxcysp">
+
+    </div>
+</div>
+<div class="bt-box-1024 ggt" >
+    <img src="/static/homePage/img/index-02_68.png" usemap="#planetmap" alt="">
+    <map name="planetmap" id="planetmap">
+        <area shape="rect" coords="487,9,606,70" href ="" />
+        <area shape="rect" coords="655,9,772,70" href =""  />
+        <area shape="rect" coords="925,9,1080,37" href =""  />
+        <area shape="rect" coords="925,43,1116,71" href =""  />
+    </map>
+</div>
+<div class="line"></div>
+<div class="bt-box-1024 box" style="width: 960px;margin: 30px auto" id="link">
+</div>
+<!--页尾-->
+<div class="link">
+    <div class="bt-box-1024 text-c cff">
+        <p>联系电话：028-84768877,84760653（就业科）,028-84767065（传真）,电子邮件： scsdzjc@126.com</p>
+        <p class="margintop15">通讯地址：四川省成都市锦江区静安路5号（四川师范大学狮子山校区）&nbsp&nbsp&nbsp今日访问量：<span>270673</span>&nbsp&nbsp&nbsp总访问量：<span>9983772</span></p>
+        <p class="margintop15">©四川师范大学招生就业处&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp成都易科士信息产业公司.</p>
+    </div>
+</div>
+<script src="/static/homePage/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/static/homePage/js/index.js"></script>
+<script type="text/javascript" src="/static/homePage/js/swiper-4.2.6.min.js"></script>
+<script type="text/javascript" src="/static/homePage/js/calendar.js"></script>
+<script type="text/javascript" src="/static/homePage/js/currency.js"></script>
+
+<style type="text/css">
+   /* html {
+        font: 500 14px 'roboto';
+        color: #333;
+        background-color: #fafafa;
+    }*/
+    a {
+        text-decoration: none;
+    }
+    ul, ol, li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    #demo {
+        width: 300px;
+        margin: 150px auto;
+    }
+    p {
+        margin: 0;
+    }
+    #dt {
+        margin: 30px auto;
+        height: 28px;
+        width: 200px;
+        padding: 0 6px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+</style>
+<script>
+    var swiper1 = new Swiper('#swiper1',{
+        pagination: {
+            el: '.swiper-pagination',
+            clickable :true,
+        },
+        loop: true,
+        autoplay:true,
+    });
+
+    $('#ca').calendar({
+        width: 320,
+        height: 320,
+        data: [
+            {
+                date: '2015/12/24',
+                value: 'Christmas Eve'
+            },
+            {
+                date: '2015/12/25',
+                value: 'Merry Christmas'
+            },
+            {
+                date: '2016/01/01',
+                value: 'Happy New Year'
+            }
+        ],
+        onSelected: function (view, date, data) {
+            console.log('view:' + view)
+            alert('date:' + date)
+            console.log('data:' + (data || 'None'));
+        }
+    });
+
+    $('#dd').calendar({
+        trigger: '#dt',
+        zIndex: 999,
+        format: 'yyyy-mm-dd',
+        onSelected: function (view, date, data) {
+            console.log('event: onSelected');
+        },
+        onClose: function (view, date, data) {
+            console.log('event: onClose');
+            console.log('view:' + view);
+            console.log('date:' + date);
+            console.log('data:' + (data || 'None'));
+        }
+    });
+
+</script>
+</body>
+</html>

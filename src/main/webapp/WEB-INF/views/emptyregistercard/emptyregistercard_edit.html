@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/emptyregistercard/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">姓名</td>
+            <td>
+                <select id="cc" class="easyui-combogrid" name="studentId"
+                        data-options="
+                         panelWidth:400,
+                         idField:'Id',
+                         textField:'RealName',
+                         url:'/student/gridList',
+                         columns:[[
+                             {field:'RealName',title:'姓名',width:100},
+                             {field:'StudentNumber',title:'学号',width:100},
+                             {field:'ClassName',title:'班级',width:200}
+                         ]]
+                     "></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">使用方向</td>
+            <td>
+                <select class="easyui-combobox" name="typeId"
+                        data-options="required:true">
+                    <option value="1">改签</option>
+                    <option value="0">补办</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">报到证编号</td>
+            <td>
+                <input class="easyui-textbox" name="registerCardNumber"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">报到证印制流水号</td>
+            <td>
+                <input class="easyui-textbox" name="serialNumber"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">备注</td>
+            <td>
+                <input class="easyui-textbox" name="remark" data-options="required:false">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

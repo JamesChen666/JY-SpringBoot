@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四川师范大学-就业信息网</title>
+    <link rel="stylesheet" href="/static/homePage/css/swiper-4.2.6.min.css">
+    <link href="/static/homePage/css/web_sf.css" rel="stylesheet"/>
+    <style>
+        input::-webkit-input-placeholder {
+            color: #EBE9E7;
+        }
+
+        input::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #EBE9E7;
+        }
+
+        input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #EBE9E7;
+        }
+
+        input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #EBE9E7;
+        }
+
+        input::placeholder { /* Internet Explorer 10-11 */
+            color: #EBE9E7;
+        }
+
+        input:focus::-webkit-input-placeholder {
+            color: #323232;
+        }
+
+        input:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #323232;
+        }
+
+        input:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #323232;
+        }
+
+        input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #323232;
+        }
+
+        input:focus::placeholder { /* Internet Explorer 10-11 */
+            color: #323232;
+        }
+
+        @media screen and (max-width: 1366px) {
+            .bt-box-1024 {
+                margin-top: 100px !important;
+            }
+        }
+
+        #login {
+            width: 250px;
+            height: 40px;
+            border: none;
+            background: #2d634e;
+            display: block;
+            margin: 0 auto;
+            padding-left: 1px;
+        }
+    </style>
+    <script src="/static/main/Scripts/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/static/homePage/js/swiper-4.2.6.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#login").on("click", function () {
+                const u = $("#username").val();
+                const p = $("#password").val();
+                const v = $("#verifyCode").val();
+                $.ajax({
+                    type:"POST",
+                    url:"/login",
+                    data:{username: u, password: p, verifyCode: v},
+                    success:function (data) {
+                        alert(data.msg);
+                        location.href="/login";
+                    }
+                })
+            })
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode == 13) {
+                    $("#login").click();
+                }
+            })
+        })
+
+    </script>
+</head>
+<body class="login">
+<div class="clear bt-box-1024" style="width: 1000px;margin-top: 200px;box-shadow: 0 0 15px rgba(0,0,0,.15)">
+    <form class="bt-l text-c">
+        <p class="cge">四川师范大学就业信息网欢迎您</p>
+        <label for="username">
+            <input type="text" name="username" id="username" class="margintop40" placeholder="用户名">
+        </label>
+        <label for="password">
+            <input class="margintop20" name="password" id="password" type="password" placeholder="密码">
+        </label>
+        <label for="verifyCode">
+            <input name="verifyCode" id="verifyCode" type="text" placeholder="验证码"
+                   style="width: 120px; margin-left: 75px; margin-top: 20px;">
+            <img alt="验证码" onclick="this.src='/verifyCode?id='+new Date()*1" src="/verifyCode"
+                 style="vertical-align:middle;margin-left: 140px;margin-top: -63px;"/>
+        </label>
+        <input type="button" id="login" class="cff margintop50" value="登&nbsp;&nbsp;录">
+        <a href="/register" class="margintop30">
+            <img src="/static/homePage/img/login_06-14.png" style="vertical-align: middle" alt="">
+            单位注册
+        </a>
+    </form>
+    <div class="bt-l">
+        <img src="/static/homePage/img/login_03.png" alt="">
+    </div>
+</div>
+</body>
+</html>
+

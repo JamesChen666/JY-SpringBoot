@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/notice/list",
+                idField: "Id",
+                textField: 'Id',
+                treeGridModel: 'adjacency',
+                sortName: "CreateDate",
+                sortorder:"desc",
+                colNames: ['Id', "公告类型", "标题","副标题","封面","视频地址","是否置顶",/*"内容",*/"点击数","发布人","发布部门","发布时间"/*,"发布人Id"*/],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'TypeCode', index: 'TypeCode', align: "center", width: 100 , formatter:queryNoticeType},
+                    {name: 'Title', index: 'Title', align: "center", width: 100},
+                    {name: 'SubTitle', index: 'SubTitle', align: "center", width: 100},
+                    {name: 'Cover', index: 'Cover', align: "center", width: 100},
+                    {name: 'VideoUrl', index: 'VideoUrl', align: "center", width: 100},
+                    {name: 'IsTop', index: 'IsTop', align: "center", width: 100,formatter: School.formatBIT},
+                    //{name: 'Content', index: 'Content', align: "center", width: 100},
+                    {name: 'ClickCount', index: 'ClickCount', align: "center", width: 100},
+                    {name: 'Author', index: 'Author', align: "center", width: 100},
+                    {name: 'Resource', index: 'Resource', align: "center", width: 100},
+                    {name: 'CreateDate', index: 'CreateDate', align: "center", width: 100,formatter:fmtDate},
+                    //{name: 'UserId', index: 'UserId', align: "center", width: 100}
+                ],
+                pager: "#pager",
+                ExpandColumn: "Id",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "通知公告管理-新增通知公告",
+                                btnName: "新增通知公告",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/notice/add",
+                                save: "save",
+                                height: 500,
+                                width:800
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "通知公告管理-修改通知公告",
+                                btnName: "修改通知公告",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/notice/edit?id={id}",
+                                save: "save",
+                                height: 500,
+                                width:800
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            /*{
+                                type: "Del",
+                                btnName: "启用",
+                                btnCode: "Enable",
+                                confirm: "您确定要启用选中的公告吗？",
+                                listId: "#list",
+                                args: {flag: true},
+                                save: "disableOrEnable"
+                            },
+                            {
+                                type: "Del",
+                                btnName: "禁用",
+                                btnCode: "Disable",
+                                confirm: "您确定要禁用选中的公告吗？",
+                                listId: "#list",
+                                args: {flag: false},
+                                save: "disableOrEnable"
+                            },*/
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/notice/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/notice/export"
+                            }
+                        ]
+            });
+        })
+
+    </script>
+</head>
+<body>
+
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">公告类型：</div>
+        <input class="easyui-combobox" name="s_typeCode" data-options="valueField: 'TypeCode',
+                                                                      textField: 'TypeName',
+                                                                      url: '/noticeType/noticeTypeList'">
+        <div class="adv-select-label">标题/副标题：</div>
+        <input id="s_title" name="sm_title-subTitle" type="text" value="" />
+        <div class="adv-select-label">是否置顶：</div>
+        <select class="easyui-combobox" name="s_isTop">
+            <option value="">==所有==</option>
+            <option value="1">是</option>
+            <option value="0">否</option>
+        </select>
+    </div>
+    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
+    </div>
+</div>
+
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

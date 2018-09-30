@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+    <diskStore path="java.io.tmpdir/ehcache"/>
+    <defaultCache
+            maxElementsInMemory="1000"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="600"
+            memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="user" maxEntriesLocalHeap="1000" timeToIdleSeconds="3600"/>
+    <cache name="role" maxEntriesLocalHeap="1000" timeToIdleSeconds="3600"/>
+</ehcache>
+<!--一、属性说明
+1.diskStore
+　　指定数据存储位置，可指定磁盘中的文件夹位置。样例中配置位置为“d:/ehcache/”
+2.defaultCache
+　　默认缓存配置
+3.cache
+　　指定对象的缓存配置，其中 name 属性为指定缓存的名称（必须唯一）
+4.配置属性中的元素说明
+　　　1）maxElementsInMemory（正整数）：
+　　　　在内存中缓存的最大对象数量
+　　　2）maxElementsOnDisk（正整数）：
+　　　　在磁盘上缓存的最大对象数量，默认值为0，表示不限制。
+　　　3）eternal：
+　　　　设定缓存对象保存的永久属性，默认为 false 。当为 true 时 timeToIdleSeconds、timeToLiveSeconds 失效。
+　　　4）timeToIdleSeconds（单位：秒）：
+　　　　对象空闲时间，指对象在多长时间没有被访问就会失效。只对eternal为false的有效。默认值0，表示一直可以访问。
+　　　5）timeToLiveSeconds（单位：秒）：
+　　　　对象存活时间，指对象从创建到失效所需要的时间。只对eternal为false的有效。默认值0，表示一直可以访问。
+　　　6）overflowToDisk：
+　　　　如果内存中数据超过内存限制，是否要缓存到磁盘上。
+　　  7）diskPersistent：
+　　　　是否在磁盘上持久化。指重启jvm后，数据是否有效。默认为false。
+　　  8）diskSpoolBufferSizeMB（单位：MB）：
+　　　　DiskStore使用的磁盘大小，默认值30MB。每个cache使用各自的DiskStore。
+　　  9）memoryStoreEvictionPolicy：
+　　　　如果内存中数据超过内存限制，向磁盘缓存时的策略。默认值LRU，可选FIFO、LFU。
+二、清空策略
+1.FIFO（first in first out）：
+　　先进先出
+2.LFU（Less Frequently Used）:
+　　最少被使用，缓存的元素有一个hit属性，hit值最小的将会被清除缓存。
+3.LRU（Least Recently Used）默认策略：
+　　最近最少使用，缓存的元素有一个时间戳，当缓存容量满了，而又需要腾出地方来缓存新的元素的时候，那么现有缓存元素中时间戳离当前时间最远的元素将被清除缓存
+-->
+
+

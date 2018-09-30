@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+
+        <tr>
+            <td class="left b">场地名称:</td>
+            <td>
+                <input class="easyui-textbox" name="Title" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">场地位置:</td>
+            <td>
+                <input class="easyui-textbox" name="Address" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">场地经纬度:</td>
+            <td>
+                <input class="easyui-textbox" name="LatitudeAndLongitude" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">附件:</td>
+            <td>
+                <input class="easyui-textbox" name="Files" data-options="required:true" id="wjdz"/>
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file" onchange="show();"
+                           style="width: 70px;height: 30px; margin-left: -52px;">
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+</body>
+</html>

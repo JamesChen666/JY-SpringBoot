@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">专业名称</td>
+        <td>
+            <input class="easyui-textbox" name="specialtyName" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">专业代码</td>
+        <td>
+            <input class="easyui-textbox" name="specialtyCode" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">专业国标码</td>
+        <td>
+            <input class="easyui-textbox" name="gbCode" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">专业方向</td>
+        <td>
+            <input class="easyui-textbox" name="specialtyDirection" data-options="required:false">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">培养层次</td>
+        <td>
+            <input class="easyui-textbox" name="levelCode" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">学制</td>
+        <td>
+            <input class="easyui-textbox" name="schoolLength" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">院系</td>
+        <td>
+            <input class="easyui-combobox" name="facultyCode" data-options="required:true,
+                                                                         valueField: 'FacultyCode',
+                                                                         textField: 'FacultyName',
+                                                                         url: '/faculty/gridList'
+                                                                         ">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">备注</td>
+        <td>
+            <input class="easyui-textbox" name="remark" data-options="required:false">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

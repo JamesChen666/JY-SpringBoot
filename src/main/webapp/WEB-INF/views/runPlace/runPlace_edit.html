@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/runPlace/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tab1" cellpadding="3">
+        <tbody>
+        <tr>
+            <td class="left b">双选会Id:</td>
+            <td>
+                <input class="easyui-textbox" name="electionId" data-options="required:true,
+                                                                         valueField:'Id',
+                                                                         textField:'Title',
+                                                                         url:'/election/electionList'"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">场地Id:</td>
+            <td>
+                <input class="easyui-textbox" name="placeId" data-options="required:true,
+                                                                         valueField:'Id',
+                                                                         textField:'Title',
+                                                                         url:'/electionField/electionList'"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/corpPart/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tab1" cellpadding="3">
+        <tbody>
+        <tr>
+            <td class="left b">单位名称:</td>
+            <td>
+                <input class="easyui-combobox" name="corpId" data-options="required:true,
+                                                                         valueField: 'Id',
+                                                                         textField: 'CorpName',
+                                                                         url: '/corp/corpList'">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">双选会名称:</td>
+            <td>
+                <input class="easyui-combobox" name="electionId" data-options="required:true,
+                                                                         valueField:'Id',
+                                                                         textField:'Title',
+                                                                         url:'/election/electionList'"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">申请时间:</td>
+            <td>
+                <input class="easyui-datebox" name="applyDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">招聘简章:</td>
+            <td>
+                <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                          name="recuitFiles" rows="5" style="width:100% !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        <!--<tr>
+            <td class="left b">审核状态:</td>
+            <td>
+                <input class="easyui-textbox" name="status" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">审核人:</td>
+            <td>
+                <input class="easyui-textbox" name="examineUserId" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">审核时间:</td>
+            <td>
+                <input class="easyui-datebox" name="examineDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">审核意见:</td>
+            <td>
+                <input class="easyui-textbox" name="examineRemark" data-options="required:true"/>
+            </td>
+        </tr>-->
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

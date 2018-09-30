@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/notice/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">公告类型</td>
+            <td>
+                <select name="typeCode" class="easyui-combobox" data-options="required:true" id="code">
+                </select>
+            </td>
+            <td class="left b">标题</td>
+            <td>
+                <input class="easyui-textbox" name="title" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">副标题</td>
+            <td>
+                <input class="easyui-textbox" name="subTitle"
+                       data-options="required:true">
+            </td>
+            <td class="left b">封面</td>
+            <td>
+                <input class="easyui-textbox" name="cover" data-options="required:true"
+                       id="fmtp">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file1" onchange="show1();"
+                           style="width: 70px;height: 30px; margin-left: -52px;">
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">视频地址</td>
+            <td>
+                <input class="easyui-textbox" name="videoUrl"
+                       data-options="required:true" id="wjdz">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file" onchange="show();"
+                           style="width: 50px;height: 30px;margin-left: -60px;">
+                </a>
+            </td>
+            <td class="left b">是否置顶</td>
+            <td>
+                <select class="easyui-combobox" name="isTop" data-options="required:true">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">内容</td>
+            <td>
+                <input class="easyui-textbox" name="content"
+                       data-options="required:true" id="nr">
+            </td>
+            <!--<td class="left b">点击数</td>
+            <td>
+                <input class="easyui-textbox" name="clickCount"
+                       data-options="required:true">
+            </td>-->
+        </tr>
+        <!--<tr>
+            <td class="left b">发布人</td>
+            <td>
+                <input class="easyui-textbox" name="author"
+                       data-options="required:true">
+            </td>
+            <td class="left b">发布部门</td>
+            <td>
+                <input class="easyui-textbox" name="resource"
+                       data-options="required:true">
+            </td>
+        </tr>-->
+       <!-- <tr>
+            <td class="left b">发布时间</td>
+            <td>
+                <input class="easyui-datebox" name="createDate"
+                       data-options="required:true">
+            </td>
+            <td class="left b">发布人Id</td>
+            <td>
+                <input class="easyui-textbox" name="userId"
+                       data-options="required:true">
+            </td>
+        </tr>-->
+        </tbody>
+    </table>
+</from>
+<div style="margin-left: 20px;">
+    <script id="editor"  type="text/plain"></script>
+</div>
+<script src="/static/main/EditFrom.js"></script>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/ueditor.all.js"></script>
+<script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/lang/zh-cn/zh-cn.js"></script>
+<script>
+    $(function () {
+        var html = "";
+        var url = '/noticeType/list';
+        $.post(url, {page: 1, rows: 50, sidx: "Id", sord: "asc"}, function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<option value ="' + data.rows[i].TypeCode + '">' + data.rows[i].TypeName + '</option>';
+            }
+            $('#code').append(html);
+            $("#code").combobox({});
+        });
+
+        $("#nr").next().hide();
+        ResetEditor(editor);
+        var ue = UE.getEditor('editor');
+
+        ue.ready(function () {
+            ue.setContent($("#nr").val());
+            UE.getEditor('editor').addListener('blur',function(editor){
+                $("#nr").textbox("setValue",ue.getContent());
+            });
+        });
+    });
+
+    function ResetEditor() {
+        UE.getEditor('editor', {
+            initialFrameHeight: 300,
+            initialFrameWidth: 700,
+            enableAutoSave: false,
+            elementPathEnabled: false,
+            wordCount: false,
+            //z-index: 1
+            /*  toolbars: [
+             [
+             'fontfamily', 'fontsize', 'forecolor', 'backcolor', 'bold', 'italic', 'underline', '|',
+             'link', '|',
+             ]
+             ]  */
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<fieldset>
+    <legend>派遣单位详细信息</legend>
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="right b width150">派遣单位名称</td>
+            <td>
+                <div>${dispatchunit.providerName}</div>
+            </td>
+            <td class="right b width150">派遣单位所在地</td>
+            <td>
+                <div>${dispatchunit.AreaAdress}
+            </td>
+            <td class="right b width150">单位详细地址</td>
+            <td>
+                <div>${dispatchunit.address}</div>
+            </td>
+            <td class="right b width150">单位联系人</td>
+            <td>
+                <div>${dispatchunit.contactor}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">单位联系人电话</td>
+            <td>
+                <div>${dispatchunit.contactPhone}</div>
+            </td>
+            <td class="right b width150">单位邮政编码</td>
+            <td>
+                <div>${dispatchunit.zipCode}</div>
+            </td>
+            <td class="right b width150">是否师范单位</td>
+            <td>
+                <div>
+                <#if dispatchunit.isNormal>
+                    是
+                <#else>
+                   否
+                </#if>
+                </div>
+            </td>
+            <td class="right b width150">档案接收单位</td>
+            <td>
+                <div>${dispatchunit.fileReceivUnit}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">档案接收单位地址</td>
+            <td>
+                <div>${dispatchunit.fileReceivAddress}</div>
+            </td>
+            <td class="right b width150">备注</td>
+            <td>
+                <div>${dispatchunit.remark}</div>
+            </td>
+            <td class="right b width150">状态</td>
+            <td>
+                <div>
+                <#if dispatchunit.IsEnabled>
+                    启用
+                <#else>
+                   禁用
+                </#if>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</fieldset>
+</form>
+</body>
+</html>

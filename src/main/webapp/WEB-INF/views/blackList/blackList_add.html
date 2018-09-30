@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">单位</td>
+       <!-- <td>
+            <input class="easyui-textbox" name="CorpId" data-options="required:true">
+        </td>-->
+        <td>
+            <input class="easyui-combobox" name="corpId" data-options="required:true,
+                                                                         valueField: 'Id',
+                                                                         textField: 'CorpName',
+                                                                         url: '/corp/corpList'">
+        </td>
+    </tr>
+    <!--<tr>
+        <td class="left b">加入时间</td>
+        <td>
+            <input class="easyui-datebox" name="CreateDate" data-options="required:true">
+        </td>
+    </tr>-->
+    <!--<tr>
+        <td class="left b">操作人</td>
+        <td>
+            <input class="easyui-textbox" name="UserId" data-options="required:true">
+        </td>
+    </tr>-->
+    <tr>
+        <td class="left b">原因</td>
+        <td>
+            <!--<input class="easyui-textbox" name="Reason" data-options="required:true">-->
+            <textarea  name="Reason" class="textarea easyui-validatebox" style="width: 200px;height: 60px !important;" data-options="required:true"></textarea>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

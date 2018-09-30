@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/studentReport/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">专场招聘Id</td>
+            <td>
+                <input class="easyui-textbox"  name="specialId"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">学生Id</td>
+            <td>
+                <input class="easyui-textbox"  name="studentId"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">报名时间</td>
+            <td>
+                <input class="easyui-datetimebox"  name="enrollDate"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">签到时间</td>
+            <td>
+                <input class="easyui-datetimebox"  name="signDate"
+                       data-options="required:true">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

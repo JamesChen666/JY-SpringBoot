@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/postion/list",
+                idField: "Id",
+                textField: 'Id',
+                treeGridModel: 'adjacency',
+                sortName: "Id",
+                colNames: ['Id',/*"单位名称",*/"职位名称", "工作地点","职位类型",/*"面向专业",*/"学历要求",/*"岗位类型","招聘类型",*/
+                    "招聘人数","工作年限","月薪",/*"职位联系人","联系人电话","职位职能","职位要求","是否发布至自行联系",*/"审核状态","审核人","审核时间","审核意见"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    //{name: 'CorpName', index: 'CorpName', align: "center", width: 100},
+                    {name: 'Title', index: 'Title', align: "center", width: 200},
+                    {name: 'WorkAddress', index: 'WorkAddress', align: "center", width: 200},
+                    //{name: 'IndustryCodeName', index: 'IndustryCodeName', align: "center", width: 100},
+                    {name: 'TypeCodeName', index: 'TypeCodeName', align: "center", width: 100},
+                    //{name: '面向专业', index: '面向专业', align: "center", width: 100},
+                    {name: 'LevelCodeName', index: 'LevelCodeName', align: "center", width: 100},
+                    /*{name: 'PositionTypeCodeName', index: 'PositionTypeCodeName', align: "center", width: 100},
+                    {name: 'RecuitTypeCodeName', index: 'RecuitTypeCodeName', align: "center", width: 100},*/
+                    {name: 'PeopleCount', index: 'PeopleCount', align: "center", width: 100},
+                    {name: 'WorkYearLimit', index: 'WorkYearLimit', align: "center", width: 100},
+                    {name: 'Salary', index: 'Salary', align: "center", width: 100},
+                    /*{name: 'Contactor', index: 'Contactor', align: "center", width: 50},
+                    {name: 'ContactPhone', index: 'ContactPhone', align: "center", width: 50},
+                    {name: 'Functions', index: 'Functions', align: "center", width: 100},
+                    {name: 'Requirement', index: 'Requirement', align: "center", width: 100},*/
+                    //{name: 'RecuitFiles', index: 'RecuitFiles', align: "center", width: 100},
+                    //{name: 'IsPortal', index: 'IsPortal', align: "center", width: 50,formatter: School.formatBIT},
+                    {name: 'Status', index: 'Status', align: "center", width: 100,formatter:convertStatus},
+                    {name: 'RealName', index: 'RealName', align: "center", width: 100},
+                    {name: 'ExamineDate', index: 'ExamineDate', align: "center", width: 100,formatter:fmtDate},
+                    {name: 'ExamineRemark', index: 'ExamineRemark', align: "center", width: 200},
+                ],
+                pager: "#pager",
+                ExpandColumn: "Id",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "单位职位管理-新增单位职位",
+                                btnName: "新增单位职位",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/postion/add",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "单位职位管理-修改单位职位",
+                                btnName: "修改单位职位",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/postion/edit?id={id}",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            {
+                                type: "Examine",
+                                btnName: "审核通过",
+                                btnCode: "Enable",
+                                confirm: '审核意见：',
+                                listId: "#list",
+                                args: {flag: true},
+                                save: "toExamine"
+                            },
+                            {
+                                type: "Examine",
+                                btnName: "审核不通过",
+                                btnCode: "Disable",
+                                confirm: "审核意见：",
+                                listId: "#list",
+                                args: {flag: false},
+                                save: "toExamine"
+                            },
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/postion/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/postion/export"
+                            }
+                        ]
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">职位名称/工作地点</div>
+        <input class="easyui-textbox" name="sm_cp.Title-cp.workAddress" value=""/>
+        <div class="adv-select-label">职位类型</div>
+        <input class="easyui-combobox" name="s_cp.typeCode"
+               data-options="valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/ZWLBDM'">
+        <div class="adv-select-label">学历要求</div>
+        <input class="easyui-combobox" name="s_cp.levelCode"
+               data-options="valueField: 'memberValue',
+                       textField: 'displayText',
+                       url: '/dictionary/dictionaryCode/JYXLDM'">
+        <div class="adv-select-label">审核状态：</div>
+        <select class="easyui-combobox" name="s_cp.status" data-options="">
+            <option value="">==所有==</option>
+            <option value="1">通过</option>
+            <option value="2">不通过</option>
+            <option value="3">未审核</option>
+        </select>
+    </div>
+    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
+    </div>
+</div>
+
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/nav/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">栏目名称</td>
+            <td>
+                <input class="easyui-textbox" name="title"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">栏目类型</td>
+            <td>
+                <select name="typeId" class="easyui-combobox" data-options="required:true">
+                    <option value="1">图文</option>
+                    <option value="2">外部地址</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">栏目地址</td>
+            <td>
+                <input class="easyui-textbox" name="url" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">栏目内容</td>
+            <td>
+                <input class="easyui-textbox" name="content"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">打开方式</td>
+            <td>
+                <select name="redirectTypeId" class="easyui-combobox" data-options="required:true">
+                    <!--<option value="_top">本页跳转</option>
+                    <option value="_blank">新标签打开</option>-->
+                    <option value="1">本页跳转</option>
+                    <option value="2">新标签打开</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">父节点</td>
+            <td>
+                <input class="easyui-textbox" name="parentId"
+                       data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">排序</td>
+            <td>
+                <input class="easyui-textbox" name="sort" type="number" data-options="required:true">
+            </td>
+        </tr>
+       <!-- <tr>
+            <td class="left b">是否生效</td>
+            <td>
+                <select class="easyui-combobox" name="isEnabled" data-options="required:true">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </td>
+        </tr>-->
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

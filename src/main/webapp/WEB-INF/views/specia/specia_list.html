@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/specia/list",
+                idField: "Id",
+                textField: 'Id',
+                treeGridModel: 'adjacency',
+                sortName: "Id",
+                colNames: ['Id', "单位名称", "场地名称","职位名称","召开类型","使用日期","开始时间","结束时间","招聘简章","审核状态","审核人",
+                    "审核时间","审核意见"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'CorpName', index: 'CorpName', align: "center", width: 100},
+                    {name: 'placeName', index: 'placeName', align: "center", width: 100},
+                    {name: 'PositionName', index: 'PositionName', align: "center", width: 100,formatter:xq},
+                    {name: 'OpenTypeId', index: 'OpenTypeId', align: "center", width: 100,formatter:openType},
+                    {name: 'UseDate', index: 'UseDate', align: "center", width: 100,formatter:fmtDate},
+                    {name: 'StartHour', index: 'StartHour', align: "center", width: 100},
+                    {name: 'EndHour', index: 'EndHour', align: "center", width: 100},
+                    {name: 'RecuitFiles', index: 'RecuitFiles', align: "center", width: 100},
+                    {name: 'Status', index: 'Status', align: "center", width: 100,formatter:convertStatus},
+                    {name: 'RealName', index: 'RealName', align: "center", width: 100},
+                    {name: 'ExamineDate', index: 'ExamineDate', align: "center", width: 100,formatter:fmtDate},
+                    {name: 'ExamineRemark', index: 'ExamineRemark', align: "center", width: 100},
+                ],
+                pager: "#pager",
+                ExpandColumn: "Id",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "专场招聘管理-新增专场招聘",
+                                btnName: "新增专场招聘",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/specia/add",
+                                save: "save",
+                                height: 500
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "专场招聘管理-修改专场招聘",
+                                btnName: "修改专场招聘",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/specia/edit?id={id}",
+                                save: "save",
+                                height: 500
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            {
+                                type: "Examine",
+                                btnName: "审核通过",
+                                btnCode: "Enable",
+                                confirm: '审核意见：',
+                                listId: "#list",
+                                args: {flag: true},
+                                save: "toExamine"
+                            },
+                            {
+                                type: "Examine",
+                                btnName: "审核不通过",
+                                btnCode: "Disable",
+                                confirm: "审核意见：",
+                                listId: "#list",
+                                args: {flag: false},
+                                save: "toExamine"
+                            },
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/specia/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/specia/export"
+                            }
+                        ]
+            });
+        })
+
+        function openType(value,row,index){
+            if(value == 1){
+                return "宣讲";
+            }else if(value ==2){
+                return "面试";
+            }else{
+                return "";
+            }
+        }
+
+        function xq(value,row,index) {
+            return '<a href="/position/">查看</a>';
+            //return "<a href='javascript:' class='btnA' onclick=\"showSign()\">查看</a>"
+        }
+
+        /*function showSign() {
+            School.showDivHasSave({
+                title: "学生签约信息",
+                btnName: "学生签约",
+                href: "/position/",
+                save: "save",
+                fit:true
+            })
+            $("#list").ex_grid({
+                url: "/position/list",
+                idField: "Id",
+                textField: 'Id',
+                treeGridModel: 'adjacency',
+                sortName: "Id",
+                colNames: ['Id', "专场招聘单位名称", "职位名称"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    //{name: 'SpecialId', index: 'SpecialId', align: "center", width: 100},
+                    {name: 'CorpName', index: 'CorpName', align: "center", width: 100},
+                    {name: 'PositionName', index: 'PositionName', align: "center", width: 100},
+                ],
+                pager: "#pager",
+                ExpandColumn: "Id",
+                buttons:
+                    [
+                        {
+                            type: "AddOrUpdate",
+                            title: "专场招聘职位管理-新增职位",
+                            btnName: "新增职位",
+                            btnCode: "Add",
+                            iconCls: "icon-add",
+                            listId: "#list",
+                            href: "/position/add",
+                            save: "save",
+                            height: 500
+                        },
+                        {
+                            type: "AddOrUpdate",
+                            iconCls: "icon-edit",
+                            title: "专场招聘职位管理-修改职位",
+                            btnName: "修改职位",
+                            btnCode: "Edit",
+                            listId: "#list",
+                            href: "/position/edit?id={id}",
+                            save: "save",
+                            height: 500
+                        },
+                        {
+                            type: "Del",
+                            btnName: "删除",
+                            btnCode: "Delete",
+                            listId: "#list",
+                            save: "delete"
+                        },
+                        {
+                            type: "Import",
+                            btnName: "导入",
+                            btnCode: "Import",
+                            listId: "#list",
+                            save: "/position/import"
+                        },
+                        {
+                            type: "Export",
+                            btnName: "导出",
+                            btnCode: "Export",
+                            listId: "#list",
+                            save: "/position/export"
+                        }
+                    ]
+            });
+        }*/
+    </script>
+</head>
+<body>
+
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">单位名称/场地名称/职位名称</div>
+        <input class="easyui-textbox" name="sm_sc.CorpName-sp.Title-cp.Title" value=""/>
+        <div class="adv-select-label">审核状态：</div>
+        <select class="easyui-combobox" name="s_ss.status" data-options="required:true">
+            <option value="">==所有==</option>
+            <option value="1">通过</option>
+            <option value="2">不通过</option>
+            <option value="3">未审核</option>
+        </select>
+    </div>
+    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
+    </div>
+</div>
+
+
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

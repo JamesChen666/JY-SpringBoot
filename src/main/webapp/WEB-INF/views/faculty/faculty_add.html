@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">院系名称</td>
+        <td>
+            <input class="easyui-textbox" name="facultyName" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">院系代码</td>
+        <td>
+            <input class="easyui-textbox" name="facultyCode" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">校区</td>
+        <td>
+            <input class="easyui-combobox" name="campusCode" data-options="required:true,
+                                                                         valueField: 'CampusCode',
+                                                                         textField: 'CampusName',
+                                                                         url: '/campus/gridList'
+                                                                         ">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">类型</td>
+        <td>
+            <input class="easyui-combobox" name="typeID" data-options="required:true,
+                                                                         valueField: 'value',
+                                                                         textField: 'name',
+                                                                         url: '/faculty/facultyType'
+                                                                         ">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">备注</td>
+        <td>
+            <input class="easyui-textbox" name="remark" data-options="required:false">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">排序</td>
+        <td>
+            <input class="easyui-numberbox" name="sort" data-options="required:true">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

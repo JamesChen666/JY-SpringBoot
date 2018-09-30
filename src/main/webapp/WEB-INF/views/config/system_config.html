@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body class="easyui-layout">
+<div data-options="region:'center',border:false">
+    <form action="/config/save">
+        <div id="tt" class="easyui-tabs">
+            <div title="系统参数配置">
+                <table class="tb1 border_b_no">
+                    <tbody>
+                    <tr>
+                        <th>当前毕业年份:</th>
+                        <td>
+                            <input class="easyui-numberspinner" name="sys_graduationyear"  style="width: 150px"
+                                   data-options="required:true,min:1999,max:3000,editable:false"/>
+                            <span class="note">用于系统默认数据显示的年份，格式如：2011</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">是否允许学生登陆：</td>
+                        <td>
+                            <input checked="checked" id="SC_SYS_ISOPENSTUDENT" name="SC_SYS_ISOPENSTUDENT" type="checkbox" value="true" />
+                            <input name="SC_SYS_ISOPENSTUDENT" type="hidden" value="false" />允许
+                            <span class="note" style="padding-left: 15px">启用时，学生才可以登录</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>学生修改生源数据是否需要审核:</th>
+                        <td>
+                            <input checked="checked" id="SC_SYS_UPDATESTUINFONEEDFORAUDIT"
+                                   name="SC_SYS_UPDATESTUINFONEEDFORAUDIT" type="checkbox" value="true"/><input
+                                name="SC_SYS_UPDATESTUINFONEEDFORAUDIT" type="hidden" value="false"/>
+                            <span class="note" style="padding-left: 15px">启用时，学生修改数据需要管理员审核</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>签约派遣信息生效是否允许辅导员或院系管理员修改:</th>
+                        <td>
+                            <input checked="checked" id="SC_SYS_QYPQSXSSFYXFDYXG" name="SC_SYS_QYPQSXSSFYXFDYXG"
+                                   type="checkbox" value="true"/><input name="SC_SYS_QYPQSXSSFYXFDYXG" type="hidden"
+                                                                        value="false"/>
+                            <span class="note" style="padding-left: 15px">启用时，签约派遣信息生效允许辅导员或院系管理员修改</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>签约派遣生效是否允许辅导员或院系管理员修改派遣信息:</th>
+                        <td>
+                            <input id="SC_SYS_QYPQXXSXSFXGPQXX" name="SC_SYS_QYPQXXSXSFXGPQXX" type="checkbox"
+                                   value="true"/><input name="SC_SYS_QYPQXXSXSFXGPQXX" type="hidden" value="false"/>
+                            <span class="note" style="padding-left: 15px">启用时，上一条有效时，允许修改派遣信息</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>报到证打印是否使用自定义模板:</th>
+                        <td>
+                            <input id="SC_SYS_BDZDYMBZDY" name="SC_SYS_BDZDYMBZDY" type="checkbox" value="true"/><input
+                                name="SC_SYS_BDZDYMBZDY" type="hidden" value="false"/>
+                            <span class="note" style="padding-left: 15px">启用时，将使用自定义模板打印</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">注册单位初始发布招聘职位条数：</td>
+                        <td>
+                            <input class="txt  easyui-numberspinner" id="SC_UNIT_RECRUITCOUNT_DEFAULT" min="0"
+                                   name="SC_UNIT_RECRUITCOUNT_DEFAULT" required="True" style="width: 150px" type="text"
+                                   value="15"/>
+                            <span style="color:brown;margin-left:5px;">为0表示没有限制</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">注册单位初始收藏简历条数：</td>
+                        <td>
+                            <input class="txt  easyui-numberspinner" id="SC_SYS_RESUMECOLLECT_COUNT" min="0"
+                                   name="SC_SYS_RESUMECOLLECT_COUNT" required="True" style="width: 150px" type="text"
+                                   value="50"/>
+                            <span style="color:brown;margin-left:5px;">为0表示没有限制</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">签约派遣开放时间：</td>
+                        <td>
+                            <input id="SC_SYS_SIGNDATE" name="SC_SYS_SIGNDATE" style="width:150px" type="text"
+                                   value="2018-09-23"/>
+                            <span style="color:brown;margin-left:5px;">开放时间之后才可使用签约派遣功能</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="right b">是否允许单位注册：</td>
+                        <td>
+                            <input checked="checked" id="SC_SYS_ISALLOWUNIT_REGIST" name="SC_SYS_ISALLOWUNIT_REGIST"
+                                   type="checkbox" value="true"/><input name="SC_SYS_ISALLOWUNIT_REGIST" type="hidden"
+                                                                        value="false"/>允许
+                            <span class="note" style="padding-left: 15px">启用时，单位才可以注册</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">是否允许单位登陆：</td>
+                        <td>
+                            <input checked="checked" id="SC_SYS_ISOPENCOMPANY" name="SC_SYS_ISOPENCOMPANY"
+                                   type="checkbox" value="true"/><input name="SC_SYS_ISOPENCOMPANY" type="hidden"
+                                                                        value="false"/>允许
+                            <span class="note" style="padding-left: 15px">启用时，单位才可以登录</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">是否允许单位发布招聘：</td>
+                        <td>
+                            <input checked="checked" id="SC_UNIT_IS_MAY_RECRUITMENT" name="SC_UNIT_IS_MAY_RECRUITMENT"
+                                   type="checkbox" value="True"></input>&nbsp;&nbsp;是
+                            <span class="note" style="padding-left: 15px">用于单位是否可以发布招聘职位</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">协议书发放模式：</td>
+                        <td>
+                            <select class="easyui-combobox" id="SC_SYS_AGREEMENTMODEL" name="SC_SYS_AGREEMENTMODEL"
+                                    style="width: 80px">
+                                <option value="Manual">手动</option>
+                                <option selected="selected" value="Print">打印</option>
+                            </select>
+                            <span class="note">用于院校管理协议书</span>
+                        </td>
+                    </tr>
+                    <tr id="SC_SYS_CODEREUSEtr">
+                        <td class="right b">协议书编号是否重用：</td>
+                        <td>
+                            <input id="SC_SYS_CODEREUSE" name="SC_SYS_CODEREUSE" type="checkbox" value="True"></input>&nbsp;&nbsp;是
+                            <span class="note" style="padding-left: 15px">启用时，打印时的编号会用原协议书编号</span>
+                        </td>
+                    </tr>
+                    <tr id="SC_SYS_AGREEMENTPRINTtr">
+                        <td class="right b">学生打印管理员审核过的协议书：</td>
+                        <td>
+                            <input checked="checked" id="SC_SYS_AGREEMENTPRINT" name="SC_SYS_AGREEMENTPRINT"
+                                   type="checkbox" value="True"></input>&nbsp;&nbsp;是
+                            <span class="note" style="padding-left: 15px">启用时，学生只能打印管理员审核通过的协议书</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">是否禁止学生修改基础信息：</td>
+                        <td>
+                            <input id="sc_SYS_SFYXSTUXG" name="sc_SYS_SFYXSTUXG" type="checkbox" value="True"></input>&nbsp;&nbsp;是
+                            <span class="note" style="padding-left: 15px">启用时，学生不允许修改基础信息</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right b">协议书签章：</td>
+                        <td>
+                            <input id="dataFile" name="dataFile" type="hidden"/>
+                            <div id="uploadMessage" class="textstyle1"></div>
+                            <a target="_blank" href="/upload/xyssy.png?t=386" rel="lightbox">
+                                <img id="sytp" src="/upload/xyssy.png?t=386"
+                                     style="cursor:pointer;width: 24.79px; height: 35.08px; vertical-align: middle;"/>
+                                <span style="color:red;">点击查看</span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel1">
+            <a id="savebtn" href="javascript:void(0);" class="easyui-linkbutton">保 存</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

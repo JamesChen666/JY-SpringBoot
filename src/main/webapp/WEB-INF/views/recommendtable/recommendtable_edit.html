@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/recommendtable/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <fieldset>
+        <legend>学生基础信息</legend>
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="right b width150">姓名</td>
+                <td>
+                    <div>${student.RealName}</div>
+                </td>
+                <td class="right b width150">学号</td>
+                <td>
+                    <div>${student.StudentNumber}</div>
+                </td>
+                <td class="right b width150">身份证号</td>
+                <td>
+                    <div>${student.IdCard}</div>
+                </td>
+                <td class="right b width150">考生号</td>
+                <td>
+                    <div>${student.ExamineNumber}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right b width150">政治面貌</td>
+                <td>
+                    <div>${student.zzmm}</div>
+                </td>
+                <td class="right b width150">学历</td>
+                <td>
+                    <div>${student.xl}</div>
+                </td>
+                <td class="right b width150">培养方式</td>
+                <td>
+                    <div>${student.pyfs}</div>
+                </td>
+                <td class="right b width150">师范生类别</td>
+                <td>
+                    <div>${student.sfslb}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right b width150">班级</td>
+                <td>
+                    <div>${student.bj}</div>
+                </td>
+                <td class="right b width150">生源地</td>
+                <td>
+                    <div>${student.OriginCode}</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>推荐信息</legend>
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="left b">自荐书</td>
+                <td>
+                    <input class="easyui-textbox" name="SelfRecommendation" id="file"
+                           data-options="required:true">
+                    <div id="filepicker"></div>
+                    <button id="fileBtn" class="btn btn-default">开始上传</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">学院推荐意见</td>
+                <td>
+                    <textarea name="FacultyRecommendation" style="width: 300px;height: 100px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">推荐时间</td>
+                <td>
+                    <input class="easyui-datetimebox" name="RecommendDate"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">推荐人</td>
+                <td>
+                    <input class="easyui-textbox" name="RecommendUserId"
+                           data-options="required:true">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>意向单位信息</legend>
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="left b">意向单位性质</td>
+                <td>
+                    <input class="easyui-combobox" name="HopeNationCode"
+                           data-options="required:true,
+                                 valueField: 'memberValue',
+                                 textField: 'displayText',
+                                 url: '/dictionary/dictionaryCode/DWXZDM'"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">意向单位行业</td>
+                <td>
+                    <input class="easyui-combobox" name="HopeIndustryCode"
+                           data-options="required:true,
+                                 valueField: 'memberValue',
+                                 textField: 'displayText',
+                                 url: '/dictionary/dictionaryCode/HYFLDM'"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">期望薪资</td>
+                <td>
+                    <input class="easyui-textbox" name="HopeSalary"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">意向工作地址</td>
+                <td>
+                    <input class="easyui-textbox" name="HopeLocation"
+                           data-options="required:true">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+<#include "../base/uploader.html">
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">班级名称</td>
+        <td><input class="easyui-textbox" name="className"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">班级代码</td>
+        <td>
+            <input class="easyui-textbox" name="classNo"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">专业</td>
+        <td>
+            <input class="easyui-combobox" name="specialtyCode" data-options="required:true,
+                                                                         valueField: 'SpecialtyCode',
+                                                                         textField: 'SpecialtyName',
+                                                                         url: '/specialty/gridList'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">年级</td>
+        <td>
+            <input class="easyui-textbox" name="grade"
+                   data-options="required:true,validType:'number',prompt:'只能输入4位数字'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">毕业年份</td>
+        <td>
+            <input class="easyui-textbox" name="graduationYear"
+                   data-options="required:true,validType:'number',prompt:'只能输入4位数字'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">备注</td>
+        <td>
+            <input class="easyui-textbox" name="remark"
+                   data-options="required:false">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

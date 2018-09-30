@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">单位</td>
+        <td>
+            <input class="easyui-combogrid" name="corpId" data-options="required:true,
+                                                                        panelWidth:500,
+                                                                        idField:'Id',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        textField:'CorpName',
+                                                                        url:'/corp/list',
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        {field:'Id',title:'ID',width:100},
+                                                                        {field:'CorpName',title:'单位名称',width:100},
+                                                                        {field:'Address',title:'单位地址',width:100},
+                                                                        {field:'EstablishmentDate',title:'单位成立日期',width:130},
+                                                                        ]]">
+        </td>
+        <td class="left b">场地</td>
+        <td>
+            <input class="easyui-combogrid" name="placeId" data-options="required:true,
+                                                                        panelWidth:500,
+                                                                        idField:'Id',
+                                                                        textField:'Title',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        url:'/place/list',
+                                                                        //multiple: true, //设置允许多选
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        {field:'Id',title:'ID',width:50},
+                                                                        {field:'Title',title:'场地名称',width:100},
+                                                                        {field:'Capacity',title:'容纳人数',width:100},
+                                                                        {field:'StartDate',title:'开放时间段（开始）',width:100},
+                                                                        {field:'EndDate',title:'开放时间段（结束）',width:100},
+                                                                        {field:'StartHour',title:'每天开始时间',width:100},
+                                                                        {field:'EndHour',title:'每天结束时间',width:100},
+                                                                        {field:'IsEnabled',title:'是否可用',width:50,formatter:School.formatBIT},
+                                                                        ]]">
+        </td>
+    </tr>
+
+    <tr>
+        <td class="left b">召开类型</td>
+        <td>
+            <select class="easyui-combobox" name="openTypeId" data-options="required:true">
+                <option value="1">宣讲</option>
+                <option value="2">面试</option>
+            </select>
+        </td>
+        <td class="left b">使用日期</td>
+        <td>
+            <input class="easyui-datebox" name="useDate" data-options="required:true">
+        </td>
+    </tr>
+
+    <tr>
+        <td class="left b">开始时间</td>
+        <td>
+            <input class="easyui-timespinner" name="startHour"
+                   data-options="required:true,min:'07:00',max:'20:00'">
+        </td>
+        <td class="left b">结束时间</td>
+        <td>
+            <input class="easyui-timespinner" name="endHour"
+                   data-options="required:true,min:'07:00',max:'20:00'">
+        </td>
+    </tr>
+
+    <tr>
+        <td class="left b">职位</td>
+        <td>
+            <input class="easyui-combogrid" name="positionId" data-options="required:true,
+                                                                        panelWidth:500,
+                                                                        idField:'Id',
+                                                                        textField:'Title',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        url:'/postion/list',
+                                                                        multiple: true, //设置允许多选
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        {field:'Id',title:'ID',width:50},
+                                                                        {field:'Title',title:'职位名称',width:100},
+                                                                        {field:'WorkAddress',title:'工作地点',width:50},
+                                                                        {field:'LevelCodeName',title:'学历要求',width:100},
+                                                                        {field:'PeopleCount',title:'招聘人数',width:50},
+                                                                        {field:'Salary',title:'月薪',width:100},
+                                                                        {field:'IsPortal',title:'是否自行联系',width:50,formatter:School.formatBIT},
+                                                                        ]]">
+        </td>
+    </tr>
+
+    <tr>
+        <td class="left b">招聘简章</td>
+        <td>
+            <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                      name="recuitFiles" rows="5" style="width:100% !important;height:80px !important;"></textarea>
+        </td>
+        <!--<td class="left b">审核状态</td>
+        <td>
+            <input class="easyui-textbox" name="status" data-options="required:true">
+        </td>-->
+    </tr>
+
+    <!--<tr>
+        <td class="left b">审核人</td>
+        <td>
+            <input class="easyui-textbox" name="examineUserId" data-options="required:true">
+        </td>
+        <td class="left b">审核时间</td>
+        <td>
+            <input class="easyui-datebox" name="examineDate" data-options="required:true">
+        </td>
+    </tr>-->
+
+    <!--<tr>
+        <td class="left b">审核意见</td>
+        <td>
+            <input class="easyui-textbox" name="examineRemark" data-options="required:true">
+        </td>
+    </tr>-->
+
+    </tbody>
+</table>
+</body>
+</html>

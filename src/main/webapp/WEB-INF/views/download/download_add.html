@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">标题</td>
+        <td>
+            <input class="easyui-textbox" name="title" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">文件地址</td>
+        <td>
+            <input class="easyui-textbox" name="url" data-options="required:true"
+                   id="wjdz">
+            <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file" onchange="show();"
+                       style="width: 70px;height: 30px; margin-left: -52px;">
+            </a>
+        </td>
+    </tr>
+    <!--<tr>
+        <td class="left b">下载数</td>
+        <td>
+            <input class="easyui-textbox" name="downCount"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">发布时间</td>
+        <td>
+            <input class="easyui-datebox" name="createDate"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">发布人Id</td>
+        <td>
+            <input class="easyui-textbox" name="userId"
+                   data-options="required:true">
+        </td>
+    </tr>-->
+    <tr>
+        <td class="left b">文件类型</td>
+        <td>
+            <input class="easyui-combobox" name="typeCode" data-options="required:true,
+                                                                         valueField: 'TypeCode',
+                                                                         textField: 'TypeName',
+                                                                         url: '/downloadType/downloadTypeList'">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+</body>
+</html>

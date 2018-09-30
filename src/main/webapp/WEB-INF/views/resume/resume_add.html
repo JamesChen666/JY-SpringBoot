@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">姓名</td>
+        <td>
+            <select id="cc" class="easyui-combogrid" name="studentId"
+                    data-options="
+                                 panelWidth:400,
+                                 idField:'Id',
+                                 textField:'RealName',
+                                 url:'/student/gridList',
+                                 columns:[[
+                                     {field:'RealName',title:'姓名',width:100},
+                                     {field:'StudentNumber',title:'学号',width:100},
+                                     {field:'ClassName',title:'班级',width:200}
+                                 ]]
+                             "></select>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">视频名称</td>
+        <td>
+            <input class="easyui-textbox" name="selfVideoName" id="video" data-options="required:false">
+            <div id="videopicker"></div>
+            <button id="videoBtn" class="btn btn-default">开始上传</button>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">简历名称</td>
+        <td>
+            <input class="easyui-textbox" name="fileName" id="file" data-options="required:true">
+            <div id="filepicker"></div>
+            <button id="fileBtn" class="btn btn-default">开始上传</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<#include "../base/uploader.html">
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<fieldset>
+    <legend>学生基础信息</legend>
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="right b width150">姓名</td>
+            <td>
+                <div>${student.RealName}</div>
+            </td>
+            <td class="right b width150">学号</td>
+            <td>
+                <div>${student.StudentNumber}</div>
+            </td>
+            <td class="right b width150">身份证号</td>
+            <td>
+                <div>${student.IdCard}</div>
+            </td>
+            <td class="right b width150">考生号</td>
+            <td>
+                <div>${student.ExamineNumber}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">政治面貌</td>
+            <td>
+                <div>${student.zzmm}</div>
+            </td>
+            <td class="right b width150">学历</td>
+            <td>
+                <div>${student.xl}</div>
+            </td>
+            <td class="right b width150">培养方式</td>
+            <td>
+                <div>${student.pyfs}</div>
+            </td>
+            <td class="right b width150">师范生类别</td>
+            <td>
+                <div>${student.sfslb}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">班级</td>
+            <td>
+                <div>${student.bj}</div>
+            </td>
+            <td class="right b width150">生源地</td>
+            <td>
+                <div>${student.OriginCode}</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</fieldset>
+<fieldset>
+    <legend>改签信息</legend>
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="right b width150">改签类型</td>
+            <td>
+                <div>${changesignlog.TypeCode}</div>
+            </td>
+            <td class="right b width150">改签原因</td>
+            <td>
+                <div>${changesignlog.Reason}
+            </td>
+            <td class="right b width150">毕业去向</td>
+            <td>
+                <div>${changesignlog.GraduationWhereAboutCode}</div>
+            </td>
+            <td class="right b width150">升学类型</td>
+            <td>
+                <div>${changesignlog.highGradeTypeCode}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">签约单位</td>
+            <td>
+                <div>${changesignlog.corporationName}</div>
+            </td>
+            <td class="right b width150">单位性质</td>
+            <td>
+                <div>${changesignlog.corpNatureCdoe}</div>
+            </td>
+            <td class="right b width150">单位行业</td>
+            <td>
+                <div>${changesignlog.corpIndustryCode}</div>
+            </td>
+            <td class="right b width150">单位隶属部门</td>
+            <td>
+                <div>${changesignlog.underDepartmentCode}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">单位所在地</td>
+            <td>
+                <div>${changesignlog.corpOrginCode}</div>
+            </td>
+            <td class="right b width150">单位组织机构代码</td>
+            <td>
+                <div>${changesignlog.corpOrganizationCode}</div>
+            </td>
+            <td class="right b width150">工作职位类别</td>
+            <td>
+                <div>${changesignlog.jobTypeCode}</div>
+            </td>
+            <td class="right b width150">单位联系人</td>
+            <td>
+                <div>${changesignlog.corpContactor}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">单位联系人职务</td>
+            <td>
+                <div>${changesignlog.contactorPostion}</div>
+            </td>
+            <td class="right b width150">联系人电话</td>
+            <td>
+                <div>${changesignlog.corpContactPhone}</div>
+            </td>
+            <td class="right b width150">联系人邮箱</td>
+            <td>
+                <div>${changesignlog.corpContactEmail}</div>
+            </td>
+            <td class="right b width150">联系人传真</td>
+            <td>
+                <div>${changesignlog.corpContactFax}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">单位地址</td>
+            <td>
+                <div>${changesignlog.corpAddress}</div>
+            </td>
+            <td class="right b width150">单位邮编</td>
+            <td>
+                <div>${changesignlog.corpPostCode}</div>
+            </td>
+            <td class="right b width150">档案接收单位</td>
+            <td>
+                <div>${changesignlog.archiveCorp}</div>
+            </td>
+            <td class="right b width150">档案接收人</td>
+            <td>
+                <div>${changesignlog.archiveContactor}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b width150">档案联系电话</td>
+            <td>
+                <div>${changesignlog.archiveContactPhone}</div>
+            </td>
+            <td class="right b width150">档案转寄单位名称</td>
+            <td>
+                <div>${changesignlog.forwardCorpName}</div>
+            </td>
+            <td class="right b width150">档案转寄单位邮编</td>
+            <td>
+                <div>${changesignlog.forwardCorpPostCode}</div>
+            </td>
+            <td class="right b width150">备注</td>
+            <td>
+                <div>${changesignlog.remark}</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</fieldset>
+</form>
+</body>
+</html>

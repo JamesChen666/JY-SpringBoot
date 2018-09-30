@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>就业管理系统</title>
+    <meta charset="utf-8"/>
+    <script src="/static/main/Scripts/jquery-3.2.1.min.js"></script>
+
+    <link href="/static/main/Scripts/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="/static/main/Scripts/assets/js/bootstrap.min.js"></script>
+
+    <link href="/static/main/Scripts/jquery-easyui-1.5/themes/icon.css" rel="stylesheet"/>
+    <link href="/static/main/Scripts/jquery-easyui-1.5/themes/bootstrap/easyui.css" rel="stylesheet"/>
+    <script src="/static/main/Scripts/jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script src="/static/main/Scripts/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+
+
+    <link href="/static/main/css/Index.css" rel="stylesheet"/>
+    <link href="/static/main/css/icon.css" rel="stylesheet"/>
+    <link href="/static/main/css/tab.css" rel="stylesheet"/>
+
+    <script>
+        window.dialogbox = document.createElement("div") //用于系统中，新增、修改时顶部弹出
+        window.dialogWindow = document.createElement("div") //用于系统中，除新增、修改外的弹出框
+    </script>
+    <script src="/static/main/Scripts/jquery.plugins.js"></script>
+    <script src="/static/main/Scripts/jquery.mousewheel.js"></script>
+    <script src="/static/main/Scripts/Utils.js"></script>
+    <script src="/static/main/Scripts/Verfiy.js"></script>
+    <script src="/static/main/Scripts/Common.js"></script>
+
+    <script src="../../static/main/Index.js"></script>
+    <script src="../../static/main/Menu.js"></script>
+
+    <link href="/static/main/css/main.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="header" id="header">
+        <ul>
+            <li>欢迎您：${user}(学生)</li>
+            <li>当前毕业年份：2019</li>
+            <li>当前版本：V2.0.0.1</li>
+        </ul>
+        <a class="exit" id="exit" rel="/loginOut">退出</a>
+    </div>
+    <div class="west" id="west">
+        <div class="person_info">
+            <span><a href="javascript:">${user}</a></span>
+            <div class="avatar">
+                <img src="/static/main/Upload/Avatar/b29e1e0f-e296-47e2-a173-cfe3efc5ceb5.jpg"/>
+            </div>
+        </div>
+        <div class="west_wrapper" id="west_wrapper">
+            <ul id="first-menu" class="first-menu">
+                <li class="scroll-up"><a href="#">向上</a></li>
+                <li class="scroll-down"><a href="#">向下</a></li>
+                <li>
+                    <a class="left_menu_item index_01" href="/" style="letter-spacing: 30px;">首页</a>
+                </li>
+                <li>
+                    <a class="left_menu_item icon-02" data-tag="menu" data-id="1" data-url=""
+                       data-title="jyxy">
+                        学生功能
+                        <span>收起/展开</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="second_menu_icon" data-tag="menu" data-id="1" data-url="/student/sign" data-title="填写就业协议">填写就业协议</a>
+                        </li>
+                        <li>
+                            <a class="second_menu_icon" data-tag="menu" data-id="2" data-url="/student/work" data-title="填写工作证明">填写工作证明</a>
+                        </li>
+                        <li>
+                            <a class="second_menu_icon" data-tag="menu" data-id="3" data-url="/student/viewSign/1" data-title="查看签约信息">查看签约信息</a>
+                        </li>
+                        <li>
+                            <a class="second_menu_icon" data-tag="menu" data-id="4" data-url="/student/viewSign/2" data-title="查看工作证明">查看工作证明</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="east" id="east">
+        <div class="logo" id="logo">
+            <img src="/static/main/images/logo.png">
+            <img src="/static/main/images/split.png">
+        <#--<img src="/static/main/images/eas.png">-->
+        </div>
+        <div id="taskbar" class="taskbar">
+            <div>
+                <div id="tabs_left_scroll" class="tabs-scroll scroll-left"></div>
+                <div id="tabs_container" class="tabs-container">
+                </div>
+                <div id="tabs_right_scroll" class="tabs-scroll scroll-right"></div>
+            </div>
+        </div>
+        <div class="main" id="main">
+
+        </div>
+    </div>
+    <div class="footer" id="footer">Copyright @2017 成都易科士信息产业有限公司 四川师范大学</div>
+
+</div>
+</body>
+</html>

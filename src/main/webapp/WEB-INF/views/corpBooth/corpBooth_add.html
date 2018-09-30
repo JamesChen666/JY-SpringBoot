@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+
+        <tr>
+            <td class="left b">双选会参与单位Id:</td>
+            <td>
+                <input class="easyui-combobox" name="ElectionCorpId" data-options="required:true,
+                                                                         valueField:'Id',
+                                                                         textField:'CorpId',
+                                                                         url:'/corpPart/corpPartList'"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">展位Id:</td>
+            <td>
+                <input class="easyui-combobox" name="BoothId" data-options="required:true,
+                                                                         valueField:'Id',
+                                                                         textField:'BoothNumber',
+                                                                         url:'/booth/boothList'"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

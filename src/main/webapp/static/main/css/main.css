@@ -1,0 +1,279 @@
+﻿.tb1 {
+    border-bottom: 0;
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 1px;
+}
+.tb1 th {
+    text-align: right;
+    font-weight: bold;
+}
+
+.tb1 td, .tb1 th {
+    padding: 2px;
+    border-bottom: 1px dotted #deeffb;
+    line-height: 100%;
+    padding-left: 5px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.tb1 tr:last-child td, .tb1 tr:last-child th {
+    border-bottom: 0;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+.b {
+    font-weight: bold;
+}
+
+/*eidt easy ui*/
+.textbox, .easyui-validatebox {
+    width: 125px;
+    height: 28px !important;
+    padding: 0 4px;
+}
+
+.numberbox {
+    width: 70px !important;
+    text-align: center;
+}
+
+.numberbox input {
+    width: 150px !important;
+    text-align: left;
+}
+
+.combo {
+    padding: 0px;
+    padding-right: 8px;
+}
+
+#pager {
+    display: none;
+}
+
+.panel1 {
+    background-color: #eee;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #DDD;
+    line-height: 40px;
+    height: 40px;
+    padding: 0px 2px 0px 10px;
+}
+
+/*警告文本*/
+.muted {
+    color: #999999;
+}
+
+a.muted:hover,
+a.muted:focus {
+    color: #808080;
+}
+
+.text-warning {
+    color: #c09853;
+}
+
+a.text-warning:hover,
+a.text-warning:focus {
+    color: #a47e3c;
+}
+
+.text-error {
+    color: #b94a48;
+}
+
+a.text-error:hover,
+a.text-error:focus {
+    color: #953b39;
+}
+
+.text-info {
+    color: #3a87ad;
+}
+
+a.text-info:hover,
+a.text-info:focus {
+    color: #2d6987;
+}
+
+.text-success {
+    color: #468847;
+}
+
+a.text-success:hover,
+a.text-success:focus {
+    color: #356635;
+}
+
+.TjTable {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+}
+
+.TjTable td, .TjTable th {
+    padding: 2px;
+    border: 1px solid #62bdfc;
+    color: #555;
+    line-height: 18px;
+}
+
+.divPanel {
+    text-align: left;
+    width: 100%;
+    border-radius: 2px;
+    margin: 0 auto;
+    background-color: rgb(216, 243, 247);
+    font-weight: bold;
+    padding: 3px 0;
+    border-bottom: 1px solid #95b8e7;
+}
+
+.tempWrap {
+    padding-left: 20px;
+}
+
+.width80 {
+    width: 80px;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.width120 {
+    width: 120px;
+}
+
+.width150 {
+    width: 150px;
+}
+
+.width200 {
+    width: 200px;
+}
+
+.upload-control {
+    width: 200px;
+    margin: 0px auto;
+}
+
+.upload-control .uploader_button {
+    display: block;
+    height: 50px;
+    background: #ff9e19;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    font-size: 14px;
+    margin-top: 10px;
+    width: 150px;
+    cursor: pointer;
+    margin: 0px auto;
+}
+
+.upload-control .uploader_button:hover {
+    color: #fff;
+    background: #0396ca;
+}
+
+.upload-control .uploader-list {
+    margin: 0px auto;
+    width: 150px;
+    margin-bottom: 2px;
+}
+
+.upload-control .uploader-list img {
+    margin: 0px auto;
+}
+
+.note {
+    color: green;
+    display: inline-block;
+}
+
+.textstyle2 {
+    color: green;
+}
+
+.textstyle1 {
+    color: red;
+}
+
+.ui-jqgrid-btable a.btnA {
+    display: inline-block;
+    text-decoration: double;
+    background-color: #3da7f2;
+    color: #ffffff;
+    text-align: center;
+    padding: 2px 5px;
+    margin: auto 5px;
+    border-radius: 4px;
+}
+
+.ui-jqgrid-btable a.btnA:hover {
+    text-decoration: none;
+    background-color: #0f7dcc;
+    color: #fff;
+}
+
+.ui-jqgrid-btable a.btnA {
+    display: inline-block;
+    text-decoration: double;
+    background-color: #3da7f2;
+    color: #ffffff;
+    text-align: center;
+    padding: 2px 5px;
+    margin: auto 5px;
+    border-radius: 4px;
+}
+
+.ui-jqgrid-btable a.btnA:hover {
+    text-decoration: none;
+    background-color: #0f7dcc;
+    color: #fff;
+}
+
+.panel2 {
+    background-color: #e4eef7;
+    border-bottom: 1px solid #a0bddb;
+    border-top: 1px solid #fff;
+    line-height: 18px;
+    padding: 5px;
+}
+
+.title {
+    background: #F3FBFE url(/static/main/images/fixed_bg.png) repeat-x scroll center bottom;
+    padding: 5px 20px 12px 10px;
+    top: 0;
+    left: 0;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+}
+
+.title div, .title strong, .title-crumbs span, span.title-arrow {
+    float: left;
+    margin-left: 5px;
+}
+
+.title span.title-arrow {
+    background: url(/static/main/images/tab_bg.png) no-repeat scroll -50px -155px;
+    width: 4px;
+    height: 8px;
+    margin: 12px 3px 7px 7px;
+    _margin: 12px 3px 7px 7px;
+}

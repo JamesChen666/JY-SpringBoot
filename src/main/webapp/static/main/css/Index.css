@@ -1,0 +1,327 @@
+﻿html, body {
+    height: 100%;
+    overflow: hidden;
+    font-size: 14px;
+    background: #FFF;
+    position: relative;
+    font-family: "Microsoft YaHei","Arial",simsun, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative !important;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    background-color: #f8f8f8;
+    z-index: 999;
+}
+
+    .header ul {
+        width: 80%;
+        display: inline-block;
+    }
+
+        .header ul li {
+            display: inline-block;
+            margin-left: 40px;
+        }
+
+    .header a.exit {
+        float: right;
+        display: inline-block;
+        padding: 0px 20px 0px 50px;
+        background-repeat: no-repeat;
+        background-position: 20px center;
+        background-size: 30px 30px;
+        font-weight: 100;
+        cursor: pointer;
+        background-image: url(../images/exit.png);
+        color: black;
+    }
+
+        .header a.exit:hover {
+            color: #4d98dd;
+            background-image: url(../images/exit-on.png);
+        }
+
+
+#west {
+    position: absolute;
+    float: left;
+    top: 30px;
+    bottom: 40px;
+    background-color: #021f3a;
+}
+
+.west {
+    left: 0px;
+    width: 240px;
+}
+
+
+.person_info {
+    height: 190px;
+    position: relative !important;
+    text-align: center;
+    color: #fff;
+    z-index: 99;
+    background: #021f3a url(/static/main/images/avatar_bg.png) no-repeat center 20px;
+    text-align: center;
+}
+
+    .person_info > span {
+        display: block;
+        position: absolute;
+        bottom: 15px;
+        width: 240px;
+        font-size: 20px;
+        font-family: STXingkai;
+    }
+
+        .person_info > span > a {
+            color: #fff;
+            cursor: pointer;
+        }
+
+    .person_info > .avatar {
+        position: relative !important;
+        height: 220px;
+        width: 100%;
+    }
+
+        .person_info > .avatar > img {
+            width: 102px;
+            height: 102px;
+            border-radius: 102px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+#west_wrapper {
+}
+
+.first-menu {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    background: #1c364e;
+    overflow: no-display;
+    z-index: 99;
+}
+
+    .first-menu > li.scroll-up {
+        position: absolute;
+        top: 190px;
+        left: 0px;
+        width: 100%;
+        height: 15px;
+        background: #1c364e url(../images/icon/scroll-up.png) no-repeat center;
+        text-indent: -999em;
+        z-index: 998;
+        cursor: pointer;
+    }
+
+    .first-menu > li.scroll-down {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 15px;
+        border-top: 1px solid #808f9c;
+        background: #4e6375 url(../images/icon/scroll-down.png) no-repeat center;
+        text-indent: -999em;
+        z-index: 998;
+        cursor: pointer;
+    }
+
+    .first-menu > li {
+        border-top: 1px solid #495e71;
+    }
+
+
+        .first-menu > li.expend > a {
+            border-left: 10px solid #4d98dd;
+            background-color: #4e6375;
+        }
+
+        .first-menu > li > ul {
+            display: none;
+        }
+
+            .first-menu > li > ul > li {
+                border-top: 1px solid #495e71;
+                position: relative;
+            }
+
+                .first-menu > li > ul > li > a {
+                    color: #FFF;
+                    font-size: 14px;
+                    display: block;
+                    padding: 10px 20px 10px 60px;
+                    text-decoration: none;
+                    cursor: pointer;
+                    background-repeat: no-repeat;
+                    background-position: 20px center;
+                    background-size: 4px 4px;
+                    background-position-x: 45px;
+                    opacity: 0.75;
+                }
+
+                    .first-menu > li > ul > li > a:hover {
+                        background-color: #4e6375;
+                        text-decoration: none;
+                        opacity: 1;
+                    }
+
+                .first-menu > li > ul > li.current {
+                    background-color: #4e6375;
+                }
+
+        .first-menu > li.expend > ul {
+            display: block;
+        }
+
+        .first-menu > li > a > span {
+            background: url(../images/menu_plus.png) center center no-repeat;
+            background-size: 100% 100%;
+            display: inline-block;
+            width: 20px;
+            height: 11px;
+            float: right;
+            text-indent: -999em;
+            margin-top: 8px;
+        }
+
+        .first-menu > li.expend > a > span {
+            background: url(../images/menu_sign.png) center center no-repeat;
+            background-size: 100% 100%;
+            display: inline-block;
+            width: 20px;
+            height: 11px;
+            float: right;
+            text-indent: -999em;
+            margin-top: 8px;
+        }
+
+.left_menu_item {
+    letter-spacing: 4px;
+    cursor: pointer;
+    display: block;
+    padding: 20px 20px 20px 60px;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    background-size: 27px 27px;
+    color: #ffffff;
+    font-size: 14px;
+    opacity: 0.75;
+}
+
+    .left_menu_item:hover {
+        background-color: #4e6375;
+        border-left: 10px solid #4d98dd;
+        opacity: 1;
+        color: #ffffff !important;
+    }
+
+.first-menu > li > ul > li > ul {
+    z-index: 999;
+    position: absolute;
+    right: -210px;
+    top: 0px;
+    width: 200px;
+    padding-left: 10px;
+    background-image: url(../images/menu_bg.png);
+    background-repeat: no-repeat;
+    display: none;
+}
+
+.first-menu > li > ul > li:hover > ul {
+    display: block;
+}
+
+.first-menu > li > ul > li > ul > li {
+    padding: 10px 10px;
+    background: #ffffff;
+    border-bottom: solid 1px #ddd;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+    .first-menu > li > ul > li > ul > li:hover {
+        background: #4d98dd;
+    }
+
+    .first-menu > li > ul > li > ul > li a {
+        display: block;
+        padding: 0px 20px 0px 40px;
+        text-decoration: none;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: 20px center;
+        background-size: 4px 4px;
+        background-image: url(../images/icon/second_menu_icon-huise.png);
+    }
+
+        .first-menu > li > ul > li > ul > li a:hover {
+            color: #fff;
+        }
+
+.east {
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    bottom: 0;
+    overflow: hidden;
+    left: 240px;
+    bottom: 40px;
+    background: #e1e9f0;
+    float: left;
+}
+
+    .east .logo {
+        padding: 17px 30px;
+        background: #4d98dd;
+    }
+
+        .east .logo img {
+            margin-left: 5px;
+        }
+
+    .east .taskbar {
+        height: 30px;
+        display: none;
+    }
+
+.footer {
+    position: fixed;
+    clear: both;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+    background: #000102;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+}

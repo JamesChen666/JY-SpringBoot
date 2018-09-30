@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+        <tr>
+            <td class="left b">姓名:</td>
+            <td>
+                <input class="easyui-combotreegrid"  name="jobNumber"
+                                                            data-options="panelWidth:200,
+                                                              labelPosition:'left',
+                                                              url:'/teacher/teachingTeacher',
+                                                              idField:'Id',
+                                                              treeField:'Name',
+                                                              columns:[[
+                                                                  {field:'Name',title:'名称',width:200}
+                                                              ]]">
+            </td>
+            <td class="left b">日期:</td>
+            <td>
+                <input class="easyui-datebox" name="ClassDate" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">开始时间:</td>
+            <td>
+                <input class="easyui-timespinner" name="StartHour" data-options="required:true,showSeconds:true"/>
+            </td>
+            <td class="left b">结束时间:</td>
+            <td>
+                <input class="easyui-timespinner" name="EndHour" data-options="required:true,showSeconds:true"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

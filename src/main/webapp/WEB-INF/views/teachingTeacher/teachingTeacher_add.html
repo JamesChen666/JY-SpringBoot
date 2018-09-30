@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tab1" cellpadding="3">
+    <tbody>
+        <tr>
+            <td class="left b">姓名:</td>
+            <td>
+                 <input class="easyui-combotreegrid"  name="JobNumber"
+                                                 data-options="panelWidth:200,
+                                                     labelPosition:'left',
+                                                     url:'/teacher/combotreeList',
+                                                     idField:'Id',
+                                                     treeField:'Name',
+                                                     columns:[[
+                                                         {field:'Name',title:'名称',width:200}
+                                                     ]]">
+            </td>
+            <td class="left b">咨询方向:</td>
+            <td>
+                <input class="easyui-textbox" name="ConsultDir" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">教师简介:</td>
+            <td>
+                <textarea name="Description" style="width: 300px;height: 100px"></textarea>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

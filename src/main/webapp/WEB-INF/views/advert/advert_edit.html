@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/advert/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">广告位置:</td>
+            <td><input class="easyui-combobox" name="positionId" data-options="required:true" id="code"/></td>
+        </tr>
+        <tr>
+            <td class="left b">广告封面:</td>
+            <td><input class="easyui-textbox" name="cover" data-options="required:true" id="wjdz">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file" onchange="show();"
+                           style="width: 70px;height: 30px; margin-left: -52px;">
+                </a></td>
+
+        </tr>
+        <tr>
+            <td class="left b">跳转地址:</td>
+            <td><input class="easyui-textbox" name="redirectUrl" data-options="required:true"></td>
+        </tr>
+        <!--<tr>
+            <td class="left b">是否有效:</td>
+            <td><select class="easyui-comboboxcombobox" name="isEnabled" data-options="required:true">
+                <option value="true">是</option>
+                <option value="false">否</option>
+            </select></td>
+
+        </tr>-->
+        <!--<tr>
+            <td class="left b">操作人:</td>
+            <td><input class="easyui-textbox" name="userId" data-options="required:true"></td>
+        </tr>
+        <tr>
+            <td class="left b">操作时间:</td>
+            <td><input class="easyui-datebox" name="createDate" data-options="required:true"></td>
+        </tr>-->
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+<script>
+    $(function () {
+        $.post("/advertPosition/list", {page: 1, rows: 20, sidx: "Id", sord: "asc"}, function (data) {
+            var html = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                if (data.rows[i].Title != null && data.rows[i].Title != undefined && data.rows[i].Title != "undefined") {
+                    html += '<option value ="' + data.rows[i].Id + '">' + data.rows[i].Title + '</option>';
+                }
+            }
+            $('#code').append(html);
+            $("#code").combobox({});
+        });
+    })
+</script>
+</body>
+</html>

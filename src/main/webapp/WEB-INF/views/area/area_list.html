@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/area/list",
+                idField: "Id",
+                textField: 'AreaCode',
+                treeGridModel: 'adjacency',
+                sortName: "sort",
+                colNames: ['Id', "地区名称", "地区代码","上级地区","排序"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'AreaName', index: 'AreaName', align: "center", width: 100},
+                    {name: 'AreaCode', index: 'AreaCode', align: "center", width: 200},
+                    {name: 'ParentName', index: 'ParentName', align: "center", width: 200},
+                    {name: 'Sort', index: 'Sort', align: "center",  width: 100}
+                ],
+                pager: "#pager",
+                ExpandColumn: "AreaCode",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "行政区划管理-新增行政区划",
+                                btnName: "新增行政区划",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/area/add",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "行政区划管理-修改行政区划",
+                                btnName: "修改行政区划",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/area/edit?id={id}",
+                                save: "save",
+                                fit:true
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/area/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/area/export"
+                            }
+                        ]
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">地区名称/地区代码：</div>
+        <input id="s_AreaName" name="sm_ba.AreaName-ba.AreaCode" type="text" value="" />
+        <div class="adv-select-label">上级地区：</div>
+        <input class="easyui-combotreegrid" name="s_ba.ParentId"
+               data-options=" panelWidth:400,
+                                labelPosition:'left',
+                                url:'/area/combotreeList',
+                                idField:'Id',
+                                treeField:'AreaName',
+                                columns:[[
+                                    {field:'AreaName',title:'名称',width:200},
+                                    {field:'AreaCode',title:'代码',width:200}
+                                ]]">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnSearch">重置查询</button>
+    </div>
+</div>
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

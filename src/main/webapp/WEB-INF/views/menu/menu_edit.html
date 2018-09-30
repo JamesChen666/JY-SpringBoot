@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/menu/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">菜单名称</td>
+            <td>
+                <input class="easyui-textbox" name="menuName" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">菜单编码</td>
+            <td>
+                <input class="easyui-textbox" name="menuCode"
+                       data-options="required:true,validType:'flowcode',prompt:'只能输入字母和数字'">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">链接地址</td>
+            <td>
+                <input class="easyui-textbox" name="url" data-options="required:false">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">上级菜单</td>
+            <td>
+                <input class="easyui-combobox" name="parentId" data-options="required:false,
+                                                                         valueField: 'Id',
+                                                                         textField: 'MenuName',
+                                                                         url: '/menu/parentList'
+                                                                         ">
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">排序</td>
+            <td>
+                <input class="easyui-numberbox" name="sort" data-options="required:true">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

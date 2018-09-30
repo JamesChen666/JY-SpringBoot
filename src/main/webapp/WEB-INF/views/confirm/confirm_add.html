@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+
+    <tr>
+        <td class="left b">姓名</td>
+        <td>
+            <select id="cc" class="easyui-combogrid" name="studentId" 
+                    data-options="
+                            panelWidth:400,
+                            idField:'Id',
+                            textField:'RealName',
+                            url:'/student/gridList',
+                            columns:[[
+                                {field:'RealName',title:'姓名',width:100},
+                                {field:'StudentNumber',title:'学号',width:100},
+                                {field:'StatusClassName',title:'学籍班级',width:100},
+                                {field:'ControlClassName',title:'班级',width:100}
+                            ]]
+                        "></select>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">是否确认</td>
+        <td>
+            <select class="easyui-combobox" name="isConfirm"
+                    data-options="required:true">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">确认时间</td>
+        <td>
+            <input class="easyui-datetimebox" name="confirmDate"
+                   data-options="required:true">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

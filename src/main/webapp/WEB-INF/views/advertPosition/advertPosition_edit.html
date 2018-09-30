@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/advertPosition/edit/${id}" class="easyui-form" >
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">标题:</td>
+            <td><input class="easyui-textbox"  name="title" data-options="required:true"></td>
+        </tr>
+        <tr>
+            <td class="left b">描述:</td>
+            <td><input class="easyui-textbox"  name="description" data-options="required:false"></td>
+        </tr>
+        <tr>
+            <td class="left b">默认封面:</td>
+            <td><input class="easyui-textbox"  name="defaultCover" data-options="required:true"
+                       id="wjdz">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file" onchange="show();"
+                           style="width: 70px;height: 30px; margin-left: -52px;">
+                </a></td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+</body>
+</html>

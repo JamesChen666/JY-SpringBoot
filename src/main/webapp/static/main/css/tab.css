@@ -1,0 +1,139 @@
+﻿
+.tabs-scroll {
+    float: left;
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
+    display: none;
+}
+
+.scroll-left {
+    background: url('../images/left.png') no-repeat;
+}
+
+.scroll-right {
+    background: url('../images/right-on.png') no-repeat;
+}
+
+.scroll-left:hover {
+    background: url('../images/left-on.png') no-repeat;
+}
+
+.scroll-right:hover {
+    background: url('../images/right-on.png') no-repeat;
+}
+
+.tabs-container {
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 2px solid rgb(61,115,165);
+    background: #e1e9f0;
+    height: 30px;
+    width: 100%;
+}
+
+    .tabs-container div {
+        display: inline-block;
+        position: relative;
+        margin-right: -57px;
+        z-index: 998;
+    }
+
+        .tabs-container div.selected {
+            z-index: 999;
+        }
+
+        .tabs-container div a.left {
+            background: url(../images/task_left.png) center center no-repeat;
+            background-size: 34px 30px;
+            width: 34px;
+            height: 30px;
+            float: left;
+        }
+
+            .tabs-container div a.left.first {
+                background: url(../images/task-left-first.png) center center no-repeat;
+                background-size: 10px 30px;
+                width: 10px;
+                min-width: 10px;
+                height: 30px;
+            }
+
+        .tabs-container div a.right {
+            background: url(../images/task-right.png) center center no-repeat;
+            background-size: 34px 30px;
+            width: 34px;
+            height: 30px;
+            float: left;
+        }
+
+        .tabs-container div span.tab {
+            display: inline-block;
+            min-width: 60px !important;
+            padding: 0px 35px 0px 12px;
+            width: auto !important;
+            text-decoration: none;
+            height: 30px;
+            color: #000;
+            font-size: 14px;
+            line-height: 30px;
+            position: relative;
+            float: left;
+            background: url(../images/tab_bg.png) repeat-x;
+            cursor: pointer;
+        }
+
+        .tabs-container div.selected span.tab {
+            color: #fff;
+            background: url(../images/tab_bg_selected.png) repeat-x;
+            padding: 0px 10px 0px 10px;
+        }
+
+        .tabs-container div.selected a.left {
+            background: url(../images/task_left_selected.png) center center no-repeat;
+            background-size: 34px 30px;
+        }
+
+            .tabs-container div.selected a.left.first {
+                background: url(../images/task_left_first_selected.png) center center no-repeat;
+                background-size: 34px 30px;
+            }
+
+        .tabs-container div.selected a.right {
+            background-size: 34px 30px;
+            background: url(../images/task-right_selected.png) center center no-repeat;
+        }
+
+        .tabs-container div a.close {
+            display: none;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            top: 7px;
+            margin-left: 5px;
+            background: url('../images/tabs_close.png') 0px center no-repeat;
+        }
+
+        .tabs-container div.selected a.close {
+            background: url('../images/tabs_close-selected.png') 0px center no-repeat;
+        }
+
+        .tabs-container div.selected a.close {
+            display: inline-block;
+            display: inline;
+            zoom: 1;
+        }
+
+#east .tabs-panel {
+    display: none;
+    padding: 10px 10px 10px 13px;
+}
+
+    #east .tabs-panel.selected {
+        display: block;
+    }
+
+    #east .tabs-panel iframe {
+        width: 100%;
+    }

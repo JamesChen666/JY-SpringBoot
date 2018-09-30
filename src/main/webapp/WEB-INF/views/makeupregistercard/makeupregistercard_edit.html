@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/makeupregistercard/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="left b">姓名</td>
+            <td>
+                <select id="cc" class="easyui-combogrid" name="studentId"
+                        data-options="
+                        panelWidth:400,
+                        idField:'Id',
+                        textField:'RealName',
+                        url:'/student/gridList',
+                        columns:[[
+                            {field:'RealName',title:'姓名',width:100},
+                            {field:'StudentNumber',title:'学号',width:100},
+                            {field:'ClassName',title:'班级',width:200}
+                        ]]
+                    "></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="left b">补办类型</td>
+            <td>
+                <input id="cc" class="easyui-combobox" name="typeCode"  data-options=" required:true,
+                                                                                         valueField:'memberValue',
+                                                                                         textField:'displayText',
+                                                                                         url:'/dictionary/dictionaryCode/GQBBYYM'">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

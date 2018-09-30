@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            const names = ['Id',];
+            const models = [{name: 'Id', index: 'Id', hidden: true},];
+            $.post("/field/openList", function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    names.push(data[i].cnTitle);
+                    if ( data[i].fieldCode.indexOf("Is")>=0){
+                        models.push({
+                            name: '' + data[i].fieldCode + '',
+                            index: '' + data[i].fieldCode + '',
+                            align: 'center',
+                            formatter:School.formatBIT
+                        });
+                    }else if (data[i].fieldCode=="Sex") {
+                        models.push({
+                            name: '' + data[i].fieldCode + '',
+                            index: '' + data[i].fieldCode + '',
+                            align: 'center',
+                            formatter:School.formatSex
+                        });
+                    }else {
+                        models.push({
+                            name: '' + data[i].fieldCode + '',
+                            index: '' + data[i].fieldCode + '',
+                            align: 'center',
+                            width: 100
+                        });
+                    }
+                }
+                $("#list").ex_grid({
+                    url: "/student/list",
+                    idField: "Id",
+                    textField: 'RealName',
+                    treeGridModel: 'adjacency',
+                    sortName: "Id",
+                    colNames: names,
+                    colModel: models,
+                    pager: "#pager",
+                    ExpandColumn: "RealName",
+                    buttons:
+                            [
+                                {
+                                    type: "AddOrUpdate",
+                                    title: "学生管理-新增学生",
+                                    btnName: "新增学生",
+                                    btnCode: "Add",
+                                    iconCls: "icon-add",
+                                    listId: "#list",
+                                    href: "/student/add",
+                                    save: "save",
+                                    fit:true
+                                },
+                                {
+                                    type: "AddOrUpdate",
+                                    iconCls: "icon-edit",
+                                    title: "学生管理-修改学生",
+                                    btnName: "修改学生",
+                                    btnCode: "Edit",
+                                    listId: "#list",
+                                    href: "/student/edit?id={id}",
+                                    save: "save",
+                                    fit:true
+                                },
+                                {
+                                    type: "Del",
+                                    btnName: "删除",
+                                    btnCode: "Delete",
+                                    listId: "#list",
+                                    save: "delete"
+                                },
+                                {
+                                    type: "Del",
+                                    btnName: "启用",
+                                    btnCode: "Enable",
+                                    confirm: "您确定要启用选中的学生吗？",
+                                    listId: "#list",
+                                    args: {flag: true},
+                                    save: "disableOrEnable"
+                                },
+                                {
+                                    type: "Del",
+                                    btnName: "禁用",
+                                    btnCode: "Disable",
+                                    confirm: "您确定要禁用选中的学生吗？",
+                                    listId: "#list",
+                                    args: {flag: false},
+                                    save: "disableOrEnable"
+                                },
+                                {
+                                    type: "Custom",
+                                    btnName: "导入",
+                                    btnCode: "Import",
+                                    listId: "#list",
+                                    ClickFun:function(){
+                                        ImportPanel.importPanel({
+                                            title: "生源信息导入",
+                                            width: 500,
+                                            height: 300,
+                                            iconCls: "icon-import",
+                                            save: "/student/import"
+                                        }, "学生基础信息导入模板.xls", "学生基础信息导入模板")
+                                    }
+                                },
+                                {
+                                    type: "Export",
+                                    btnName: "导出",
+                                    btnCode: "Export",
+                                    listId: "#list",
+                                    save: "/student/export"
+                                }
+                            ]
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">姓名/学号/考生/身份证号：</div>
+        <input name="sm_RealName-StudentNumber-ExamineNumber-IdCard" type="text" value=""/>
+        <div class="adv-select-label">班级：</div>
+        <input class="easyui-combotreegrid" name="s_ClassNumber"
+               data-options="panelWidth:500,
+                            labelPosition:'left',
+                            url:'/class/combotreeList',
+                           idField:'Id',
+                            treeField:'Name',
+                            columns:[[
+                                {field:'Name',title:'名称',width:200}
+                            ]]">
+        <div class="adv-select-label">性别：</div>
+        <select id="s_Sex" name="s_Sex">
+            <option value="">==所有==</option>
+            <option value="1">男</option>
+            <option value="0">女</option>
+        </select>
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
+    </div>
+
+</div>
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

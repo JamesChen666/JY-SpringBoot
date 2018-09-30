@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">广告位置:</td>
+        <td>
+            <input class="easyui-combobox" name="PositionId" data-options="required:true,
+                                                                         valueField: 'Id',
+                                                                         textField: 'Title',
+                                                                         url: '/advertPosition/advertPositionList'"/>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">广告封面:</td>
+        <td><input class="easyui-textbox" name="Cover" data-options="required:true" id="wjdz">
+            <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file" onchange="show();"
+                       style="width: 70px;height: 30px; margin-left: -52px;">
+            </a></td>
+
+    </tr>
+    <tr>
+        <td class="left b">跳转地址:</td>
+        <td><input class="easyui-textbox" name="RedirectUrl" data-options="required:true"></td>
+    </tr>
+    <!--<tr>
+        <td class="left b">是否有效:</td>
+        <td><select class="easyui-combobox" name="IsEnabled" data-options="required:true">
+            <option value="true">是</option>
+            <option value="false">否</option>
+        </select></td>
+
+    </tr>-->
+    <!--<tr>
+        <td class="left b">操作人:</td>
+        <td><input class="easyui-textbox" name="UserId" data-options="required:true"></td>
+    </tr>
+    <tr>
+        <td class="left b">操作时间:</td>
+        <td><input class="easyui-datebox" name="CreateDate" data-options="required:true"></td>
+    </tr>-->
+    </tbody>
+</table>
+
+
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">标题</td>
+        <td>
+            <input class="easyui-textbox"  name="title" data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">链接类型</td>
+        <td>
+            <input class="easyui-combobox" name="TypeCode" data-options="required:true,
+                                                                         valueField: 'TypeCode',
+                                                                         textField: 'TypeName',
+                                                                         url: '/friendlinktype/friendlinktypeList'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">跳转地址</td>
+        <td>
+            <input class="easyui-textbox"  name="redirectUrl"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">排序</td>
+        <td>
+            <input class="easyui-textbox" type="number" name="sort" data-options="required:true">
+        </td>
+    </tr>
+    <!--<tr>
+        <td class="left b">是否启用</td>
+        <td>
+            <select class="easyui-combobox" name="isEnabled" data-options="required:true">
+                <option value="true">是</option>
+                <option value="false">否</option>
+            </select>
+        </td>
+    </tr>-->
+    </tbody>
+</table>
+<script>
+    $(function(){
+        var  html = "";
+        var url = '/friendlinktype/list';
+        $.post(url,{page:1,rows:50,sidx:"Id",sord:"asc"}, function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<option value ="'+data.rows[i].TypeCode+'">'+data.rows[i].TypeName+'</option>';
+            }
+            $('#code').append(html);
+            $("#code").combobox({});
+        })
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/friendlinktype/list",
+                idField: "Id",
+                textField: 'Id',
+                treeGridModel: 'adjacency',
+                sortName: "Sort",
+                colNames: ['Id', "类型名称", "链接类型代码","排序","是否启用"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'TypeName', index: 'TypeName', align: "center", width: 100},
+                    {name: 'TypeCode', index: 'TypeCode', align: "center", width: 100},
+                    {name: 'Sort', index: 'Sort', align: "center", width: 100},
+                    {name: 'IsEnabled', index: 'IsEnabled', align: "center", width: 100,formatter: School.formatBIT}
+                ],
+                pager: "#pager",
+                ExpandColumn: "Id",
+                buttons:
+                        [
+                            {
+                                type: "AddOrUpdate",
+                                title: "链接类型管理-新增链接类型",
+                                btnName: "新增链接类型",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/friendlinktype/add",
+                                save: "save",
+                                height: 500
+                            },
+                            {
+                                type: "AddOrUpdate",
+                                iconCls: "icon-edit",
+                                title: "链接类型管理-新增链接类型",
+                                btnName: "新增链接类型",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/friendlinktype/edit?id={id}",
+                                save: "save",
+                                height: 500
+                            },
+                            {
+                                type: "Del",
+                                btnName: "启用",
+                                btnCode: "Enable",
+                                confirm: "您确定要启用选中的类型吗？",
+                                listId: "#list",
+                                args: {flag: true},
+                                save: "disableOrEnable"
+                            },
+                            {
+                                type: "Del",
+                                btnName: "禁用",
+                                btnCode: "Disable",
+                                confirm: "您确定要禁用选中的类型吗？",
+                                listId: "#list",
+                                args: {flag: false},
+                                save: "disableOrEnable"
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "delete"
+                            },
+                            {
+                                type: "Import",
+                                btnName: "导入",
+                                btnCode: "Import",
+                                listId: "#list",
+                                save: "/friendlinktype/import"
+                            },
+                            {
+                                type: "Export",
+                                btnName: "导出",
+                                btnCode: "Export",
+                                listId: "#list",
+                                save: "/friendlinktype/export"
+                            }
+                        ]
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">类型名称/链接类型代码：</div>
+        <input class="easyui-textbox"  name="sm_typeName-typeCode" value="">
+        <div class="adv-select-label">是否启用：</div>
+        <select id="s_IsEnabled" name="s_IsEnabled">
+            <option value="">==所有==</option>
+            <option value="1">是</option>
+            <option value="0">否</option>
+        </select>
+    </div>
+    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
+    </div>
+</div>
+
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

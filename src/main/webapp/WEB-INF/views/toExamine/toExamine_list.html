@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/toExamine/list",
+                idField: "Id",
+                textField: 'Id',
+                treeGridModel: 'adjacency',
+                sortName: "Id",
+                sortOrder:"asc",
+                colNames: ['Id', "类型", "审核状态","审核人","审核时间","审核意见"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'tableName', index: 'tableName', align: "center", width: 100},
+                    {name: 'Status', index: 'Status', align: "center", width: 150,formatter:convertStatus},
+                    {name: 'RealName', index: 'RealName', align: "center", width: 200},
+                    {name: 'ExamineDate', index: 'ExamineDate', align: "center", width: 200},
+                    {name: 'ExamineRemark', index: 'ExamineRemark', align: "center", width: 200},
+                ],
+                pager: "#pager",
+                ExpandColumn: "Id",
+                buttons:
+                    [
+                        {
+                            type: "Examine",
+                            btnName: "审核通过",
+                            btnCode: "Enable",
+                            confirm: '审核意见：',
+                            listId: "#list",
+                            args: {flag: true},
+                            save: "toExamine"
+                        },
+                        {
+                            type: "Examine",
+                            btnName: "审核不通过",
+                            btnCode: "Disable",
+                            confirm: "审核意见：",
+                            listId: "#list",
+                            args: {flag: false},
+                            save: "toExamine"
+                        }
+                    ]
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <!--<div class="adv-select-label">单位名称/联系人/单位联系地址</div>
+        <input class="easyui-textbox" name="sm_corpName-contactor-address" value=""/>-->
+        <!--<div class="adv-select-label">联系人：</div>
+        <input class="easyui-textbox"  name="s_contactor" value="">
+        <div class="adv-select-label">单位联系地址：</div>
+        <input class="easyui-textbox"  name="s_address" value="">-->
+        <div class="adv-select-label">审核状态：</div>
+        <select class="easyui-combobox" name="s_status" data-options="">
+            <option value="">==所有==</option>
+            <option value="1">通过</option>
+            <option value="2">不通过</option>
+            <option value="3">未审核</option>
+        </select>
+    </div>
+    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
+    </div>
+</div>
+
+
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

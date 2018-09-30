@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">姓名</td>
+        <td>
+            <input class="easyui-textbox" name="realName" data-options="required:true">
+        </td>
+        <td class="left b">学号</td>
+        <td>
+            <input class="easyui-textbox" name="studentNumber"
+                   data-options="required:true,validType:'username',prompt:'只能输入字母和数字'">
+        <td class="left b">考生号</td>
+        <td>
+            <input class="easyui-textbox" name="examineNumber"
+                   data-options="required:true,validType:'username',prompt:'只能输入字母和数字'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">身份证号码</td>
+        <td>
+            <input class="easyui-textbox" name="idCard" data-options="required:true,validType:'IdCard'">
+        </td>
+        <td class="left b">性别</td>
+        <td>
+            <select class="easyui-combobox" name="sex"
+                    data-options="required:true">
+                <option value="1">男</option>
+                <option value="0">女</option>
+            </select>
+        </td>
+        <td class="left b">民族</td>
+        <td>
+            <input class="easyui-combobox" name="nationCode" data-options=" required:false,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/MZDM'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">政治面貌</td>
+        <td>
+            <input class="easyui-combobox" name="politicalCode" data-options=" required:true,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/ZZMMDM'">
+        </td>
+        <td class="left b">学历</td>
+        <td>
+            <input class="easyui-combobox" name="levelCode" data-options=" required:true,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/XLDM'">
+        </td>
+        <td class="left b">生源地</td>
+        <td>
+            <input class="easyui-combotree" name="originCode" data-options="required:true,
+                                                                            panelWidth:200,
+                                                                            labelPosition:'left',
+                                                                            url:'/area/combotreeList',
+                                                                            idField:'AreaCode',
+                                                                            textField:'AreaName'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">培养方式</td>
+        <td>
+            <input class="easyui-combobox" name="cultureCode" data-options=" required:true,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/JYPYFSDM'">
+        </td>
+        <td class="left b">主修外语语种</td>
+        <td>
+            <input class="easyui-combobox" name="majorLanguageCode" data-options=" required:false,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/ZXWYYZDM'">
+        </td>
+        <td class="left b">入学时间</td>
+        <td>
+            <input class="easyui-textbox" name="enromDate"
+                   data-options="required:true,validType:'number',prompt:'只能输入4位数字'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">毕业时间</td>
+        <td>
+            <input class="easyui-textbox" name="graduationDate"
+                   data-options="required:true,validType:'number',prompt:'只能输入4位数字'">
+        </td>
+        <td class="left b">生日</td>
+        <td>
+            <input class="easyui-datebox" name="birthday"
+                   data-options="required:false">
+        </td>
+        <td class="left b">师范生类别</td>
+        <td>
+            <input class="easyui-combobox" name="normalCode" data-options=" required:true,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/JYSFSLBDM'">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">困难生类别</td>
+        <td>
+            <input class="easyui-combobox" name="difficultCode" data-options=" required:true,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/JYKNLXDM'">
+        </td>
+        <td class="left b">低保家庭困难生类别</td>
+        <td>
+            <input class="easyui-combobox" name="subsistenceCode" data-options=" required:true,
+                                                                                valueField:'memberValue',
+                                                                                textField:'displayText',
+                                                                                url:'/dictionary/dictionaryCode/CXJMDBJTLXDM'">
+        </td>
+        <td class="left b">定向或委派单位</td>
+        <td>
+            <input class="easyui-textbox" name="direOrDeleUnit"
+                   data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">班级</td>
+        <td>
+            <input class="easyui-combotree" name="classNumber" id="cls"
+                   data-options=" required:true,
+                                panelWidth:200,
+                                labelPosition:'left',
+                                url:'/class/combotreeList',
+                                idField:'Id',
+                                textField:'Name',
+                               onSelect:function(node){
+                                    if(node.children!='undefined'&&node.children!=null){
+                                        $('#cls').combotree('clear');
+                                    }
+                                },
+                                onClick: function(rowIndex, rowData){
+                                    $.post('/student/specialty',{classNo:rowIndex.Id},function(data){
+                                        $('#specialty').combobox('setValue',data.SpecialtyCode);
+                                        $('#faculty').textbox('setValue',data.FacultyName);
+                                        $('#campus').textbox('setValue',data.CampusName);
+                                    })
+                                }">
+        </td>
+        <td class="left b">专业</td>
+        <td>
+            <select class="easyui-combobox" name="SpecialtyCode" id="specialty"
+                    data-options="valueField:'SpecialtyCode',
+                                    textField:'SpecialtyName',
+                                    url:'/specialty/gridList',
+                                    readonly:'true'">
+            </select>
+        </td>
+        <td class="left b">院系</td>
+        <td>
+            <input class="easyui-textbox" name="faculty" id="faculty" data-options="required:false" disabled>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">校区</td>
+        <td>
+            <input class="easyui-textbox" name="campus" id="campus" data-options="required:false" disabled>
+        </td>
+        <td class="left b">专业方向</td>
+        <td>
+            <input class="easyui-textbox" name="specialtyDir"
+                   data-options="required:false">
+        </td>
+        <td class="left b">城乡生源</td>
+        <td>
+            <input class="easyui-combobox" name="urbanOrRuralCode"
+                   data-options=" required:false,
+                                valueField:'memberValue',
+                                textField:'displayText',
+                                url:'/dictionary/dictionaryCode/CXSYDM'">
+
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">入学前档案所在单位</td>
+        <td>
+            <input class="easyui-textbox" name="beforeArchives"
+                   data-options="required:false">
+        </td>
+
+        <td class="left b">档案是否转入学校</td>
+        <td>
+            <select class="easyui-combobox" name="isArchiveIntoSchool"
+                    data-options="required:false">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </td>
+        <td class="left b">入学前户口所在地派出所</td>
+        <td>
+            <input class="easyui-textbox" name="beforeResidentPolice"
+                   data-options="required:false">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">户口是否转入学校</td>
+        <td>
+            <select class="easyui-combobox" name="isResidentIntoSchool"
+                    data-options="required:false">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </td>
+        <td class="left b">电话</td>
+        <td>
+            <input class="easyui-textbox" name="telephone" data-options="required:false">
+        </td>
+        <td class="left b">邮箱</td>
+        <td>
+            <input class="easyui-textbox" name="email" data-options="required:false">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">QQ</td>
+        <td>
+            <input class="easyui-textbox" name="QqNumber" data-options="required:false">
+        </td>
+        <td class="left b">家庭地址</td>
+        <td>
+            <input class="easyui-textbox" name="familyAddress"
+                   data-options="required:false">
+        </td>
+        <td class="left b">家庭联系方式</td>
+        <td>
+            <input class="easyui-textbox" name="familyPhone"
+                   data-options="required:false">
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">家庭邮编</td>
+        <td>
+            <input class="easyui-textbox" name="familyZipCode"
+                   data-options="required:false">
+        </td>
+        <td class="left b">备注</td>
+        <td>
+            <input class="easyui-textbox" name="remarks"
+                   data-options="required:false">
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

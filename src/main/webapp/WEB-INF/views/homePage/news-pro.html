@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四川师范大学-就业信息网</title>
+    <link rel="stylesheet" href="../../../static/homePage/css/swiper-4.2.6.min.css">
+    <link href="../../../static/homePage/css/web_sf.css" rel="stylesheet" />
+    <script src="../../../static/homePage/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../../static/homePage/js/swiper-4.2.6.min.js"></script>
+    <script type="text/javascript" src="/static/homePage/js/currency.js"></script>
+
+    <script>
+        var swiper1 = new Swiper('#swiper1',{
+            pagination: {
+                el: '.swiper-pagination',
+                clickable :true,
+            },
+            loop: true,
+            autoplay:true,
+        });
+
+
+      $(function () {
+          var code = '${code}';
+          $("#lb").attr("href","/home/?page=1&rows=5&sidx=Id&sord=asc&code="+code);
+          $.ajax({
+              type: "post",
+              dataType: "json",
+              url: '/home/queryDetails',
+              data: {"id": getQueryStringByName("id"),"code": getQueryStringByName("code")},
+              success: function (data) {
+                  if (data != null) {
+                      /*$('.article').html(data.articleContent);
+                      console.log(data.articleContent);*/
+                     var html = '<p class="news-pro-t text-c">'+data[0].Title+'</p>\n' +
+                          '    <div class="text-c c95 news-pro-data">\n' +
+                          '        <span>'+fmtDate(data[0].CreateDate)+'</span>\n' +
+                          '        <span class="xcb"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+data[0].Resource+'</span>\n' +
+                          '        <span><img src="../../../static/homePage/img/news-data-bg01.png" alt="">阅读 ：'+data[0].ClickCount+'</span>\n' +
+                          '    </div>\n' +
+                          '    <div class="line2"></div>\n' +
+                          '    <div class="news-zw">\n' +
+                          '        <p class="margintop20">'+data[0].Content+'</p>\n' +
+                          '    </div>';
+                      $("#nr").append(html);
+                  }
+                  else {
+                      alert("暂无数据!");
+                  }
+              }
+          });
+        });
+
+        function getQueryStringByName(name) {
+            var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+            if (result == null || result.length < 1) {
+                return "";
+            }
+            return result[1];
+        }
+
+    </script>
+</head>
+<body>
+<!--页头-->
+<div class="bg">
+    <div class="header bt-box-1024 clear">
+        <img src="../../../static/homePage/img/logo.png" alt="">
+        <div class="bt-r search" >
+            <form   action=""  class=" text-r">
+                <button  class="bt-r">搜 索</button>
+                <input type="text" class="bt-r" placeholder="输入关键字">
+            </form>
+        </div>
+        <div class="nav">
+            <ul class="bt-box-1024 nav-li clear" id="nav">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!--导航轮播-->
+<div class="i-banner">
+    <img src="../../../static/homePage/img/news-banner.png" alt="">
+</div>
+<!--当前位置-->
+<div class="nav-bar bt-box-1024">
+    <img src="../../../static/homePage/img/nav-bar01.png" alt="">
+    <span>当期位置：<a href="/">首页</a> > <a href="" id="lb">${lbName}</a> > <span>${name}</span> > </span>
+</div>
+<!--新闻详情-->
+<div class="bt-box-1024" id="nr">
+
+</div>
+<div class="line " style="margin-top: 60px"></div>
+<div class="bt-box-1024 box" style="width: 960px;margin: 30px auto" id="link">
+
+</div>
+<!--页尾-->
+<div class="link">
+    <div class="bt-box-1024 text-c cff">
+        <p>联系电话：028-84768877,84760653（就业科）,028-84767065（传真）,电子邮件： scsdzjc@126.com</p>
+        <p class="margintop15">通讯地址：四川省成都市锦江区静安路5号（四川师范大学狮子山校区）&nbsp&nbsp&nbsp今日访问量：<span>2706739</span>&nbsp&nbsp&nbsp总访问量：<span>9983772</span></p>
+        <p class="margintop15">©四川师范大学招生就业处&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp成都易科士信息产业公司.</p>
+    </div>
+</div>
+</body>
+</html>
