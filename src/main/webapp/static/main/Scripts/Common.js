@@ -300,6 +300,111 @@ $.fn.bindEventForBtn = function (options, callback) {
                     }
                 });
             }
+            else if (item.type == "Relation") {
+                callback("navButtonAdd", options.pager, {
+                    caption: item.btnName,
+                    onClickButton: function () {
+                        debugger
+                        var _option = $.extend({
+                            cache: false,
+                            width: 700,
+                            height: 300,
+                            resizable: false,
+                            zIndex: 9000,
+                            maximizable: false,
+                            collapsible: false,
+                            listId: "#list",
+                            onClose: function () {
+                                showPanel.dialog("destroy");
+                            },
+                            fit: false,
+                            modal: true,
+                            buttons: item.isShowOK != false ? [
+                                {
+                                    iconCls: 'icon-ok', text: "确定", handler: function () {
+                                        if (item.validateing) {
+                                            if (item.validateing(item) == false)
+                                                return;
+                                        }
+                                        if (item.save) {
+                                            if (showPanel.form('validate')) {
+                                                var args = showPanel.find("input,textarea,select").formSerialize();
+
+                                                if (item.submit) {
+                                                    args = item.submit(args);
+                                                }
+                                                School.waitPanel.showWait("", 99999);
+                                                $.post(item.save, args, function (result) {
+                                                    School.waitPanel.closeWait()
+                                                    if (result.flag) {
+                                                        if (item.callback) {
+                                                            item.callback(result)
+                                                        }
+                                                        top.$.messager.alert("系统提示", (!result.msg || result.msg == "" || result.msg == null) ? "操作成功！" : result.msg, "info");
+
+                                                        $(_option.listId).trigger("reloadGrid");
+                                                        showPanel.dialog("close");
+                                                    }
+                                                    else {
+                                                        top.$.messager.alert("系统提示", result.msg == null ? "操作失败，对此抱歉！" : result.msg, "error");
+                                                    }
+                                                });
+                                            }
+                                        } else {
+                                            showPanel.dialog("close");
+                                        }
+                                    }
+                                },
+                                {
+                                    iconCls: 'icon-cancel', text: "取消", handler: function () {
+                                        if (item.onClose) {
+                                            item.onClose();
+                                        }
+                                        showPanel.dialog("close");
+                                    }
+                                }
+                            ] : [{
+                                iconCls: 'icon-cancel', text: "取消", handler: function () {
+
+                                    if (item.onClose) {
+                                        item.onClose();
+                                    }
+                                    showPanel.dialog("close");
+                                }
+                            }]
+                        }, item);
+                        if (_option.href.indexOf("{id}") != -1) {
+                            var rowids = getIds();
+                            if (rowids == null || rowids.length == 0) {
+                                top.$.messager.alert("系统提示", "请选择一条记录.", "error");
+                                return;
+                            } else if (rowids[1]) {
+                                top.$.messager.alert("系统提示", "只能选择一条记录.请更正！", "error");
+                                return;
+                            }
+                            _option.href = _option.href.replace("{id}", rowids[0]);
+                        }
+                        /*if (_option.href.indexOf("{parentid}") != -1) {
+                            var rowids = getIds();
+                            var parentid = 0;
+                            if (rowids == null || rowids.length == 0) {
+                                parentid = 0
+                            } else if (rowids[1]) {
+                                parentid = 0
+                            } else {
+                                parentid = rowids[0]
+                            }
+                            _option.href = _option.href.replace("{parentid}", parentid);
+                        }
+                        if (options.textField && _option.title && _option.title.indexOf("{0}") != -1) {
+                            var rowid = callback("getGridParam", "selrow");
+                            var obj = callback("getRowData", rowid)[options.textField]
+                            _option.title = _option.title.replace("{0}", obj)
+                        }*/
+                        showPanel.dialog(_option);
+                    }
+                });
+            }
             else if (item.type == "AddOrUpdate") {
                 callback("navButtonAdd", options.pager, {
                     caption: item.btnName,
@@ -328,7 +433,111 @@ $.fn.bindEventForBtn = function (options, callback) {
                                         if (item.save) {
                                             if (showPanel.form('validate')) {
                                                 var args = showPanel.find("input,textarea,select").formSerialize();
+                                                if (item.submit) {
+                                                    args = item.submit(args);
+                                                }
+                                                School.waitPanel.showWait("", 99999);
+                                                $.post(item.save, args, function (result) {
+                                                    School.waitPanel.closeWait()
+                                                    if (result.flag) {
+                                                        if (item.callback) {
+                                                            item.callback(result)
+                                                        }
+                                                        top.$.messager.alert("系统提示", (!result.msg || result.msg == "" || result.msg == null) ? "操作成功！" : result.msg, "info");
 
+                                                        $(_option.listId).trigger("reloadGrid");
+                                                        showPanel.dialog("close");
+                                                    }
+                                                    else {
+                                                        top.$.messager.alert("系统提示", result.msg == null ? "操作失败，对此抱歉！" : result.msg, "error");
+                                                    }
+                                                });
+                                            }
+                                        } else {
+                                            showPanel.dialog("close");
+                                        }
+                                    }
+                                },
+                                {
+                                    iconCls: 'icon-cancel', text: "取消", handler: function () {
+                                        if (item.onClose) {
+                                            item.onClose();
+                                        }
+                                        showPanel.dialog("close");
+                                    }
+                                }
+                            ] : [{
+                                iconCls: 'icon-cancel', text: "取消", handler: function () {
+
+                                    if (item.onClose) {
+                                        item.onClose();
+                                    }
+                                    showPanel.dialog("close");
+                                }
+                            }]
+                        }, item);
+                        if (_option.href.indexOf("{id}") != -1) {
+                            var rowids = getIds();
+                            if (rowids == null || rowids.length == 0) {
+                                top.$.messager.alert("系统提示", "请选择一条记录.", "error");
+                                return;
+                            } else if (rowids[1]) {
+                                top.$.messager.alert("系统提示", "只能选择一条记录.请更正！", "error");
+                                return;
+                            }
+                            _option.href = _option.href.replace("{id}", rowids[0]);
+                        }
+                        if (_option.href.indexOf("{parentid}") != -1) {
+                            var rowids = getIds();
+                            var parentid = 0;
+                            if (rowids == null || rowids.length == 0) {
+                                parentid = 0
+                            } else if (rowids[1]) {
+                                parentid = 0
+                            } else {
+                                parentid = rowids[0]
+                            }
+                            _option.href = _option.href.replace("{parentid}", parentid);
+                        }
+                        if (options.textField && _option.title && _option.title.indexOf("{0}") != -1) {
+                            var rowid = callback("getGridParam", "selrow");
+                            var obj = callback("getRowData", rowid)[options.textField]
+                            _option.title = _option.title.replace("{0}", obj)
+                        }
+                        showPanel.dialog(_option);
+                    }
+                });
+            }
+            else if (item.type == "treeAddOrUpdate") {
+                callback("navButtonAdd", options.pager, {
+                    caption: item.btnName,
+                    onClickButton: function () {
+                        var _option = $.extend({
+                            cache: false,
+                            width: 700,
+                            height: 300,
+                            resizable: false,
+                            zIndex: 9000,
+                            maximizable: false,
+                            collapsible: false,
+                            listId: "#list",
+                            onClose: function () {
+                                showPanel.dialog("destroy");
+                            },
+                            fit: false,
+                            modal: true,
+                            buttons: item.isShowOK != false ? [
+                                {
+                                    iconCls: 'icon-ok', text: "确定", handler: function () {
+                                        if (item.validateing) {
+                                            if (item.validateing(item) == false)
+                                                return;
+                                        }
+                                        if (item.save) {
+                                            if (showPanel.form('validate')) {
+                                                var args = showPanel.find("input,textarea,select").formSerialize();
+                                                var a =f();
+                                                args["data"] =JSON.stringify(a);
                                                 if (item.submit) {
                                                     args = item.submit(args);
                                                 }
@@ -1083,6 +1292,107 @@ $.fn.bindEventForBtn = function (options, callback) {
                     }
                 });
             }
+            else if (item.type == "survey") {
+
+                callback("navButtonAdd", options.pager, {
+                    caption: item.btnName,
+                    onClickButton: function () {
+                        var _option = $.extend({
+                            cache: false,
+                            width: 700,
+                            height: 300,
+                            resizable: false,
+                            zIndex: 9000,
+                            maximizable: false,
+                            collapsible: false,
+                            listId: "#list",
+                            onClose: function () {
+                                showPanel.dialog("destroy");
+                            },
+                            fit: false,
+                            modal: true
+                        }, item);
+                        if (_option.href.indexOf("{id}") != -1) {
+                            var rowids = getIds();
+                            if (rowids == null || rowids.length == 0) {
+                                top.$.messager.alert("系统提示", "请选择一条记录.", "error");
+                                return;
+                            } else if (rowids[1]) {
+                                top.$.messager.alert("系统提示", "只能选择一条记录.请更正！", "error");
+                                return;
+                            }
+                            _option.href = _option.href.replace("{id}", rowids[0]);
+                        }
+                        if (_option.href.indexOf("{parentid}") != -1) {
+                            var rowids = getIds();
+                            var parentid = 0;
+                            if (rowids == null || rowids.length == 0) {
+                                parentid = 0
+                            } else if (rowids[1]) {
+                                parentid = 0
+                            } else {
+                                parentid = rowids[0]
+                            }
+                            _option.href = _option.href.replace("{parentid}", parentid);
+                        }
+                        if (options.textField && _option.title && _option.title.indexOf("{0}") != -1) {
+                            var rowid = callback("getGridParam", "selrow");
+                            var obj = callback("getRowData", rowid)[options.textField]
+                            _option.title = _option.title.replace("{0}", obj)
+                        }
+                        _option.content= "<iframe id='survey'  style='width:100%;height:100%;' src='"+_option.href+"'></iframe>";
+                        _option.href = '';
+                        showPanel.dialog(_option);
+                        $("#survey").parent().css("overflow","hidden");
+                    }
+                });
+            }
+            else if (item.type == "surveyPublish") {
+
+                callback("navButtonAdd", options.pager, {
+                    caption: item.btnName,
+                    onClickButton: function () {
+                        var args = {}
+                        if (!item.NotIds) {
+                            var ids = getIds();
+                            if (ids == null || ids.length == 0) {
+                                top.$.messager.alert("系统提示", "请选择一条记录.", "error");
+                                return;
+                            }
+                            var obj = {}
+                            for (var i = 0; i < ids.length; i++) {
+                                obj[i] = ids[i];
+                            }
+                            args["ids"] = obj;
+                        }
+                        var msg = "确定要发布问卷？"
+                        if (item.confirm)
+                            msg = item.confirm;
+                        if (item.args) {
+                            args = $.extend(item.args, args)
+                        }
+                        top.$.messager.confirm("系统提示", msg, function (flag) {
+                            if (flag) {
+                                School.waitPanel.showWait("", 99999);
+                                $.post(item.save, args, function (result) {
+                                    if (result.flag) {
+                                        top.$.messager.alert("系统提示", (result.msg == null || result.msg == "") ? "操作成功！" : result.msg, "info");
+                                        $(item.listId).trigger("reloadGrid");
+                                    }
+                                    else {
+                                        top.$.messager.alert("系统提示", result.msg == null ? "操作失败，对此抱歉！" : result.msg, "error");
+                                        if (item.afterErrorMsg)
+                                            item.afterErrorMsg();
+                                    }
+
+
+                                    School.waitPanel.closeWait()
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         });
     }
 }
@@ -1220,5 +1530,36 @@ function viewDetail(id, realname) {
         href: url,
         fit:true
     })
+}
+
+
+function f() {
+    var args = new Array();
+    var menuIDs = [];//菜单
+    var funcIDs = [];//按钮
+    var nodes = top.$('#tree').tree('getChecked');  // get checked nodes
+    for (var i = 0; i < nodes.length; i++) {
+        var item = nodes[i];
+        if (item.id != "0") {
+            if (item.id.indexOf("but_") != -1) {
+                funcIDs.push(item.id.replace('but_', ''));
+            } else {
+                menuIDs.push(item.id);
+            }
+        }
+    }
+   nodes = top.$('#tree').tree('getChecked', 'indeterminate');  // 获取不确定的节点
+    for (var i = 0; i < nodes.length; i++) {
+        var item = nodes[i]
+        if (item.id != "0") {
+            var item = nodes[i];
+            menuIDs.push(item.id);
+        }
+    }
+
+    args.push(funcIDs);
+    args.push(menuIDs);
+
+    return args;
 }
 

@@ -4,7 +4,6 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Dictionary;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -111,9 +110,18 @@ public class DictionaryController extends BaseController{
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err=0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Dictionary> Dictionarys = importExcel(file, Dictionary.class);
+            for (Dictionary dictionary : Dictionarys) {
+                err++;
+                Dictionary typeCode = sqlManager.query(Dictionary.class)
+                        .andEq("TypeCode", dictionary.getTypeCode()).single();
+                if (ObjectUtil.isNotNull(typeCode)){
+                    return error("第"+err+"行"+typeCode.getTypeCode()+"重复");
+                }
+            }
             for (Dictionary dictionary : Dictionarys) {
                 insert += sqlManager.insert(dictionary);
             }
@@ -128,16 +136,14 @@ public class DictionaryController extends BaseController{
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Dictionary> mapList;
         if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("dictionary.list",Map.class);
+            mapList = sqlManager.all(Dictionary.class);
         }else {
-            mapList = appendToList("dictionary.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Dictionary.class,ids);
         }
         try {
-            simpleExport("Dictionary", mapList );
+            exportExcel("字典信息", mapList ,Dictionary.class);
         }catch (Exception e){
             e.getStackTrace();
             return fail(FAIL);

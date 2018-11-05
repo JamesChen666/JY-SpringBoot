@@ -23,7 +23,11 @@
                     {name: 'SpecialtyName', index: 'SpecialtyName', align: "center", width: 100},
                     {name: 'Grade', index: 'Grade', align: "center", width: 100},
                     {name: 'GraduationYear', index: 'GraduationYear', align: "center", width: 100},
-                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200},
+                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200,formatter:function (value, obj, row) {
+                            var displayText=value;
+                            if(!displayText||displayText=="") displayText="设置";
+                            return "<a class='btnA' href='javascript:' onclick=\"setManager('"+row.ClassNo+"','"+row.ClassName+"')\">"+displayText+"</a>"
+                        }},
                     {name: 'Remark', index: 'Remark', align: "center", width: 300}
                 ],
                 pager: "#pager",
@@ -39,7 +43,7 @@
                                 listId: "#list",
                                 href: "/class/add",
                                 save: "save",
-                                fit:true
+                                height:400
                             },
                             {
                                 type: "AddOrUpdate",
@@ -50,7 +54,7 @@
                                 listId: "#list",
                                 href: "/class/edit?id={id}",
                                 save: "save",
-                                fit:true
+                                height:400
                             },
                             {
                                 type: "Del",
@@ -72,7 +76,7 @@
                                 btnCode: "Export",
                                 listId: "#list",
                                 save: "/class/export"
-                            },
+                            }/*,
                             {
                                 type: "SetManager",
                                 btnName: "设置辅导员",
@@ -82,10 +86,23 @@
                                 listId: "#list",
                                 btnCode: "SetManager",
                                 save:"/class/setManager"
-                            }
+                            }*/
                         ]
             });
-        })
+        });
+
+        function setManager(ClassNo,ClassName) {
+            School.showManager({
+                title:ClassName+"-设置班级辅导员",
+                moduleId: 1,
+                objectCode: ClassNo,
+                save:"/class/setManager",
+                codeType:"class",
+                onLoad: function () {
+                    top.$('#labelDepartmentName').html('当前班级: ' + ClassName);
+                }
+            })
+        }
     </script>
 </head>
 <body>

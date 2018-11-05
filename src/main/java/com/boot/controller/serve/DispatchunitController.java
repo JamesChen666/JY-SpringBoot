@@ -4,7 +4,6 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Dispatchunit;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -144,10 +143,20 @@ public class DispatchunitController extends BaseController{
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Dispatchunit> Dispatchunits = importExcel(file, Dispatchunit.class);
             for (Dispatchunit dispatchunit : Dispatchunits) {
+                err++;
+                Dispatchunit providerName = sqlManager.query(Dispatchunit.class)
+                        .andEq("ProviderName", dispatchunit.getProviderName()).single();
+                if (ObjectUtil.isNotNull(providerName)){
+                    return error("第"+err+"行"+providerName.getProviderName()+"已存在");
+                }
+            }
+            for (Dispatchunit dispatchunit : Dispatchunits) {
+                dispatchunit.setIsEnabled(true);
                 insert += sqlManager.insert(dispatchunit);
             }
         }
@@ -161,16 +170,14 @@ public class DispatchunitController extends BaseController{
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Dispatchunit> mapList;
         if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("dispatchunit.list",Map.class);
+            mapList = sqlManager.all(Dispatchunit.class);
         }else {
-            mapList = appendToList("dispatchunit.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Dispatchunit.class,ids);
         }
         try {
-            simpleExport("Dispatchunit", mapList );
+            exportExcel("派遣单位信息", mapList,Dispatchunit.class );
         }catch (Exception e){
             e.getStackTrace();
             return fail(FAIL);

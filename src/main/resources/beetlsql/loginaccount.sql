@@ -25,3 +25,7 @@ WHERE sl.id = #{id}
 findByUserName
 ===
 SELECT * FROM sys_loginaccount WHERE UserName=#{UserName}
+
+findIsRepeat
+===
+SELECT * FROM sys_loginaccount WHERE UserName=#{UserName} and Id != #{id}

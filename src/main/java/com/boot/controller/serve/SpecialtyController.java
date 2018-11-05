@@ -3,11 +3,12 @@ package com.boot.controller.serve;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
+import com.boot.model.Config;
 import com.boot.model.Specialty;
 import com.boot.model.SpecialtyManager;
 import com.boot.model.Teacher;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -55,6 +56,17 @@ public class SpecialtyController extends BaseController{
         List<Map> list = sqlManager.select("specialty.combotreeList", Map.class);
         List<Map> combotree = combotree(list);
         return combotree;
+    }
+
+    /**
+     * 通过院系代码查询出专业列表
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findSpecialtyList")
+    public Object findSpecialtyList(HttpServletRequest request) {
+        List<Map> list = sqlManager.select("specialty.findSpecialty", Map.class,Dict.create().set("FacultyCode",request.getParameter("FacultyCode")));
+        return list;
     }
 
 
@@ -152,9 +164,28 @@ public class SpecialtyController extends BaseController{
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Specialty> Specialtys = importExcel(file, Specialty.class);
+            for (Specialty specialty : Specialtys) {
+                err++;
+                Specialty specialtyName = sqlManager.query(Specialty.class)
+                        .andEq("SpecialtyName", specialty.getSpecialtyName()).single();
+                if (ObjectUtil.isNotNull(specialtyName)){
+                    return error("第"+err+"行"+specialtyName.getSpecialtyName()+"重复");
+                }
+                Specialty specialtyCode = sqlManager.query(Specialty.class)
+                        .andEq("SpecialtyCode", specialty.getSpecialtyCode()).single();
+                if (ObjectUtil.isNotNull(specialtyName)){
+                    return error("第"+err+"行"+specialtyCode.getSpecialtyCode()+"重复");
+                }
+                Specialty gbCode = sqlManager.query(Specialty.class)
+                        .andEq("GbCode", specialty.getGbCode()).single();
+                if (ObjectUtil.isNotNull(gbCode)){
+                    return error("第"+err+"行"+gbCode.getGbCode()+"重复");
+                }
+            }
             for (Specialty specialty : Specialtys) {
                 insert += sqlManager.insert(specialty);
             }
@@ -169,16 +200,14 @@ public class SpecialtyController extends BaseController{
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Specialty> mapList;
         if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("specialty.list",Map.class);
+            mapList = sqlManager.all(Specialty.class);
         }else {
-            mapList = appendToList("specialty.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList =selectByIds(Specialty.class,ids);
         }
         try {
-            simpleExport("Specialty", mapList );
+            exportExcel("专业信息", mapList,Specialty.class );
         }catch (Exception e){
             e.getStackTrace();
             return fail(FAIL);
@@ -207,10 +236,14 @@ public class SpecialtyController extends BaseController{
     @ResponseBody
     @RequestMapping("/setManager")
     public AjaxResult setManager(HttpServletRequest httpServletRequest) {
-        String manager = httpServletRequest.getParameter("manager");
-        String[] split = manager.split(",");
+        /*String manager = httpServletRequest.getParameter("manager");
+        String[] split = manager.split(",");*/
+        String code = httpServletRequest.getParameter("objectCode");
+        String jobNumberss = httpServletRequest.getParameter("jobNumber");
+        JSONArray array = JSONArray.fromObject(jobNumberss);
+        List<String> list =(ArrayList)JSONArray.toCollection(array, String.class);
         List<String> jobNumbers = new ArrayList();
-        for (String s : split) {
+        for (String s : list) {
             Teacher teacher = sqlManager.selectSingle("teacher.findByJobNumber",
                     Dict.create().set("JobNumber", s), Teacher.class);
             if (ObjectUtil.isNotNull(teacher)) {
@@ -218,14 +251,14 @@ public class SpecialtyController extends BaseController{
             }
         }
         int insert = 0;
-        String id = httpServletRequest.getParameter("id[]");
-        Specialty single = sqlManager.single(Specialty.class, id);
+        /*String id = httpServletRequest.getParameter("id[]");
+        Specialty single = sqlManager.single(Specialty.class, id);*/
         try {
             sqlManager.update("specialtyManager.deleteBySpecialtyCode",
-                    Dict.create().set("SpecialtyCode", single.getSpecialtyCode()));
+                    Dict.create().set("SpecialtyCode", code/*single.getSpecialtyCode()*/));
             for (String jobNumber : jobNumbers) {
                 SpecialtyManager SpecialtyManager = new SpecialtyManager();
-                SpecialtyManager.setSpecialtyCode(single.getSpecialtyCode());
+                SpecialtyManager.setSpecialtyCode(code/*single.getSpecialtyCode()*/);
                 SpecialtyManager.setJobNumber(jobNumber);
                 insert += sqlManager.insert(SpecialtyManager);
             }
@@ -234,6 +267,21 @@ public class SpecialtyController extends BaseController{
             return fail(FAIL);
         }
         return success(SUCCESS);
+    }
+
+
+    /**
+     * 查询出当前毕业年份下有学生的所有专业
+     * @param request
+     * @return list
+     */
+    @ResponseBody
+    @RequestMapping("/currentYearSpecialty")
+    public Object currentYearSpecialty(HttpServletRequest request){
+        //查询出当前毕业年份
+        Config config = sqlManager.selectSingle("config.findKey",Dict.create().set("key","当前毕业年份"),Config.class);
+        List<Map> list = sqlManager.select("specialty.queryCurrentYearSpecialty",Map.class,Dict.create().set("GraduationYear",config.getParameterValue()));
+        return list;
     }
 
 }

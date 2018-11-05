@@ -171,9 +171,18 @@ public class TeacherController extends BaseController {
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Teacher> Teachers = importExcel(file, Teacher.class);
+            for (Teacher teacher : Teachers) {
+                err++;
+                Teacher jobNumber = sqlManager.query(Teacher.class)
+                        .andEq("JobNumber", teacher.getJobNumber()).single();
+                if (ObjectUtil.isNotNull(jobNumber)){
+                    return error("第"+err+"行"+jobNumber.getJobNumber()+"重复");
+                }
+            }
             for (Teacher teacher : Teachers) {
                 insert += sqlManager.insert(teacher);
             }
@@ -195,7 +204,7 @@ public class TeacherController extends BaseController {
             mapList = selectByIds(Teacher.class, ids);
         }
         try {
-            exportExcel("Teacher", mapList, Teacher.class);
+            exportExcel("教师信息", mapList, Teacher.class);
         } catch (Exception e) {
             e.getStackTrace();
             return fail(FAIL);

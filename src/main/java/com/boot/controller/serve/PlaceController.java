@@ -67,13 +67,16 @@ public class PlaceController extends BaseController{
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
         Place model = mapping(Place.class, request);
+        if(model.getIsEnabled() == null){
+            model.setIsEnabled(false);
+        }
         int result;
         if (model.getId() == null) {
-            model.setIsEnabled(false);
+            //model.setIsEnabled(false);
             result = sqlManager.insert(model);
         } else {
-            Place place = sqlManager.single(Place.class,model.getId());
-            model.setIsEnabled(place.getIsEnabled());
+            //Place place = sqlManager.single(Place.class,model.getId());
+           // model.setIsEnabled(place.getIsEnabled());
             result = sqlManager.updateById(model);
         }
         if (result > 0) {

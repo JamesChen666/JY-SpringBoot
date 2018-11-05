@@ -34,15 +34,15 @@
                   if (data != null) {
                       /*$('.article').html(data.articleContent);
                       console.log(data.articleContent);*/
-                     var html = '<p class="news-pro-t text-c">'+data[0].Title+'</p>\n' +
+                     var html = '<p class="news-pro-t text-c">'+shieldNull(data[0].Title)+'</p>\n' +
                           '    <div class="text-c c95 news-pro-data">\n' +
                           '        <span>'+fmtDate(data[0].CreateDate)+'</span>\n' +
-                          '        <span class="xcb"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+data[0].Resource+'</span>\n' +
+                          '        <span class="xcb"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+shieldNull(data[0].Resource)+'</span>\n' +
                           '        <span><img src="../../../static/homePage/img/news-data-bg01.png" alt="">阅读 ：'+data[0].ClickCount+'</span>\n' +
                           '    </div>\n' +
                           '    <div class="line2"></div>\n' +
                           '    <div class="news-zw">\n' +
-                          '        <p class="margintop20">'+data[0].Content+'</p>\n' +
+                          '        <p class="margintop20">'+decodeURIComponent(data[0].Content)+'</p>\n' +
                           '    </div>';
                       $("#nr").append(html);
                   }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<#include "../base/header.html">
+</head>
+<body>
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="right b width150">姓名：</td>
+                <td>
+                    <input name="StudentId" value="${student.Id}" type="hidden">
+                    <div>${student.RealName!}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right b width150">标签：</td>
+                <td>
+                    <input class="easyui-combobox" name="TagId" value="${student.TagId!}"
+                           data-options="required:true,
+                       valueField: 'Id',
+                       textField: 'Title',
+                       url: '/tag/queryTagList'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+<script src="/static/main/EditFrom.js"></script>
+<script>
+    $(function () {
+    })
+</script>
+</body>
+</html>

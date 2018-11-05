@@ -9,59 +9,50 @@
 <table class="tb1">
     <tbody>
     <tr>
-        <td class="left b">场地名称</td>
+        <td class="right  b width120">场地名称：</td>
         <td>
             <input class="easyui-textbox" name="title"
                    data-options="required:true">
         </td>
-        <td class="left b">场地地址</td>
+        <td class="right  b">场地地址：</td>
         <td>
             <input class="easyui-textbox" name="address"
                    data-options="required:false">
         </td>
     </tr>
     <tr>
-        <td class="left b">场地类型</td>
+        <td class="right  b">场地类型：</td>
         <td>
             <select class="easyui-combobox" name="typeId" data-options="required:true">
                 <option value="1">固定</option>
                 <option value="2">临时</option>
             </select>
         </td>
-        <td class="left b">场地联系人</td>
+        <td class="right  b width120">场地联系人：</td>
         <td>
             <input class="easyui-textbox" name="contactor"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">联系人方式</td>
+        <td class="right  b">联系人方式：</td>
         <td>
             <input class="easyui-textbox" name="contactPhone"
                    data-options="required:true">
         </td>
-        <td class="left b">容纳人数</td>
+        <td class="right  b">容纳人数：</td>
         <td>
             <input class="easyui-textbox" name="capacity"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <!--<td class="left b">是否可用</td>
-        <td>
-            &lt;!&ndash;<input class="easyui-textbox" name="isEnabled"
-                   data-options="required:true">&ndash;&gt;
-            <select class="easyui-combobox" name="isEnabled" data-options="required:true">
-                <option value="true">是</option>
-                <option value="false">否</option>
-            </select>
-        </td>-->
-        <td class="left b">开放时间段(开始）</td>
+        <td class="right  b">开放时间段(开始）：</td>
         <td>
             <input class="easyui-datebox" name="startDate"
                    data-options="required:true">
         </td>
-        <td class="left b">开放时间段(结束)</td>
+        <td class="right  b">开放时间段(结束)：</td>
         <td>
             <input class="easyui-datebox" name="endDate"
                    data-options="required:true">
@@ -69,15 +60,21 @@
     </tr>
     <tr>
 
-        <td class="left b">每天开始时间点</td>
+        <td class="right  b">每天开始时间点：</td>
         <td>
             <input class="easyui-timespinner" name="startHour"
                    data-options="required:true,min:'07:00',max:'20:00'">
         </td>
-        <td class="left b">每天结束时间点</td>
+        <td class="right  b">每天结束时间点：</td>
         <td>
             <input class="easyui-timespinner" name="endHour"
                    data-options="required:true,min:'07:00',max:'20:00'">
+        </td>
+    </tr>
+    <tr>
+        <td class="right b ">是否启用</td>
+        <td colspan="3">
+            <label><input id="isEnabled" name="isEnabled" type="checkbox" value="true">启用</label>
         </td>
     </tr>
     </tbody>

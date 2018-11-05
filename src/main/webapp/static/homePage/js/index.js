@@ -43,14 +43,15 @@ $(function () {
         }
     );
 
+
     //查询出首页通知公告信息
     $(function(){
         var  html = "";
         var url = '/home/noticeList';
         $.post(url,{TypeCode:"dm001",page:1,rows:10,sidx:"Id",sord:"asc"}, function (data) {
             for (var i = 0; i < data.length; i++) {
-                html +=' <a href="/home/details?code=1&id='+data[i].Id+'" class="clear">\n' +
-                                '<p class="title bt-l" style="width:265px"><i></i>'+data[i].Title+'</p>\n' +
+                html +=' <a href="/home/details?code=1&id='+data[i].Id+'" title="'+data[i].Title+'" class="clear">\n' +
+                                '<p class="title bt-l" style="width:420px"><i></i>'+data[i].Title+'</p>\n' +
                                 '<div class="bt-r c95">'+fmtDate(data[i].CreateDate)+'</div>\n' +
                           '</a>';
             }
@@ -60,28 +61,28 @@ $(function () {
     //查询出首页自行联系信息
     $(function(){
         var  html = "";
-        var url = '/home/noticeList';
-        $.post(url,{TypeCode:"dm002"}, function (data) {
-            for (var i = 0; i < data.length; i++) {
-                html +=' <a href="/home/comList" class="clear">\n' +
-                    '<p class="title bt-l" style="width:265px"><i></i>'+data[i].Title+'</p>\n' +
-                    '<div class="bt-r c95">'+fmtDate(data[i].CreateDate)+'</div>\n' +
+        var url = '/home/query';
+        $.post(url,{page:"1",rows:"8",sidx:"id",sord:"asc"}, function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                html +=' <a href="/home/zllxZwList/'+data.rows[i].Id+'?code=3"  title="'+data.rows[i].Title+'" class="clear">\n' +
+                    '<p class="title bt-l" style="width:265px"><i></i>'+data.rows[i].CorpName+'</p>\n' +
+                    '<div class="bt-r c95">'+fmtDate(data.rows[i].ExamineDate)+'</div>\n' +
                     '</a>';
             }
             $('#zxlx').append(html);
         })
     });
-    //查询出首页历年来校单位信息
+    //查询出首页今日来校单位信息
     $(function(){
         var  html = "";
-        var url = '/home/noticeList';
-        $.post(url,{TypeCode:"dm003"}, function (data) {
-            for (var i = 0; i < data.length; i++) {//data[i].CreateDate
+        var url = '/home/queryZczpList';
+        $.post(url,{page:"1",rows:"6",sidx:"id",sord:"asc","s_ss.UseDate":fmtDate(new Date()),"s_ss.TypeId":2}, function (data) {
+            for (var i = 0; i < data.rows.length; i++) {//data[i].CreateDate
                 html +='<tr>\n' +
-                    '         <td  class="onepai pl20" width="100" >成都易科士信息产业有限公司</td>\n' +
-                    '         <td width="100">2018-08-28</td>\n' +
-                    '         <td width="87">成都郫都区</td>\n' +
-                    '         <td><a href="/home/comList"> 查看</a></td>\n' +
+                    '         <td  class="onepai pl20" width="100" >'+data.rows[i].CorpName+'</td>\n' +
+                    '         <td width="100">'+/*fmtDate(data.rows[i].UseDate)*/data.rows[i].StartHour+'~'+data.rows[i].EndHour+'</td>\n' +
+                    '         <td width="87">'+data.rows[i].Title+'</td>\n' +
+                    '         <td><a href="/home/zwPro/'+data.rows[i].Id+'?code=2"> 查看</a></td>\n' +
                     '  </tr> ';
             }
             $('#lxdw').append(html);
@@ -94,7 +95,7 @@ $(function () {
         var url = '/home/noticeList';
         $.post(url,{TypeCode:"dm006"}, function (data) {
             for (var i = 0; i < data.length; i++) {//data[i].CreateDate
-                html +=' <a href="/home/details?code=6&id='+data[i].Id+'" class="clear">\n' +
+                html +=' <a href="/home/guidanceDetails?id='+data[i].Id+'" class="clear">\n' +
                     '<p class="title bt-l" style="width:450px"><i></i>'+data[i].Title+'</p>\n' +
                     '<div class="bt-r c95">'+fmtDate(data[i].CreateDate)+'</div>\n' +
                     '</a>';
@@ -133,17 +134,17 @@ $(function () {
     });
     //查询出就业指导视频
     $(function(){
-        shipin("sp001",'#jyzdsp');
+        shipin("7",'#jyzdsp');
     });
 
     $("#btn1").click(function(){
-        shipin("sp001",'#jyzdsp');
+        shipin("7",'#jyzdsp');
     });
     $("#btn2").click(function(){
-        shipin("sp002",'#zpdwsp');
+        shipin("8",'#zpdwsp');
     });
     $("#btn3").click(function(){
-        shipin("sp003",'#yxcysp');
+        shipin("9",'#yxcysp');
     });
 
     function shipin(code,id){

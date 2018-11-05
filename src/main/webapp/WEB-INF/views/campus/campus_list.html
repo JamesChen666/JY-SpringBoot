@@ -19,7 +19,11 @@
                     {name: 'CampusName', index: 'CampusName', align: "center", width: 200},
                     {name: 'CampusCode', index: 'CampusCode', align: "center", width: 100},
                     {name: 'Address', index: 'Address', align: "center", width: 500},
-                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200},
+                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200,formatter:function (value, obj, row) {
+                       var displayText=value;
+                       if(!displayText||displayText=="") displayText="设置";
+                        return "<a class='btnA' href='javascript:' onclick=\"setManager('"+row.CampusCode+"','"+row.CampusName+"')\">"+displayText+"</a>"
+                        }},
                     {name: 'Sort', index: 'Sort', align: "center",  width: 100}
                 ],
                 pager: "#pager",
@@ -34,8 +38,7 @@
                                 iconCls: "icon-add",
                                 listId: "#list",
                                 href: "/campus/add",
-                                save: "save",
-                                fit:true
+                                save: "save"
                             },
                             {
                                 type: "AddOrUpdate",
@@ -45,8 +48,7 @@
                                 btnCode: "Edit",
                                 listId: "#list",
                                 href: "/campus/edit?id={id}",
-                                save: "save",
-                                fit:true
+                                save: "save"
                             },
                             {
                                 type: "Del",
@@ -68,20 +70,22 @@
                                 btnCode: "Export",
                                 listId: "#list",
                                 save: "/campus/export"
-                            },
-                            {
-                                type: "SetManager",
-                                btnName: "设置管理员",
-                                title:"校区管理-设置校区管理员",
-                                label:'校区管理员',
-                                load: "/campus/manager",
-                                listId: "#list",
-                                btnCode: "SetManager",
-                                save:"/campus/setManager"
                             }
                         ]
             });
         })
+        function setManager(campusCode,campusName) {
+            School.showManager({
+                title:campusName+"-设置校区管理员",
+                moduleId: 1,
+                objectCode: campusCode,
+                save:"/campus/setManager",
+                codeType:"campus",
+                onLoad: function () {
+                    top.$('#labelDepartmentName').html('当前校区: ' + campusName);
+                }
+            })
+        }
     </script>
 </head>
 <body>

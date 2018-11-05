@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四川师范大学-就业信息网</title>
+    <link rel="stylesheet" href="/static/homePage/css/web_sf1.css"/>
+    <link rel="stylesheet" href="/static/homePage/student/center.css">
+    <link rel="stylesheet" href="/static/homePage/css/swiper-4.2.6.min.css">
+    <script type="text/javascript" src="/static/homePage/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/static/homePage/js/currency.js"></script>
+    <script type="text/javascript" src="/static/homePage/js/swiper-4.2.6.min.js"></script>
+    <script type="text/javascript" src="/static/homePage/student/center.js"></script>
+    <script type="text/javascript" src="/static/homePage/student/base-message.js"></script>
+    <script type="text/javascript" src="/static/homePage/js/backstage.js"></script>
+</head>
+<body>
+<div class="center-head">
+    <!--顶部-->
+    <div class="header bt-box-1024  clear">
+        <img src="/static/homePage/img/logo.png" class="margintop50" alt="">
+        <div class="bt-r margintop50 cff">
+            <#--<a href="" class="">
+                <img src="/static/homePage/img/center-index_06.png" alt="">
+                <span>${user!}</span>
+            </a>
+            <a href="" class="marginleft20">
+                <img src="/static/homePage/img/center-index_09.png" alt="">
+            </a>-->
+            <a id="exit" onclick="exit()">
+                退出<img src="/static/homePage/img/center-index_11.png" alt="">
+            </a>
+        </div>
+    </div>
+    <!--页头-->
+    <div class="stu-tabs bt-box-1024 box-s">
+        <!--系统信息-->
+        <div class="clear">
+            <img src="/static/homePage/img/center-index_18.png" class="bt-l" alt="">
+            <div class="bt-l marginleft20">
+                <p class="margintop10">欢迎您 ${user!}</p>
+                <p class="margintop10" id="online"></p>
+                <p class="margintop10">当前毕业年份：${student.GraduationYear!}</p>
+            </div>
+            <a href="/" class="bt-r text-c marginr20">
+                <img class="margintop10" src="/static/homePage/img/center-index_21.png" alt="">
+                <p style="margin-top: 5px">返回网站首页</p>
+            </a>
+        </div>
+        <div class="line3"></div>
+        <!-- 菜单 -->
+        <div class="swiper-container">
+            <ul class="tab_nav swiper-wrapper swiper-wrapper">
+                <li class="swiper-slide swiper-slide2" onclick="zyxs()">
+                    <img src="/static/homePage/img/tab221.png" id="0">
+                    <p class="margintop10">个人中心首页</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img src="/static/homePage/img/tab112.png" id="1">
+                    <p class="margintop10">基础信息管理</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img src="/static/homePage/img/tab113.png" id="2">
+                    <p class="margintop10">求职管理</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img src="/static/homePage/img/tab114.png" id="3">
+                    <p class="margintop10">我的签约派遣</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img src="/static/homePage/img/tab115.png" id="4">
+                    <p class="margintop10">我的改签补办</p>
+                </li>
+            </ul>
+            <!-- 箭头-->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <!--个人中心首页-->
+    <div class=" tab_content bt-box-1024" id="grzx">
+        <p class="center-title margintop30">系统概要信息</p>
+        <div class="box-s prompt margintop20 bgff">
+            <p class="c95 text-c">基本信息修改审核状态：&nbsp;&nbsp;修改数据已审核通过</p>
+        </div>
+        <p class="center-title margintop30 clear">
+            <span class="bt-l">学校通告</span>
+        </p>
+        <div class="cen-news-list box-s margintop20 bgff " id="newsList">
+        </div>
+    </div>
+    <!--我的基础信息-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的基础信息</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="grxx-tabs  clear">
+                <div class="active2">基本信息修改申请</div>
+                <div onclick="jcxg()">基本信息修改申请历史</div>
+                <div onclick="lylb()">我要留言</div>
+                <div onclick="tslb()">我的投诉</div>
+                <div onclick="wjlb()">问卷调查</div>
+            </div>
+            <!--基本信息修改申请-->
+            <div class="tab_content1 grxx-pro margintop30" id="jcxx">
+                <input type="hidden" id="StudentId" value="${student.Id!}">
+                <p>
+                    <span class="bt-l">姓名</span>
+                    <span class="bt-l">${student.RealName!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学号</span>
+                    <span class="bt-l">${student.StudentNumber!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">身份证号</span>
+                    <span class="bt-l">${student.IdCard!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">考生号</span>
+                    <span class="bt-l">${student.ExamineNumber!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">性别</span>
+                    <span class="bt-l">
+                            <select name="sex">
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                            </select>
+                        </span>
+                </p>
+                <p>
+                    <span class="bt-l">民族</span>
+                    <span class="bt-l">
+                            <select name="nationCode" data-code="MZDM"></select>
+                        </span>
+                </p>
+                <p>
+                    <span class="bt-l">政治面貌</span>
+                    <span class="bt-l">
+                            <select name="politicalCode" data-code="ZZMMDM"></select>
+                        </span>
+                </p>
+                <p>
+                    <span class="bt-l">学历</span>
+                    <span class="bt-l">${student.LevelCode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">培养方式</span>
+                    <span class="bt-l">${student.CultureCode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">生源地</span>
+                    <span class="bt-l" id="OriginCode"></span>
+                </p>
+                <p>
+                    <span class="bt-l">主修外语语种</span>
+                    <span class="bt-l">
+                            <select name="majorLanguageCode" data-code="ZXWYYZDM"></select>
+                        </span>
+                </p>
+                <p>
+                    <span class="bt-l">出生日期</span>
+                    <span class="bt-l">
+                            <input name="birthday" type="date">
+                </p>
+                <p>
+                    <span class="bt-l">入学时间</span>
+                    <span class="bt-l">${student.EnromDate!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">毕业时间</span>
+                    <span class="bt-l">${student.GraduationDate!}</span>
+                </p>
+
+                <p>
+                    <span class="bt-l">师范生类别</span>
+                    <span class="bt-l">${student.NormalCode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">困难生类别名称</span>
+                    <span class="bt-l">${student.DifficultCode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">低保家庭类别名称</span>
+                    <span class="bt-l">${student.SubsistenceCode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">定向或委培单位</span>
+                    <span class="bt-l">${student.DireOrDeleUnit!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">专业</span>
+                    <span class="bt-l">${student.SpecialtyCode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">班级</span>
+                    <span class="bt-l">${student.ClassNumber!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">专业方向</span>
+                    <span class="bt-l">${student.SpecialtyDir!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">城乡生源</span>
+                    <span class="bt-l">${student.Urbanorruralcode!}</span>
+                </p>
+                <p>
+                    <span class="bt-l">入学前档案所在单位</span>
+                    <span class="bt-l">
+                                <input type="text" name="beforeArchives" placeholder="输入入学前档案所在单位">
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">档案是否转入学校</span>
+                    <span class="bt-l">
+                            <select name="isArchiveIntoSchool">
+                               <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">入学前户口所在地派出所</span>
+                    <span class="bt-l">
+                                <input type="text" name="beforeResidentPolice" placeholder="输入入学前户口所在地派出所">
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">户口是否转入学校</span>
+                    <span class="bt-l">
+                            <select name="isResidentIntoSchool">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">电话</span>
+                    <span class="bt-l">
+                                <input type="text" name="telephone" placeholder="输入手机号">
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">电子邮箱</span>
+                    <span class="bt-l">
+                                <input type="text" name="email" placeholder="输入邮箱">
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">QQ</span>
+                    <span class="bt-l">
+                                <input type="text" name="qqNumber" placeholder="输入QQ">
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">家庭地址</span>
+                    <span class="bt-l">
+                                <input type="text" name="familyAddress" placeholder="输入家庭地址">
+                            </span>
+                </p>
+                <p>
+                    <span class="bt-l">家庭联系方式</span>
+                    <span class="bt-l">
+                                <input type="text" name="familyPhone" placeholder="输入家庭联系方式">
+                            </span>
+                </p>
+                <div class="text-c c95 margintop30">您上次的修改申请已审核通过！您可以再次申请修改。</div>
+                <div class="text-c margintop20">
+                    <button class="center-btn" onclick="submitchange()">基本信息修改申请</button>
+                </div>
+            </div>
+            <!--基本信息修改申请历史-->
+            <div class="tab_content1 hide margintop30" id="xgxx" onclick="jcxg()">
+            </div>
+            <!--我要留言-->
+            <div class="tab_content1 hide margintop30 " id="wyly">
+                <form action="" class="ly-cont">
+                    <input type="text" id="leaveTitle" placeholder="标题">
+                    <input type="text" id="leaveContact" placeholder="联系方式(电话、QQ、微信等)">
+                    <textarea class="margintop20" id="leaveContent" placeholder="留言内容......"></textarea>
+                </form>
+                <button class="center-btn margintop30" id="leaveBtn" onclick="lytj()">发布留言</button>
+                <div class="line3"></div>
+                <div class="clear sea margintop30">
+                    <span class="bt-l">
+                            留言列表
+                            <a href="javascript:void(0);" onclick="lylb()">
+                                <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                            </a>
+                        </span>
+                    <form class="bt-r clear">
+                        <input type="text" class="bt-l" placeholder="输入关键字" id="sszd">
+                        <button type="button" class="center-btn bt-l" onclick="lyss()">搜索</button>
+                    </form>
+                </div>
+                <div id="leaveList"></div>
+            </div>
+            <!--我的投诉-->
+            <div class="tab_content1 hide margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" class="bt-l" placeholder="输入关键字" id="tszd">
+                        <button type="button" class="center-btn bt-l " onclick="tsss()">搜索</button>
+                        <a href="javascript:void(0);" class="bt-l marginleft20" onclick="tslb()">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20">
+                    <thead>
+                    <tr class="c95">
+                        <td width="150">单位名称</td>
+                        <td width="100">职位名称</td>
+                        <td width="120">投诉类别名称</td>
+                        <td width="150">投诉原因</td>
+                        <td width="170">提交时间</td>
+                        <td width="90">审核状态</td>
+                        <td width="100">审核人</td>
+                        <td width="150">审核意见</td>
+                        <td width="170">审核时间</td>
+                    </tr>
+                    </thead>
+                    <tbody id="complaintList">
+                    </tbody>
+                </table>
+            </div>
+            <!--问卷调查-->
+            <div class="tab_content1 hide  margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" class="bt-l" placeholder="输入关键字" id="wjzd">
+                        <button type="button" class="center-btn bt-l " onclick="wjss()">搜索</button>
+                        <a href="javascript:void(0);" class="bt-l marginleft20" onclick="wjlb()">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <div class="line3 margintop20" id="questionList"></div>
+            </div>
+        </div>
+    </div>
+    <!--求职管理-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的基础信息</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="qz-tabs   clear">
+                <div onclick="shlb()">社会招聘信息</div>
+                <div onclick="zclb()">专场招聘信息</div>
+                <div onclick="sxlb()">双选会信息</div>
+                <div onclick="jllb()">已投递简历</div>
+            </div>
+            <!--社会招聘信息-->
+            <div class="hide tab_content2 hide margintop30">
+                <table class="ts-table f15 margintop20">
+                    <thead>
+                    <tr class="c95">
+                        <td width="150">单位名称</td>
+                        <td width="110">单位所在行业</td>
+                        <td width="80">单位性质</td>
+                        <td width="100">单位规模</td>
+                        <td width="100">单位注册资金</td>
+                        <td width="100">单位所在地</td>
+                        <td width="100">联系人</td>
+                        <td width="100">联系电话</td>
+                        <td width="100">邮箱</td>
+                        <td width="100">单位详细地址</td>
+                    </tr>
+                    </thead>
+                    <tbody id="shxx">
+                    </tbody>
+                </table>
+            </div>
+            <!--专场招聘信息-->
+            <div class="hide tab_content2 hide margintop30">
+                <table class="ts-table f15 margintop20">
+                    <thead>
+                    <tr class="c95">
+                        <td width="150">单位名称</td>
+                        <td width="110">单位所在行业</td>
+                        <td width="80">单位性质</td>
+                        <td width="100">单位规模</td>
+                        <td width="100">单位所在地</td>
+                        <td width="140">场地名称</td>
+                        <td width="140">场地地址</td>
+                        <td width="140">招聘日期</td>
+                        <td width="140">招聘时间</td>
+                    </tr>
+                    </thead>
+                    <tbody id="zcxx">
+                    </tbody>
+                </table>
+            </div>
+            <!--双选会信息-->
+            <div class="hide tab_content2 hide margintop30">
+                <table class="ts-table f15 margintop20">
+                    <thead>
+                    <tr class="c95">
+                        <td width="150">招聘名称</td>
+                        <td width="110">招聘会地点</td>
+                        <td width="100">举办日期</td>
+                        <td width="100">报名截止时间</td>
+                        <td width="300">招聘要求/说明</td>
+                    </tr>
+                    </thead>
+                    <tbody id="sxxx">
+                    </tbody>
+                </table>
+            </div>
+            <!--已投递简历-->
+            <div class="hide tab_content2 hide  margintop30">
+                <table class="ts-table f15 margintop20">
+                    <thead>
+                    <tr class="c95">
+                        <td width="150">单位名称</td>
+                        <td width="150">职位名称</td>
+                        <td width="150">职位职能</td>
+                        <td width="150">工作地点</td>
+                        <td width="150">招聘人数</td>
+                        <td width="150">月薪</td>
+                        <td width="150">联系人</td>
+                        <td width="150">联系电话</td>
+                    </tr>
+                    </thead>
+                    <tbody id="jlxx"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--我的签约派遣-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的签约派遣</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="qy-tabs ty-tabs clear">
+                <div onclick="signview()">签约管理</div>
+                <div onclick="workview()">工作证明管理</div>
+            </div>
+            <div class="line3"></div>
+            <!--签约管理-->
+            <div class="hide tab_content2 grxx-pro margintop30" id="qygl">
+                <input type="hidden" id="signStudentId" data-value="${student.Id}">
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">毕业生基本信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">姓名</span>
+                    <span class="bt-l">${student.RealName}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学号</span>
+                    <span class="bt-l">${student.StudentNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">身份证号</span>
+                    <span class="bt-l">${student.IdCard}</span>
+                </p>
+                <p>
+                    <span class="bt-l">考生号</span>
+                    <span class="bt-l">${student.ExamineNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">政治面貌</span>
+                    <span class="bt-l">${student.PoliticalCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学历</span>
+                    <span class="bt-l">${student.LevelCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">培养方式</span>
+                    <span class="bt-l">${student.CultureCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">师范生类别</span>
+                    <span class="bt-l">${student.NormalCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">班级</span>
+                    <span class="bt-l">${student.ClassNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">生源地</span>
+                    <span class="bt-l">${student.OriginCode}</span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">用人单位信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">签约单位</span>
+                    <span><input type="text" name="CorporationName"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位性质</span>
+                    <span class="bt-l"><select name="CorpNatureCdoe" data-code="DWXZDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位行业</span>
+                    <span class="bt-l"><select name="CorpIndustryCode" data-code="HYFLDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位隶属部门</span>
+                    <span class="bt-l"><select name="UnderDepartmentCode" data-code="DWLSBMDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位所在地</span>
+                    <span class="bt-l" id="CorpOrginCode"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位组织机构代码</span>
+                    <span>
+                        <input type="text" name="CorpOrganizationCode">
+                        <a href="http://www.cods.org.cn" target="_blank" style="color: #00b7ee">点击查询</a>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">工作职位类别</span>
+                    <span class="bt-l"><select name="JobTypeCode" data-code="ZWLBDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位联系人</span>
+                    <span><input type="text" name="CorpContactor"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位联系人职务</span>
+                    <span><input type="text" name="ContactorPostion"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人电话</span>
+                    <span><input type="text" name="CorpContactPhone"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人邮箱</span>
+                    <span><input type="text" name="CorpContactEmail"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人传真</span>
+                    <span><input type="text" name="CorpContactFax"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位地址</span>
+                    <span><input type="text" name="CorpAddress"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位邮编</span>
+                    <span><input type="text" name="CorpPostCode"></span>
+                </p>
+                <p>
+                    <span class="bt-l">备注</span>
+                    <span><input type="text" name="Remark"></span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">档案接收信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">档案接收单位</span>
+                    <span><input type="text" name="ArchiveCorp"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案接收人</span>
+                    <span><input type="text" name="ArchiveContactor"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案联系电话</span>
+                    <span><input type="text" name="ArchiveContactPhone"></span>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">档案转寄单位名称</span>
+                    <span><input type="text" name="ForwardCorpName"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案转寄单位邮编</span>
+                    <span><input type="text" name="ForwardCorpPostCode"></span>
+                </p>
+                <div class="text-c c95 margintop30">签约申请提交之后不允许修改，只能办理改签。</div>
+                <div class="text-c margintop20">
+                    <button type="button" class="center-btn" onclick="sign()">签约申请</button>
+                </div>
+            </div>
+            <!--工作证明-->
+            <div class="hide tab_content2 grxx-pro margintop30" id="gzzm">
+                <input type="hidden" id="signStudentId" data-value="${student.Id}">
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">学生基础信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">姓名</span>
+                    <span class="bt-l">${student.RealName}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学号</span>
+                    <span class="bt-l">${student.StudentNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">身份证号</span>
+                    <span class="bt-l">${student.IdCard}</span>
+                </p>
+                <p>
+                    <span class="bt-l">考生号</span>
+                    <span class="bt-l">${student.ExamineNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">政治面貌</span>
+                    <span class="bt-l">${student.PoliticalCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学历</span>
+                    <span class="bt-l">${student.LevelCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">培养方式</span>
+                    <span class="bt-l">${student.CultureCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">师范生类别</span>
+                    <span class="bt-l">${student.NormalCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">班级</span>
+                    <span class="bt-l">${student.ClassNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">生源地</span>
+                    <span class="bt-l">${student.OriginCode}</span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">签约信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">毕业去向</span>
+                    <span class="bt-l"><select name="GraduationWhereAboutCode" data-code="GZZMBYQXDM"
+                                               onchange="byqxxz(this)"></select></span>
+                </p>
+                <p id="HighGradeTypeCode">
+                    <span class="bt-l">升学类型</span>
+                    <span class="bt-l"><select name="HighGradeTypeCode" data-code="SXLXDM"></select></span>
+                </p>
+                <p id="CorporationName">
+                    <span class="bt-l">签约单位</span>
+                    <span><input type="text" name="CorporationName"></span>
+                </p>
+                <p id="CorpNatureCdoe">
+                    <span class="bt-l">单位性质</span>
+                    <span class="bt-l"><select name="CorpNatureCdoe" data-code="DWXZDM"></select></span>
+                </p>
+                <p id="CorpIndustryCode">
+                    <span class="bt-l">单位行业</span>
+                    <span class="bt-l"><select name="CorpIndustryCode" data-code="HYFLDM"></select></span>
+                </p>
+                <p id="UnderDepartmentCode">
+                    <span class="bt-l">单位隶属部门</span>
+                    <span class="bt-l"><select name="UnderDepartmentCode" data-code="DWLSBMDM"></select></span>
+                </p>
+                <p id="CorpArea">
+                    <span class="bt-l">单位所在地</span>
+                    <span class="bt-l" id="CorpOrginCode"></span>
+                </p>
+                <p id="CorpOrganizationCode">
+                    <span class="bt-l">单位组织机构代码</span>
+                    <span>
+                        <input type="text" name="CorpOrganizationCode">
+                        <a href="http://www.cods.org.cn" target="_blank" style="color: #00b7ee">点击查询</a>
+                    </span>
+                </p>
+                <p id="JobTypeCode">
+                    <span class="bt-l">工作职位类别</span>
+                    <span class="bt-l"><select name="JobTypeCode" data-code="ZWLBDM"></select></span>
+                </p>
+                <p id="WaitingTypeCode">
+                    <span class="bt-l">待就业原因</span>
+                    <span class="bt-l"><select name="WaitingTypeCode" data-code="DJYYYDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位联系人</span>
+                    <span><input type="text" name="CorpContactor"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位联系人职务</span>
+                    <span><input type="text" name="ContactorPostion"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人电话</span>
+                    <span><input type="text" name="CorpContactPhone"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人邮箱</span>
+                    <span><input type="text" name="CorpContactEmail"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人传真</span>
+                    <span><input type="text" name="CorpContactFax"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位地址</span>
+                    <span><input type="text" name="CorpAddress"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位邮编</span>
+                    <span><input type="text" name="CorpPostCode"></span>
+                </p>
+                <p>
+                    <span class="bt-l">备注</span>
+                    <span><input type="text" name="Remark"></span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">档案信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">档案接收单位</span>
+                    <span><input type="text" name="ArchiveCorp"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案接收人</span>
+                    <span><input type="text" name="ArchiveContactor"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案联系电话</span>
+                    <span><input type="text" name="ArchiveContactPhone"></span>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">档案转寄单位名称</span>
+                    <span><input type="text" name="ForwardCorpName"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案转寄单位邮编</span>
+                    <span><input type="text" name="ForwardCorpPostCode"></span>
+                </p>
+                <div class="text-c c95 margintop30">签约申请提交之后不允许修改，只能办理改签。</div>
+                <div class="text-c margintop20">
+                    <button type="button" class="center-btn" onclick="work()">工作证明提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--我的改签补办-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的改签补办</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="gq-tabs ty-tabs clear">
+                <div onclick="changesignview()">改签申请</div>
+                <div onclick="bdxx()">报到证补办申请</div>
+            </div>
+            <div class="line3"></div>
+            <!--改签申请-->
+            <div class="hide tab_content2 grxx-pro margintop30" id="gqgl">
+                <input type="hidden" id="signStudentId" data-value="${student.Id}">
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">毕业生基本信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">姓名</span>
+                    <span class="bt-l">${student.RealName}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学号</span>
+                    <span class="bt-l">${student.StudentNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">身份证号</span>
+                    <span class="bt-l">${student.IdCard}</span>
+                </p>
+                <p>
+                    <span class="bt-l">考生号</span>
+                    <span class="bt-l">${student.ExamineNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">政治面貌</span>
+                    <span class="bt-l">${student.PoliticalCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">学历</span>
+                    <span class="bt-l">${student.LevelCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">培养方式</span>
+                    <span class="bt-l">${student.CultureCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">师范生类别</span>
+                    <span class="bt-l">${student.NormalCode}</span>
+                </p>
+                <p>
+                    <span class="bt-l">班级</span>
+                    <span class="bt-l">${student.ClassNumber}</span>
+                </p>
+                <p>
+                    <span class="bt-l">生源地</span>
+                    <span class="bt-l">${student.OriginCode}</span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">改签信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">改签原因</span>
+                    <span><select name="TypeCode" data-code="GQBBYYM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">改签理由</span>
+                    <span><input type="text" name="Reason"></span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">用人单位信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">签约单位</span>
+                    <span><input type="text" name="CorporationName"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位性质</span>
+                    <span class="bt-l"><select name="CorpNatureCdoe" data-code="DWXZDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位行业</span>
+                    <span class="bt-l"><select name="CorpIndustryCode" data-code="HYFLDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位隶属部门</span>
+                    <span class="bt-l"><select name="UnderDepartmentCode" data-code="DWLSBMDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位所在地</span>
+                    <span class="bt-l" id="CorpOrginCode"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位组织机构代码</span>
+                    <span>
+                        <input type="text" name="CorpOrganizationCode">
+                    <a href="http://www.cods.org.cn" target="_blank" style="color: #00b7ee">点击查询</a>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">工作职位类别</span>
+                    <span class="bt-l"><select name="JobTypeCode" data-code="ZWLBDM"></select></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位联系人</span>
+                    <span><input type="text" name="CorpContactor"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位联系人职务</span>
+                    <span><input type="text" name="ContactorPostion"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人电话</span>
+                    <span><input type="text" name="CorpContactPhone"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人邮箱</span>
+                    <span><input type="text" name="CorpContactEmail"></span>
+                </p>
+                <p>
+                    <span class="bt-l">联系人传真</span>
+                    <span><input type="text" name="CorpContactFax"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位地址</span>
+                    <span><input type="text" name="CorpAddress"></span>
+                </p>
+                <p>
+                    <span class="bt-l">单位邮编</span>
+                    <span><input type="text" name="CorpPostCode"></span>
+                </p>
+                <p>
+                    <span class="bt-l">备注</span>
+                    <span><input type="text" name="Remark"></span>
+                </p>
+                <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;">
+                    <p class="center-title text-c" style="font-weight: bold">档案接收信息</p>
+                </div>
+                <p>
+                    <span class="bt-l">档案接收单位</span>
+                    <span><input type="text" name="ArchiveCorp"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案接收人</span>
+                    <span><input type="text" name="ArchiveContactor"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案联系电话</span>
+                    <span><input type="text" name="ArchiveContactPhone"></span>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">档案转寄单位名称</span>
+                    <span><input type="text" name="ForwardCorpName"></span>
+                </p>
+                <p>
+                    <span class="bt-l">档案转寄单位邮编</span>
+                    <span><input type="text" name="ForwardCorpPostCode"></span>
+                </p>
+                <div class="text-c c95 margintop30">签约申请提交之后不允许修改，只能办理改签。</div>
+                <div class="text-c margintop20">
+                    <button type="button" class="center-btn" onclick="changesign()">改签申请</button>
+                </div>
+            </div>
+            <!--补办申请-->
+            <div class="hide tab_content2 grxx-pro margintop30">
+                <p>
+                    <span class="bt-l">改签原因</span>
+                    <span>
+                        <select id="TypeCode" data-code="GQBBYYM"></select>
+                        <button type="button" class="center-btn" onclick="bdsq()">补办申请</button>
+                    </span>
+                </p>
+                <table class="ts-table f15 margintop20">
+                    <thead>
+                    <tr class="c95">
+                        <td width="150">补办原因</td>
+                        <td width="80">申请人</td>
+                        <td width="110">申请时间</td>
+                        <td width="140">审核状态</td>
+                        <td width="140">审核人</td>
+                        <td width="140">审核时间</td>
+                        <td width="140">审核意见</td>
+                    </tr>
+                    </thead>
+                    <tbody id="bbxx">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--通告详情-->
+    <div class="hide tab_content1 bt-box-1024" id="nr">
+        <div class="center-title margintop30 clear">
+            <span class="bt-l">通告详情</span>
+            <a href="javascript:void(0);" onclick="zyxs()" class="bt-r ">
+                <img src="/static/homePage/img/back_03.png" alt="">
+                返回目录
+            </a>
+        </div>
+        <div class="box-s bgff margintop20" style="padding: 20px 30px 40px;" id="xq">
+        </div>
+    </div>
+    <!--模态框-->
+    <div class="sushe-mtkbg" style="position: fixed">
+        <div class="sushe-mtk">
+            <p class="f15 clear">
+                <span class="bt-l">
+                    <span class="cge">
+                        <img src="/static/homePage/img/add_03.png" alt="">
+                        添加职位
+                    </span>
+                    <span class="c95">
+                        （请务必填写真实有效信息）
+                    </span>
+                </span>
+                <u class="bt-r close"></u>
+            </p>
+            <div class="grxx-pro grxx-pro-mtk">
+                <div class="margintop15 f15  sea">招聘负责人信息（请务必填写真实有效信息）</div>
+                <p>
+                    <span class="bt-l">单位名称</span>
+                    <span class="bt-l">
+                        <input type="text" placeholder="">
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">单位性质</span>
+                    <span class="bt-l">
+                        <select name="">
+                            <option>私企</option>
+                            <option>国企</option>
+                        </select>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">单位规模</span>
+                    <span class="bt-l">
+                        <select name="">
+                            <option>50人以下</option>
+                            <option>100~200人</option>
+                        </select>
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">成立日期</span>
+                    <span class="bt-l">
+                        <input type="text" placeholder="">
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">营业执照号码</span>
+                    <span class="bt-l">
+                        <input type="text" placeholder="">
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">组织机构代码和信用代码</span>
+                    <span class="bt-l">
+                        <input type="text" placeholder="">
+                    </span>
+                </p>
+                <p>
+                    <span class="bt-l">单位所在地</span>
+                    <span class="bt-l">
+                        <input type="text" placeholder="">
+                    </span>
+                </p>
+                <p style="min-height: 100px">
+                    <span class="bt-l">单位简介</span>
+                    <span class="bt-l">
+                        <textarea name="" placeholder="单位简介..."></textarea>
+                    </span>
+                </p>
+            </div>
+            <div class="text-c margintop30">
+                <button class="center-btn c32" style="background: #DDDDDD">取消</button>
+                <button class="center-btn marginleft20">确定</button>
+            </div>
+        </div>
+    </div>
+    <!--页尾-->
+    <div class="link margintop50">
+        <div class="bt-box-1024 text-c cff">
+            <p>联系电话：028-84768877,84760653（就业科）,028-84767065（传真）,电子邮件： scsdzjc@126.com</p>
+            <p class="margintop15">通讯地址：四川省成都市锦江区静安路5号（四川师范大学狮子山校区）&nbsp&nbsp&nbsp今日访问量：<span>2706739</span>&nbsp&nbsp&nbsp总访问量：<span>9983772</span>
+            </p>
+            <p class="margintop15">©四川师范大学招生就业处&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp成都易科士信息产业公司.</p>
+        </div>
+    </div>
+</body>
+</html>

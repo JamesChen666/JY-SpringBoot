@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.5,user-scalable=no" />
+    <title>微就业</title>
+    <link rel="stylesheet" href="css/V_employment.css" />
+</head>
+<body class="com-re bgf" >
+<p class="c32 com-title text-center bg" >
+    <a href=""></a><span>公司信息</span>
+</p>
+<div class="ele-header " style="padding-top: 120px;background-image: url(img/main-com-pro.png);background-size: cover;">
+    <div class="recruit cff box c-com-btn">
+        <span class="c-com-btn-c cbl jb-btn">基本信息</span>
+        <span class="zz-btn">资质信息</span>
+        <span class="shh-btn">审核信息</span>
+    </div>
+    <div class="bg box-s liuyan" style="min-height: 500px">
+        <p class="afterclear">
+            <span class="bt-l">成都易科士信息产业有限公司1</span>
+            <a href="" class="bt-r f24 cbl bj-btn">
+                <img src="img/x-main-jc_07-08.png" style="vertical-align: middle" alt="">
+                <span>编辑</span>
+            </a>
+        </p>
+        <div style="margin-top: 40px">职位类型 ：公务员</div>
+        <div>招聘人数 ：12人</div>
+        <div>学历要求 ：大专</div>
+        <div>发布时间 ：2018-08-20&nbsp&nbsp&nbsp&nbsp09:00</div>
+        <p style="margin-top: 40px">单位介绍</p>
+        <div style="margin-top: 40px">单位介绍信息</div>
+    </div>
+    <div class="bg box-s tongzhi" style="min-height: 500px;display: none">
+        <p class="afterclear">
+            <span class="bt-l">成都易科士信息产业有限公司2</span>
+            <a href="" class="bt-r f24 cbl bj-btn">
+                <img src="img/x-main-jc_07-08.png" style="vertical-align: middle" alt="">
+                <span>编辑</span>
+            </a>
+        </p>
+        <div style="margin-top: 40px">职位类型 ：公务员</div>
+        <div>招聘人数 ：12人</div>
+        <div>学历要求 ：大专</div>
+        <div>发布时间 ：2018-08-20&nbsp&nbsp&nbsp&nbsp09:00</div>
+        <p style="margin-top: 40px">单位介绍</p>
+        <div style="margin-top: 40px">单位介绍信息</div>
+    </div>
+    <div class="bg box-s tongzhi2" style="min-height: 500px;display: none">
+        <p class="afterclear">
+            <span class="bt-l">成都易科士信息产业有限公司3</span>
+            <a href="" class="bt-r f24 cbl bj-btn">
+                <img src="img/x-main-jc_07-08.png" style="vertical-align: middle" alt="">
+                <span>编辑</span>
+            </a>
+        </p>
+        <div style="margin-top: 40px">职位类型 ：公务员</div>
+        <div>招聘人数 ：12人</div>
+        <div>学历要求 ：大专</div>
+        <div>发布时间 ：2018-08-20&nbsp&nbsp&nbsp&nbsp09:00</div>
+        <p style="margin-top: 40px">单位介绍</p>
+        <div style="margin-top: 40px">单位介绍信息</div>
+    </div>
+    <div class="recruit-title recruit margintoptwo afterclear">
+        <span class="bt-l">职位列表</span>
+    </div>
+    <div class="recruit">
+        <a href="zw-pro.html" class="recruit-news margintopone">
+            <p>职位名称</p>
+            <div >2018-05-30</div>
+        </a>
+        <a href="zw-pro.html" class="recruit-news">
+            <p>职位名称</p>
+            <div >2018-05-30</div>
+        </a>
+        <a href="zw-pro.html" class="recruit-news">
+            <p>职位名称</p>
+            <div >2018-05-30</div>
+        </a>
+        <a href="zw-pro.html" class="recruit-news">
+            <p>职位名称</p>
+            <div >2018-05-30</div>
+        </a>
+        <a href="zw-pro.html" class="recruit-news">
+            <p>职位名称</p>
+            <div >2018-05-30</div>
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-2.1.1.js" ></script>
+<script>
+    $(function(){
+        $(".c-com-btn>span").click(
+            function () {
+                $(this).addClass('c-com-btn-c cbl').siblings().removeClass('c-com-btn-c cbl');
+
+            }
+        );
+        $(".jb-btn").click(
+            function () {
+                $('.liuyan').show();
+                $(".tongzhi").hide();
+                $(".tongzhi2").hide();
+            }
+        );
+        $(".zz-btn").click(
+            function () {
+                $('.tongzhi').show();
+                $(".liuyan").hide();
+                $(".tongzhi2").hide();
+            }
+        );
+        $(".shh-btn").click(
+            function () {
+                $('.tongzhi2').show();
+                $(".liuyan").hide();
+                $(".tongzhi").hide();
+            }
+        );
+    });
+</script>
+</body>
+</html>

@@ -48,3 +48,7 @@ LEFT JOIN base_area ba2 ON ba1.ParentId = ba2.Id
 LEFT JOIN base_area ba3 ON ba2.ParentId = ba3.Id
 LEFT JOIN base_area ba4 ON ba3.ParentId = ba4.Id
 WHERE sc.Id = #{Id}
+
+findByStudentId
+===
+SELECT * FROM student_changesign WHERE StudentId = #{StudentId}

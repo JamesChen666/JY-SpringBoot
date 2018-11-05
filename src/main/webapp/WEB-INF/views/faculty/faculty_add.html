@@ -6,22 +6,23 @@
     <#include "../base/header.html">
 </head>
 <body>
+<div style="padding: 10px;">
 <table class="tb1">
     <tbody>
     <tr>
-        <td class="left b">院系名称</td>
+        <td class="right b">院系名称：</td>
         <td>
             <input class="easyui-textbox" name="facultyName" data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">院系代码</td>
+        <td class="right b">院系代码：</td>
         <td>
             <input class="easyui-textbox" name="facultyCode" data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">校区</td>
+        <td class="right b">所属校区：</td>
         <td>
             <input class="easyui-combobox" name="campusCode" data-options="required:true,
                                                                          valueField: 'CampusCode',
@@ -31,7 +32,7 @@
         </td>
     </tr>
     <tr>
-        <td class="left b">类型</td>
+        <td class="right b">类型：</td>
         <td>
             <input class="easyui-combobox" name="typeID" data-options="required:true,
                                                                          valueField: 'value',
@@ -41,18 +42,19 @@
         </td>
     </tr>
     <tr>
-        <td class="left b">备注</td>
+        <td class="right b">备注：</td>
         <td>
             <input class="easyui-textbox" name="remark" data-options="required:false">
         </td>
     </tr>
     <tr>
-        <td class="left b">排序</td>
+        <td class="right b">排序：</td>
         <td>
-            <input class="easyui-numberbox" name="sort" data-options="required:true">
+            <input class="easyui-numberspinner" name="sort" data-options="required:true">
         </td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

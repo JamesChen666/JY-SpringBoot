@@ -37,6 +37,11 @@ public class Corp implements Serializable{
 	  private Integer ExamineUserId;
 	  private Date ExamineDate;
 	  private String ExamineRemark;
+	  private String Remark;
+	  private String OrganizetionImage;
+	  private String SchoolCorpImage;
+	  private String IdCardPicPos;
+	  private String IdCardPicNeg;
 
 	  public void setId(Integer Id) {
 		this.Id = Id;
@@ -200,7 +205,48 @@ public class Corp implements Serializable{
 	  public String getExamineRemark() {
 		return ExamineRemark;
 	  }
-      @Override
+
+		public String getRemark() {
+			return Remark;
+		}
+
+		public void setRemark(String remark) {
+			Remark = remark;
+		}
+
+		public String getOrganizetionImage() {
+			return OrganizetionImage;
+		}
+
+		public void setOrganizetionImage(String organizetionImage) {
+			OrganizetionImage = organizetionImage;
+		}
+
+		public String getSchoolCorpImage() {
+			return SchoolCorpImage;
+		}
+
+		public void setSchoolCorpImage(String schoolCorpImage) {
+			SchoolCorpImage = schoolCorpImage;
+		}
+
+		public String getIdCardPicPos() {
+			return IdCardPicPos;
+		}
+
+		public void setIdCardPicPos(String idCardPicPos) {
+			IdCardPicPos = idCardPicPos;
+		}
+
+		public String getIdCardPicNeg() {
+			return IdCardPicNeg;
+		}
+
+		public void setIdCardPicNeg(String idCardPicNeg) {
+			IdCardPicNeg = idCardPicNeg;
+		}
+
+	@Override
       public String toString() {
          return "Corp{" +
                 "Id='" + Id + '\'' +

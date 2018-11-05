@@ -3,7 +3,9 @@ spring:
     druid:
       db-type: mysql
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.2.66:3306/csjy?useSSL=false&useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+      #driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/csjy?useSSL=false&useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+      #url: jdbc:mysql://192.168.2.66:3306/csjy?useSSL=false&useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
       username: root
       password: 123456
       max-active: 5000
@@ -30,7 +32,25 @@ spring:
       max-request-size: 100MB
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+  mail:
+    #编码格式
+    default-encoding: UTF-8
+    #协议特定邮件服务器名
+    host: smtp.126.com
+    #发送者的邮箱账号
+    username: jiang126yx@126.com
+    #发送者的邮箱授权码
+    password: jk123456
+    #qq邮箱授权码
+    #password: uoajrcdicotbbcai
+    #端口
+    #非SSL链接25，SSL链接465
+    port: 465
+    #协议
+    protocol: smtp
+spring.mail.properties.mail.smtp.ssl.enable: true
 server:
   address: localhost
   port: 8080
+
+

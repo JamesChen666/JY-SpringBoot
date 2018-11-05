@@ -9,17 +9,23 @@
 <table class="tb1">
     <tbody>
     <tr>
-        <td class="left b">角色名称</td>
+        <td class="right b">角色名称</td>
         <td>
             <input class="easyui-textbox" name="roleName"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">排序</td>
+        <td class="right b">排序</td>
         <td>
             <input class="easyui-numberbox" name="sort"
                    data-options="required:true">
+        </td>
+    </tr>
+    <tr>
+        <td class="right b">权限分配</td>
+        <td>
+            <div id="tree" style="overflow-y: scroll; height: 300px"></div>
         </td>
     </tr>
     </tbody>

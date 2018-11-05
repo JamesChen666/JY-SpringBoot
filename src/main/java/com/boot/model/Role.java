@@ -1,5 +1,6 @@
 package com.boot.model;
 
+import com.boot.util.excel.annotation.ExcelField;
 import org.beetl.sql.core.annotatoin.Table;
 import java.io.Serializable;
 /**
@@ -9,7 +10,9 @@ import java.io.Serializable;
 public class Role implements Serializable{
 
 	  private Integer Id;
+	  @ExcelField(title = "角色名称",order = 1)
 	  private String RoleName;
+	  @ExcelField(title = "排序",order =2 )
 	  private Integer Sort;
 
 	  public void setId(Integer Id) {

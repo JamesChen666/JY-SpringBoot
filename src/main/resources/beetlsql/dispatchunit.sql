@@ -3,7 +3,9 @@ list
 SELECT bd.Id,
 bd.Address,bd.IsEnabled,
 bd.IsNormal,bd.FileReceivAddress,
-bd.ProviderName,bd.FileReceivUnit
+bd.ProviderName,bd.FileReceivUnit,
+(CASE WHEN bd.IsNormal = 1 THEN '是' ELSE '否' END)  as IsNormalName,
+(CASE WHEN bd.IsEnabled = 1 THEN '是' ELSE '否' END)  as IsEnabledName
 FROM base_dispatchunit bd
 
 findOne

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.5,user-scalable=no" />
+    <title>微就业</title>
+    <link rel="stylesheet" href="css/V_employment.css" />
+    <style>
+        .sushe-mtkbg{
+            display: none;
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(0,0,0,.2);
+            z-index: 1000;
+        }
+
+        .sushe-mtk{
+            position: absolute;
+            width:80%;
+            height:16rem;
+            background: #ffffff;
+            text-align: center;
+            top: 50vh;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .sushe-mtk>div{
+            display: block;
+            background: #ffffff;
+            width:90%;
+            line-height: 4rem;
+            min-height: 4rem;
+            border-bottom: 1px solid #EDEDED;
+            margin: 0 auto;
+        }
+        .sushe-mtk>div>input{
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body class="com-re bgf" >
+<p class="c32 com-title text-center bg" >
+    <a href=""></a><span>公司信息</span>
+</p>
+<div class="ele-header" style="background-image: url(img/main-com-pro.png);background-size: cover;">
+    <div class="bg box-s" style="min-height: 300px">
+        <p>成都易科士信息产业有限公司</p>
+        <div style="margin-top: 40px">职位类型 ：公务员</div>
+        <div>招聘人数 ：12人</div>
+        <div>学历要求 ：大专</div>
+        <div>发布时间 ：2018-08-20&nbsp&nbsp&nbsp&nbsp09:00</div>
+    </div>
+    <div class="recruit-title recruit margintoptwo afterclear">
+        <span class="bt-l">公司信息</span>
+    </div>
+    <div class="recruit margintopone">
+        <a href="" class="recruit-news ele-news afterclear">
+            <img class="bt-l" src="img/comp-logo.png" alt="">
+            <div class="bt-l" >
+                <p class="c32 onepai">易科士信息产业有限公司</p>
+                <div class="onepai">联系人 ：谢经理</div>
+                <div class="onepai">联系电话 ：18901731279</div>
+            </div>
+        </a>
+    </div>
+    <div id="pass" class="zw-pro-btn text-center margintoptwo cff ">通&nbsp&nbsp过</div>
+    <div id="nopass"  class="zw-pro-btn text-center margintoptwo c95 hf-btn3">不通过</div>
+</div>
+<div style="height: 5rem"></div>
+<!--模态框-->
+<div class="sushe-mtkbg" id="sushe-mtkbg2">
+    <div class="sushe-mtk text-c c95 ">
+        <p class="f30 text-center c32 margintoptwo">提示</p>
+        <div class="text-left">
+            <input type="text" class="f20 margintopone" placeholder="请输入不通过理由">
+        </div>
+        <div class="afterclear margintopthree" style="border: none;width: 75%">
+            <div class="bt-l hf-btn hf-btn2  c95 f28">取&nbsp&nbsp消</div>
+            <div class="bt-r hf-btn  cff  f28" >确&nbsp&nbsp认</div>
+        </div>
+    </div>
+</div>
+<!--模态框-->
+<div class="sushe-mtkbg" id="sushe-mtkbg">
+    <div class="sushe-mtk text-c c95 ">
+        <p class="f30 text-center c32 margintoptwo">提示</p>
+        <div class="text-center cbl f30 ">
+            请确认是否通过
+        </div>
+        <div class="afterclear margintopthree" style="border: none;width: 75%">
+            <div class="bt-l hf-btn hf-btn2  c95 f28">取&nbsp&nbsp消</div>
+            <div class="bt-r hf-btn  cff  f28">确&nbsp&nbsp认</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-2.1.1.js" ></script>
+<script>
+    $("#pass").click(
+        function () {
+            $("#sushe-mtkbg").fadeIn();
+        }
+    );
+    $("#nopass").click(
+        function () {
+            $("#sushe-mtkbg2").fadeIn();
+        }
+    );
+    $(".hf-btn").click(
+        function () {
+            $(".sushe-mtkbg").fadeOut();
+        }
+    );
+</script>
+</body>
+</html>

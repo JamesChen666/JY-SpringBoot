@@ -7,8 +7,9 @@
     <#include "../base/header.html">
     <script>
         $(function () {
+            var specialId = '${id}';
             $("#list").ex_grid({
-                url: "/position/list",
+                url: "/position/list?s_sp.SpecialId="+specialId,
                 idField: "Id",
                 textField: 'Id',
                 treeGridModel: 'adjacency',
@@ -16,12 +17,10 @@
                 colNames: ['Id', "专场招聘单位名称", "职位名称"],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
-                    //{name: 'SpecialId', index: 'SpecialId', align: "center", width: 100},
                     {name: 'CorpName', index: 'CorpName', align: "center", width: 100},
                     {name: 'PositionName', index: 'PositionName', align: "center", width: 100},
                 ],
                 pager: "#pager",
-                ExpandColumn: "Id",
                 buttons:
                         [
                             {
@@ -31,11 +30,15 @@
                                 btnCode: "Add",
                                 iconCls: "icon-add",
                                 listId: "#list",
-                                href: "/position/add",
+                                href: "/position/add?specialId="+specialId,
                                 save: "save",
-                                height: 500
+                                height: 500/*,
+                                onLoad:function(){
+                                    debugger
+                                    $('#specialId').textbox('setValue',id);
+                                }*/
                             },
-                            {
+                            /*{
                                 type: "AddOrUpdate",
                                 iconCls: "icon-edit",
                                 title: "专场招聘职位管理-修改职位",
@@ -45,14 +48,14 @@
                                 href: "/position/edit?id={id}",
                                 save: "save",
                                 height: 500
-                            },
+                            },*/
                             {
                                 type: "Del",
                                 btnName: "删除",
                                 btnCode: "Delete",
                                 listId: "#list",
                                 save: "delete"
-                            },
+                            }/*,
                             {
                                 type: "Import",
                                 btnName: "导入",
@@ -66,7 +69,7 @@
                                 btnCode: "Export",
                                 listId: "#list",
                                 save: "/position/export"
-                            }
+                            }*/
                         ]
             });
         })

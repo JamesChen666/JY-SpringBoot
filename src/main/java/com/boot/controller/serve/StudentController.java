@@ -61,9 +61,9 @@ public class StudentController extends BaseController {
     @ResponseBody
     @RequestMapping("/specialty")
     public Object specialty(HttpServletRequest httpServletRequest) {
-      Map map = sqlManager.selectSingle("student.classToCFS"
-                ,Dict.create().set("ClassNo", httpServletRequest.getParameter("classNo"))
-                ,Map.class);
+        Map map = sqlManager.selectSingle("student.classToCFS"
+                , Dict.create().set("ClassNo", httpServletRequest.getParameter("classNo"))
+                , Map.class);
         return map;
     }
 
@@ -93,7 +93,7 @@ public class StudentController extends BaseController {
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
         Student model = mapping(Student.class, request);
-        int result=0;
+        int result = 0;
         int insert = 0;
         if (model.getId() == null) {
             Student studentNumber = sqlManager.query(Student.class)
@@ -122,7 +122,7 @@ public class StudentController extends BaseController {
             loginaccount.setUserTypeId(Integer.valueOf(DictionaryType.学生.getValue().toString()));
             KeyHolder keyHolder = new KeyHolder();
             result += sqlManager.insert(Loginaccount.class, loginaccount, keyHolder);
-            LoginaccountRole loginaccountRole=new LoginaccountRole();
+            LoginaccountRole loginaccountRole = new LoginaccountRole();
             loginaccountRole.setRoleId(Integer.valueOf(DictionaryType.学生.getValue().toString()));
             loginaccountRole.setUserId(Integer.valueOf(keyHolder.getKey().toString()));
             result += sqlManager.insert(loginaccountRole);
@@ -212,10 +212,20 @@ public class StudentController extends BaseController {
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Student> Students = importExcel(file, Student.class);
             for (Student student : Students) {
+                err++;
+                Student studentNumber = sqlManager.query(Student.class)
+                        .andEq("StudentNumber", student.getStudentNumber()).single();
+                if (ObjectUtil.isNotNull(studentNumber)) {
+                    return error("第" + err + "行" + studentNumber.getStudentNumber() + "重复");
+                }
+            }
+            for (Student student : Students) {
+                student.setIsEnabled(true);
                 insert += sqlManager.insert(student);
             }
         }
@@ -229,14 +239,14 @@ public class StudentController extends BaseController {
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Student> studentList ;
-        if (StrUtil.hasEmpty(ids)){
+        List<Student> studentList;
+        if (StrUtil.hasEmpty(ids)) {
             studentList = sqlManager.all(Student.class);
-        }else {
+        } else {
             studentList = selectByIds(Student.class, ids);
         }
         try {
-            exportExcel("学生信息", studentList,Student.class);
+            exportExcel("学生信息", studentList, Student.class);
         } catch (Exception e) {
             e.getStackTrace();
             return fail(FAIL);
@@ -244,19 +254,9 @@ public class StudentController extends BaseController {
         return success(SUCCESS);
     }
 
-    @RequestMapping("/sign")
-    public String sign(ModelMap modelMap){
-        Student studentNumber = sqlManager.query(Student.class)
-                .andEq("StudentNumber", ShiroUtils.getInstence().getUser().getUserName()).single();
-        Map student = sqlManager.selectSingle("student.findSimpleStudentMessage",
-                Dict.create().set("Id", studentNumber.getId()), Map.class);
-        modelMap.put("student", student);
-        return BASE_PATH+"/student_sign";
-    }
-
     @ResponseBody
     @RequestMapping("/sign/{id}")
-    public Object sign(@PathVariable Integer id){
+    public Object sign(@PathVariable Integer id) {
         Map sign = sqlManager.selectSingle("student.findSign",
                 Dict.create().set("Id", id),
                 Map.class);
@@ -265,7 +265,7 @@ public class StudentController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/saveSign")
-    public AjaxResult saveSign(HttpServletRequest httpServletRequest){
+    public AjaxResult saveSign(HttpServletRequest httpServletRequest) {
         Sign model = mapping(Sign.class, httpServletRequest);
         SignLog signLog = mapping(SignLog.class, httpServletRequest);
         model.setIsLock(false);
@@ -274,39 +274,30 @@ public class StudentController extends BaseController {
         signLog.setCreateDate(new Date());
         signLog.setUserId(ShiroUtils.getInstence().getUser().getId());
         Sign studentId = sqlManager.query(Sign.class)
+                .andEq("GraduationWhereAboutCode", 10)
                 .andEq("StudentId", model.getStudentId()).single();
-        int insert=0;
-        if (ObjectUtil.isNotNull(studentId)){
-            if (studentId.getIsLock()){
+        int insert = 0;
+        if (ObjectUtil.isNotNull(studentId)) {
+            if (studentId.getIsLock()) {
                 return fail("已锁定,不允许修改");
-            }else {
+            } else {
                 model.setId(studentId.getId());
                 insert += sqlManager.updateById(model);
 
             }
-        }else {
-             insert += sqlManager.insert(model);
+        } else {
+            insert += sqlManager.insert(model);
         }
-         insert += sqlManager.insert(signLog);
-        if (insert<=0){
+        insert += sqlManager.insert(signLog);
+        if (insert <= 0) {
             return fail(FAIL);
         }
         return success(SUCCESS);
     }
 
-    @RequestMapping("/work")
-    public String work(ModelMap modelMap){
-        Student studentNumber = sqlManager.query(Student.class)
-                .andEq("StudentNumber", ShiroUtils.getInstence().getUser().getUserName()).single();
-        Map student = sqlManager.selectSingle("student.findSimpleStudentMessage",
-                Dict.create().set("Id", studentNumber.getId()), Map.class);
-        modelMap.put("student", student);
-        return BASE_PATH+"/student_work";
-    }
-
     @ResponseBody
     @RequestMapping("/work/{id}")
-    public Object work(@PathVariable Integer id){
+    public Object work(@PathVariable Integer id) {
         Map sign = sqlManager.selectSingle("student.findWork",
                 Dict.create().set("Id", id),
                 Map.class);
@@ -315,22 +306,22 @@ public class StudentController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/saveWork")
-    public AjaxResult saveWork(HttpServletRequest httpServletRequest){
+    public AjaxResult saveWork(HttpServletRequest httpServletRequest) {
         Sign model = mapping(Sign.class, httpServletRequest);
         SignLog signLog = mapping(SignLog.class, httpServletRequest);
         model.setIsLock(false);
         signLog.setCreateDate(new Date());
         signLog.setUserId(ShiroUtils.getInstence().getUser().getId());
-        Sign studentId = sqlManager.query(Sign.class)
-                .andEq("StudentId", model.getStudentId()).single();
-        int insert=0;
-        if (ObjectUtil.isNotNull(studentId)){
-          return error("就业协议已签约,不能再提交工作证明");
-        }else {
-             insert += sqlManager.insert(model);
+        List<Sign> list = sqlManager.query(Sign.class)
+                .andNotEq("GraduationWhereAboutCode", 10)
+                .andEq("StudentId", model.getStudentId()).select();
+        for (Sign sign : list) {
+            sqlManager.deleteObject(sign);
         }
-         insert += sqlManager.insert(signLog);
-        if (insert<=0){
+        int insert = 0;
+        insert += sqlManager.insert(model);
+        insert += sqlManager.insert(signLog);
+        if (insert <= 0) {
             return fail(FAIL);
         }
         return success(SUCCESS);
@@ -347,7 +338,7 @@ public class StudentController extends BaseController {
     }
 
     @RequestMapping("/viewSign/{type}")
-    public String viewSign(@PathVariable Integer type, ModelMap modelMap){
+    public String viewSign(@PathVariable Integer type, ModelMap modelMap) {
         Student studentNumber = sqlManager.query(Student.class)
                 .andEq("StudentNumber", ShiroUtils.getInstence().getUser().getUserName())
                 .single();
@@ -360,19 +351,38 @@ public class StudentController extends BaseController {
         Map sign = null;
         Map work = null;
         for (Map map : mapList) {
-            if (map.get("GraduationWhereAboutCode").toString().equals("签就业协议形式就业")){
-                sign=map;
-            }else {
-                work =map;
+            if (map.get("GraduationWhereAboutCode").toString().equals("签就业协议形式就业")) {
+                sign = map;
+            } else {
+                work = map;
             }
         }
-        if (type==1){
+        if (type == 1) {
             modelMap.put("sign", sign);
-            return BASE_PATH+"/student_signview";
-        }else {
+            return BASE_PATH + "/student_signview";
+        } else {
             modelMap.put("sign", work);
-            return BASE_PATH+"/student_workview";
+            return BASE_PATH + "/student_workview";
         }
     }
 
+
+    @RequestMapping("/tag")
+    public String tag(HttpServletRequest httpServletRequest, ModelMap modelMap) {
+        //查询出学生信息及对应标签
+        Map map = sqlManager.selectSingle("student.findTag", Dict.create().set("id", httpServletRequest.getParameter("id")), Map.class);
+        modelMap.put("student", map);
+        return BASE_PATH + "/student_tag";
+    }
+
+    @ResponseBody
+    @RequestMapping("updateTag")
+    public Object updateTag(HttpServletRequest request) {
+        StudentTag studentTag = mapping(StudentTag.class, request);
+        //删除之前的学生标签
+        sqlManager.update("studentTag.deleteTag", Dict.create().set("StudentId", studentTag.getStudentId()));
+        //添加学生标签
+        boolean isOk = sqlManager.insert(studentTag) > 0;
+        return isOk ? success(SUCCESS) : fail(FAIL);
+    }
 }

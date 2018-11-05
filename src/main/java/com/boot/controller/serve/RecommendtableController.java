@@ -95,7 +95,9 @@ public class RecommendtableController extends BaseController{
         int deleteById = 0;
         for (String s : parameterMap.keySet()) {
             String id = httpServletRequest.getParameter(s);
-            deleteById += sqlManager.deleteById(Recommendtable.class, id);
+            Recommendtable single = sqlManager.query(Recommendtable.class)
+                    .andEq("StudentNumber", s).single();
+            deleteById += sqlManager.deleteById(Recommendtable.class, single.getId());
         }
         if (deleteById <= 0) {
             return fail(FAIL);

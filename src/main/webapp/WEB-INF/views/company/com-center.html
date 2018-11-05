@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四川师范大学-就业信息网</title>
+    <link rel="stylesheet" href="/static/homePage/css/swiper-4.2.6.min.css">
+    <link href="/static/homePage/css/web_sf1.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/homePage/css/upload.css">
+    <style>
+        .swiper-button-prev{
+            left: -8px;
+            background-image:url("/static/homePage/img/center-index_43-55.png");
+        }
+        .swiper-button-next{
+            right: 8px;
+            background-image:url("/static/homePage/img/center-index_43-56.png");
+        }
+        .swiper-button-next, .swiper-button-prev{
+            width: 30px;
+            height: 30px;
+            background-size:100%;
+            z-index: 1000;
+        }
+        /*input[type="checkbox"]{
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+            display:none
+        }*/
+
+        label{
+            min-width:30px;
+            height:30px;
+            color:#323232;
+            display:inline-block;
+            cursor:pointer;
+            line-height:30px;
+            text-align: left;
+        }
+        label input[type="checkbox"] + span{
+            vertical-align:top;
+            width:30px;
+            height:30px;
+            display:inline-block;
+            background:url(/static/homePage/img/index-gsxx_10.png)  no-repeat;
+            background-position:-40px 0;
+            background-size: cover;
+        }
+        .test3>input[type="text"]{
+            width: 250px;
+            border: none;
+            border-bottom: 1px  solid #C4C0BA;
+            outline: none;
+        }
+        .on{background-position:0 0 !important;}
+
+    </style>
+</head>
+<body>
+<!--页头-->
+<div class="center-head com-center-head" >
+    <div class="header bt-box-1024  clear">
+        <img src="/static/homePage/img/logo.png" class="margintop50" alt="">
+        <div class="bt-r margintop50 cff" >
+            <a href="" class="">
+                <img src="/static/homePage/img/com-index_03.png" alt="" id="logo1" style="width: 50px;height: 50px;border-radius: 50%;">
+                <span>${corp.corpName!}</span>
+            </a>
+            <a href="" class="marginleft20">
+                <img src="/static/homePage/img/center-index_09.png" alt="">
+            </a>
+            <a id="exit" rel="/loginOut">
+                <img src="/static/homePage/img/center-index_11.png" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="stu-tabs bt-box-1024 box-s" >
+        <div class="clear">
+            <img src="/static/homePage/img/com-index_03-07.png" class="bt-l" alt="" id="logo2" style="width: 90px;height: 90px;border-radius: 50%;">
+            <div class="bt-l marginleft20">
+                <p class="margintop10">${corp.corpName!}</p>
+                <p class="margintop10" id="status">审核状态：</p>
+                <p class="margintop10">是否允许发布职务：是</p>
+            </div>
+            <a href="/" class="bt-r text-c marginr20">
+                <img class="margintop10" src="/static/homePage/img/center-index_21.png" alt="">
+                <p style="margin-top: 5px">返回网站首页</p>
+            </a>
+        </div>
+        <div class="line3"></div>
+        <!-- Swiper -->
+        <div></div>
+        <div class="swiper-container">
+            <ul class="tab_nav swiper-wrapper swiper-wrapper" >
+                <li class="active swiper-slide swiper-slide2" >
+                    <img  src="/static/homePage/img/tab221.png"  id="0">
+                    <p class="margintop10">个人中心首页</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img  src="/static/homePage/img/tab112.png"  id="1">
+                    <p class="margintop10">我的基础信息</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img  src="/static/homePage/img/tab113.png"  id="2">
+                    <p class="margintop10">招聘管理</p>
+                </li>
+                <li class="swiper-slide hide swiper-slide2">
+                    <img  src="/static/homePage/img/tab114.png"  id="3">
+                    <p class="margintop10">我的签约派遣</p>
+                </li>
+                <li class="swiper-slide hide swiper-slide2">
+                    <img  src="/static/homePage/img/tab115.png"  id="4">
+                    <p class="margintop10">我的改签补办</p>
+                </li>
+                <li class="swiper-slide hide swiper-slide2">
+                    <img  src="/static/homePage/img/tab116.png"  id="5">
+                    <p class="margintop10">我的资助申请</p>
+                </li>
+                <li class="swiper-slide hide swiper-slide2">
+                    <img  src="/static/homePage/img/tab117.png"  id="6">
+                    <p class="margintop10">我的资助申请2</p>
+                </li>
+                <li class="swiper-slide swiper-slide2">
+                    <img  src="/static/homePage/img/tab118.png"  id="7">
+                    <p class="margintop10">其他管理</p>
+                </li>
+            </ul>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <!--公司中心首页-->
+    <div class=" tab_content  bt-box-1024">
+        <p class="center-title margintop30">公司信息</p>
+        <div class="box-s prompt com-prompt margintop20 bgff clear" style="min-height: 180px">
+            <img src="/static/homePage/img/com-index_18.png" class="bt-l" alt="" id="logo3" style="width:180px;height: 100px;">
+            <div class="bt-l">
+                <p>
+                    <!--<span>允许发布招聘职位条数：2</span>-->
+                    <span>已发布有效职位数：${postionCount!}</span>
+                    <span>来校次数：${toSchoolCount!}</span>
+                </p>
+                <p>
+                    <!--<span>允许收藏简历数：0</span>-->
+                    <span>收藏数：${storeCount!}</span>
+                    <span>自行联系职位数：${contactCount!}</span>
+                </p>
+                <p>
+                    <span>简历投递数：${resumeCount!}</span>
+                    <!--<span>是否校企合作单位：否</span>-->
+                </p>
+
+            </div>
+        </div>
+        <p class="center-title margintop30 clear">
+            <span class="bt-l">最新投递简历</span>
+        </p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="clear sea margintop30">
+                <form action=""  class=" clear">
+                    <input type="text" class="bt-l" id="name" placeholder="输入职位名称或姓名">
+                    <button type="reset" onclick="resumeList(1)" class="center-btn bt-l " >搜索</button>
+                    <a href="javascript:;" onclick="resumeList(1)" class="bt-l marginleft20">
+                        <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                    </a>
+                </form>
+            </div>
+            <table class="ts-table f15 margintop20" >
+                <thead>
+                <tr class="c95">
+                    <td width="150">意向职位</td>
+                    <td width="80">姓名</td>
+                    <td width="70">性别</td>
+                    <td width="100">所属院系</td>
+                    <td width="180">所属专业</td>
+                    <td width="130">班级名称</td>
+                    <td width="200">投递时间</td>
+                    <td width="190">操作</td>
+                </tr>
+                </thead>
+                <tbody id="jltdList">
+
+                </tbody>
+            </table>
+            <div id="fy1"></div>
+        </div>
+    </div>
+    <!--我的基础信息-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的基础信息</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="grxx-tabs clear">
+                <div class="active2">基本信息</div>
+                <div onclick="queryPostion(1)">职位列表</div>
+                <div onclick="queryLeaveList(1)">单位留言</div>
+            </div>
+            <!--基本信息-->
+            <div class="tab_content1  margintop20">
+                <input id="corpId" name="id" type="hidden" value="${corp.id}">
+                <div class="grxx-pro ">
+                    <div class="margintop15 f15  sea">招聘负责人信息（请务必填写真实有效信息）</div>
+                    <p>
+                        <span class="bt-l">单位名称</span>
+                        <span class="bt-l">
+                        <input type="text" id="corpName" placeholder="" value="${corp.corpName!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位性质</span>
+                        <span class="bt-l">
+                        <select name="" id="dwxz" value="${corp.natureCdoe!}">
+                        </select>
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位规模</span>
+                        <span class="bt-l">
+                        <select name="" id="dwgm" value="${corp.scaleCode!}">
+                        </select>
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位行业</span>
+                        <span class="bt-l">
+                        <select name="" id="dwhy" value="${corp.industryCode!}">
+                        </select>
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位注册资金</span>
+                        <span class="bt-l">
+                        <select name="" id="dwzczj" value="${corp.capitalCode!}">
+                        </select>
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位经济类型</span>
+                        <span class="bt-l">
+                        <select name="" id="dwjjlx" value="${corp.economicTypeCode!}">
+                        </select>
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位所在地</span>
+                        <span class="bt-l" id="sx">
+                            <input id="dwszd">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">成立日期</span>
+                        <span class="bt-l">
+                            <input type="text"  class="com-date" placeholder="请选择时间" id="EstablishmentDate">
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">组织机构代码和信用代码</span>
+                        <span class="bt-l">
+                        <input type="text" id="OrganizetionCode" placeholder="" value="${corp.organizetionCode!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位联系人</span>
+                        <span class="bt-l">
+                        <input type="text" id="Contactor" placeholder="" value="${corp.contactor!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">联系电话</span>
+                        <span class="bt-l">
+                        <input type="text" id="ContactPhone" placeholder="" value="${corp.contactPhone!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位固定电话</span>
+                        <span class="bt-l">
+                        <input type="text" id="FixPhone" placeholder="" value="${corp.fixPhone!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">电子邮箱</span>
+                        <span class="bt-l">
+                        <input type="text" id="Email" placeholder="" value="${corp.email!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">邮政编码</span>
+                        <span class="bt-l">
+                        <input type="text" id="PostCode" placeholder="" value="${corp.postCode!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">传真号码</span>
+                        <span class="bt-l">
+                        <input type="text" id="Fax" placeholder="" value="${corp.fax!}">
+                    </span>
+                    </p>
+                    <p>
+                    <span class="bt-l">主页地址</span>
+                    <span class="bt-l">
+                        <input type="text" id="Website" placeholder="" value="${corp.website!}">
+                    </span>
+                </p>
+                    <p>
+                        <span class="bt-l">QQ号</span>
+                        <span class="bt-l">
+                        <input type="text" placeholder="" id="qq" value="${corp.QQ!}">
+                    </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">单位联系地址</span>
+                        <span class="bt-l">
+                        <input type="text" id="Address" placeholder="" value="${corp.address!}">
+                    </span>
+                    </p>
+                    <p style="min-height: 100px">
+                        <span class="bt-l">单位简介</span>
+                        <span class="bt-l" >
+                            <textarea name="" id="Description" placeholder="单位简介..." >${corp.description!}</textarea>
+                        </span>
+                    </p>
+                </div>
+                <div>
+                    <div class="margintop15 f15  sea">资料照片（请务必上传真实有效照片）</div>
+                    <div class="photo box text-c">
+                        <div>
+                            <p>营业执照</p>
+                            <input id="yezz" type="hidden">
+                            <a href="javascript:;" class="file" id="yezz2">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="yezz3" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file1" onchange="registerUploadPhoto('yezz','upload-file1','yezz2','yezz3');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                        <div>
+                            <p>logo</p>
+                            <input id="logos" type="hidden">
+                            <a href="" id="logos2">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="logos3" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file2" onchange="registerUploadPhoto('logos','upload-file2','logos2','logos3');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                        <div>
+                            <p>组织机构照片</p>
+                            <input id="zzjg" type="hidden">
+                            <a href="" id="zzjg2">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="zzjg3" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file3" onchange="registerUploadPhoto('zzjg','upload-file3','zzjg2','zzjg3');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                        <div>
+                            <p>身份证正面照</p>
+                            <input id="sfzzmz" type="hidden">
+                            <a href="" id="sfzzmz2">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="sfzzmz3" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file5" onchange="registerUploadPhoto('sfzzmz','upload-file5','sfzzmz2','sfzzmz3');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="photo box text-c">
+                        <div>
+                            <p>身份证反面照</p>
+                            <input id="sfzfmz" type="hidden">
+                            <a href="" id="sfzfmz2">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="sfzfmz3" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file6" onchange="registerUploadPhoto('sfzfmz','upload-file6','sfzfmz2','sfzfmz3');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                        <div>
+                            <p>校企合作</p>
+                            <input id="qxhz" type="hidden">
+                            <a href="" id="qxhz2">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="qxhz3" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file4" onchange="registerUploadPhoto('qxhz','upload-file4','qxhz2','qxhz3');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                        <div>
+                            <p>校企合作</p>
+                            <input id="qxhz4" type="hidden">
+                            <a href="" id="qxhz5">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="qxhz6" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file7" onchange="registerUploadPhoto('qxhz4','upload-file7','qxhz5','qxhz6');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                        <div>
+                            <p>校企合作</p>
+                            <input id="qxhz7" type="hidden">
+                            <a href="" id="qxhz8">
+                                <img src="/static/homePage/img/com-ph_11.png" alt="" id="qxhz9" style="width: 100%;height: 100%;">
+                                <div class="cff text-c">
+                                    <input type="file" name="file" id="upload-file8" onchange="registerUploadPhoto('qxhz7','upload-file8','qxhz8','qxhz9');"
+                                           style="width: 100%;height: 100%;position: absolute;  right: 0;top: 0;opacity: 0;" accept="image/*">
+                                    上传图片</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-c margintop30">
+                        <button class="center-btn c32" style="background: #DDDDDD">取消</button>
+                        <button class="center-btn marginleft20" onclick="submtCorp()">确定</button>
+                    </div>
+                </div>
+            </div>
+            <!--职位列表-->
+            <div class="tab_content1 hide margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" id="postionName" class="bt-l" placeholder="输入职位名称">
+                        <button class="center-btn bt-l " type="reset" onclick="queryPostion(1)">搜索</button>
+                        <div class="bt-l cge add-zw mtk-show marginleft20">
+                            <img src="/static/homePage/img/add_03.png" style="vertical-align: middle;" alt="">
+                            添加职位
+                        </div>
+                        <a href="javascript:;" onclick="queryPostion(1)" class="bt-l marginleft20">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20" style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr class="c95">
+                        <td>职位名称</td>
+                        <td>职位类型</td>
+                        <td>发布状态</td>
+                        <td>审核状态</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="zwList">
+                    </tbody>
+                </table>
+                <div id="fy2"></div>
+            </div>
+            <!--单位留言-->
+            <div class="tab_content1 hide margintop30 " id="wyly">
+                <form action="" class="ly-cont">
+                <input type="text" id="Title2" placeholder="标题">
+                <input type="text" id="ContactPhone2" class="margintop20" placeholder="手机号码">
+                <textarea name="" id="Content" class="margintop20" id=""  placeholder="留言内容......"></textarea>
+                </form>
+                <button onclick="saveLeave()" class="center-btn margintop30">发布留言</button>
+                <div class="line3"></div>
+                <div class="clear sea margintop30">
+                        <span class="bt-l">
+                            留言列表
+                            <a href="javascript:;" onclick="queryLeaveLists()">
+                                <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                            </a>
+                        </span>
+                    <form action="" class="bt-r clear">
+                        <input type="text" class="bt-l" id="keyword" placeholder="输入关键字">
+                        <button type="reset" onclick="queryLeaveList(1)" class="center-btn bt-l" >搜索</button>
+                    </form>
+                </div>
+                <div id="leaveList"></div>
+                <div id="fy7"></div>
+            </div>
+        </div>
+    </div>
+    <!--招聘管理-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的基础信息</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="qz-tabs clear">
+                <div class="active2" onclick="sh()">发布招聘</div>
+                <div onclick="myRecruit(1)">我的招聘</div>
+                <div onclick="electionList(1)">双选会</div>
+            </div>
+            <!--发布招聘-->
+            <div class="tab_content2  margintop20" id="xbzp">
+                <div class="grxx-pro ">
+                    <!--div class="margintop15 f15  sea">专场招聘场地</div>-->
+                    <p>
+                        <span class="bt-l">招聘类型</span>
+                        <span class="bt-l">
+                            <select name="TypeId" onchange="xs()" id="TypeId">
+                                <option value="1">自行联系</option>
+                                <option value="2">来校招聘</option>
+                            </select>
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">身份证正面照</span>
+                        <span class="bt-l">
+                            <input type="text"  placeholder="" id="zmz" readonly="readonly">
+                            <a href="javascript:;" class="file">选择文件
+                            <input type="file" name="file" id="upload-file10" onchange="registerUploadPhoto('zmz','upload-file10','cs1','yl1');"
+                                   style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+                            </a>
+                            <a target="_blank" href="" id="cs1">
+                                <img id="yl1" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+                            </a>
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">身份证反面照</span>
+                        <span class="bt-l">
+                            <input type="text"  placeholder="" id="fmz" readonly="readonly">
+                            <a href="javascript:;" class="file">选择文件
+                            <input type="file" name="file" id="upload-file11" onchange="registerUploadPhoto('fmz','upload-file11','cs2','yl2');"
+                                   style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+                            </a>
+                            <a target="_blank" href="" id="cs2">
+                                <img id="yl2" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+                            </a>
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">附件</span>
+                        <span class="bt-l">
+                            <input type="text"  placeholder="" id="wjdz1" readonly="readonly">
+                            <a href="javascript:;" class="file">选择文件
+                            <input type="file" name="file" id="upload-file12" onchange="uploadingFiles('wjdz1','upload-file12');"
+                                   style="width: 70px;height: 30px; margin-left: -52px;">
+                            </a>
+                        </span>
+                    </p>
+                </div>
+                <div class="grxx-pro" id="lxzp" style="display:none;">
+                    <p>
+                        <span class="bt-l">使用日期</span>
+                        <span class="bt-l">
+                            <input type="text"  class="com-date" name="UseDate" placeholder="请选择时间" id="UseDate">
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">开始时间</span>
+                        <span class="bt-l">
+                                <input  name="StartHour" id="StartHour" placeholder="格式如09:00" data-options="required:true,min:'07:00',max:'20:00'">
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">结束时间</span>
+                        <span class="bt-l">
+                                <input name="EndHour" id="EndHour" placeholder="格式如13:00" data-options="required:true,min:'07:00',max:'20:00'">
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="bt-l">场地</span>
+                        <span class="bt-l"><!--onchange="find()"-->
+                            <select name="OpenTypeId" id="PlaceId" >
+                            </select>
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">召开类型</span>
+                        <span class="bt-l">
+                            <select name="OpenTypeId" id="OpenTypeId">
+                                <option value="">请选择</option>
+                                <option value="1">宣讲</option>
+                                <option value="2">面试</option>
+                            </select>
+                        </span>
+                    </p>
+
+                </div>
+                <button class="center-btn margintop30" type="reset" onclick="qh()" style="margin-left: 27%;">下一页</button>
+            </div>
+            <div class="tab_content3  margintop20" id="xzzw" style="display: none">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" id="postionName1" class="bt-l" placeholder="输入职位名称">
+                        <button class="center-btn bt-l " type="reset" onclick="queryPostion1(1)">搜索</button>
+                        <div class="bt-l cge add-zw mtk-show marginleft20">
+                            <img src="/static/homePage/img/add_03.png" style="vertical-align: middle;" alt="">
+                            添加职位
+                        </div>
+                        <a href="javascript:;" onclick="queryPostion1(1)" class="bt-l marginleft20">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20" style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr class="c95">
+                        <td><input id="allcheck" type="checkbox" /></td>
+                        <td>职位名称</td>
+                        <td>职位类型</td>
+                        <td>发布状态</td>
+                        <td>审核状态</td>
+                       <!-- <td>操作</td>-->
+                    </tr>
+                    </thead>
+                    <tbody id="zwList1">
+                    </tbody>
+                </table>
+                <div id="fy4"></div>
+                <button class="center-btn margintop30" onclick="tijiao()" style="margin-left: 37%;">保存</button>
+            </div>
+            <!--我的招聘-->
+            <!--<div class="tab_content4 box-s margintop20 bgff " style="padding: 20px 30px 40px;display: none" id="tab_content4">-->
+            <div class="tab_content2 hide margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" id="parameter" class="bt-l" placeholder="输入场地名称或招聘日期">
+                        <button type="reset" class="center-btn bt-l "  onclick="myRecruit(1)">搜索</button>
+                        <!--<div class="bt-l cge add-zw mtk-show marginleft20">
+                            <img src="/static/homePage/img/add_03.png" style="vertical-align: middle;" alt="">
+                            添加职位
+                        </div>-->
+                        <a href="javascript:;" class="bt-l marginleft20" onclick="myRecruit(1)">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20" style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr class="c95">
+                        <td>招聘类型</td>
+                        <td>场地</td>
+                        <td>招聘日期</td>
+                        <td>审核状态</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="myRecruit">
+                    </tbody>
+                </table>
+                <div id="fy3"></div>
+            </div>
+      <!--  </div>-->
+           <!-- <div class="tab_content5 box-s margintop20 bgff " style="padding: 20px 30px 40px;display: none" id="tab_content5">
+            <div class="tab_content4 margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" id="parameter1" class="bt-l" placeholder="输入场地名称或招聘日期">
+                        <button type="reset" class="center-btn bt-l "  onclick="myRecruit()">搜索</button>
+                        &lt;!&ndash;<div class="bt-l cge add-zw mtk-show marginleft20">
+                            <img src="/static/homePage/img/add_03.png" style="vertical-align: middle;" alt="">
+                            添加职位
+                        </div>&ndash;&gt;
+                        <a href="javascript:;" class="bt-l marginleft20" onclick="myRecruit()">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20" style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr class="c95">
+                        <td>招聘类型</td>
+                        <td>场地</td>
+                        <td>招聘日期</td>
+                        <td>审核状态</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="myRecruit1">
+                    </tbody>
+                </table>
+                <div id="fy5"></div>
+            </div>
+        </div>-->
+            <!--双选会-->
+            <div class="tab_content2 hide margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" class="bt-l" id="electionName" placeholder="输入关键字">
+                        <button class="center-btn bt-l " type="reset" onclick="electionList(1)" >搜索</button>
+                        <a href="javascript:;" onclick="electionList(1)" class="bt-l marginleft20">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20"  style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr class="c95">
+                        <td>双选会名称</td>
+                        <td>招聘地点</td>
+                        <td>举办日期</td>
+                        <td>每天起止时间</td>
+                        <td>报名截止时间</td>
+                        <td>招聘要求/说明</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="electionList">
+
+                    </tbody>
+                </table>
+                <div id="fy6"></div>
+            </div>
+        </div>
+    </div>
+    <!--我的签约-->
+    <div class="hide tab_content bt-box-1024">
+    </div>
+    <!--我的改签补办-->
+    <div class="hide tab_content bt-box-1024">
+    </div>
+    <!--我的资助申请-->
+    <div class="hide tab_content bt-box-1024">
+    </div>
+    <!--我的资助申请2-->
+    <div class="hide tab_content bt-box-1024">
+    </div>
+
+    <!--其他管理-->
+    <div class="hide tab_content bt-box-1024">
+        <p class="center-title margintop30">我的基础信息</p>
+        <div class="box-s  margintop20 bgff " style="padding: 20px 30px 40px;">
+            <div class="zzz-tabs  ty-tabs clear">
+                <div class="active2">基本信息</div>
+                <div>职位列表</div>
+            </div>
+            <!--基本信息-->
+            <div class="tab_content2  margintop20">
+                <div class="grxx-pro ">
+                    <div class="margintop15 f15  sea">专场招聘场地</div>
+                    <p>
+                        <span class="bt-l">日期</span>
+                        <span class="bt-l">
+                            <input type="text" class="com-date " placeholder="请选择时间" >
+                        </span>
+                    </p>
+                    <p>
+                        <span class="bt-l">人数</span>
+                        <span class="bt-l">
+                            <input type="number"  placeholder="" >
+                        </span>
+                    </p>
+                    <button class="center-btn margintop30">搜索</button>
+                    <div class="margintop15 f15  sea">场地列表</div>
+                    <table class="ts-table f15 margintop20" style="width: 100%;table-layout: fixed;">
+                        <thead>
+                        <tr class="c95">
+                            <td>职位名称</td>
+                            <td>职位类型</td>
+                            <td>发布状态</td>
+                            <td>审核状态</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                            <td>软件工程师</td>
+                            <td>互联网类</td>
+                            <td class="cge">已发布</td>
+                            <td>已审核</td>
+                            <td>
+                                <a href="">【预定】</a>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>软件工程师</td>
+                            <td>互联网类</td>
+                            <td class="cge">已发布</td>
+                            <td>已审核</td>
+                            <td>
+                                <a href="">【预定】</a>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>软件工程师</td>
+                            <td>互联网类</td>
+                            <td class="cge">已发布</td>
+                            <td>已审核</td>
+                            <td>
+                                <a href="">【预定】</a>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>软件工程师</td>
+                            <td>互联网类</td>
+                            <td class="cge">已发布</td>
+                            <td>已审核</td>
+                            <td>
+                                <a href="">【预定】</a>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>软件工程师</td>
+                            <td>互联网类</td>
+                            <td class="cge">已发布</td>
+                            <td>已审核</td>
+                            <td>
+                                <a href="">【预定】</a>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>软件工程师</td>
+                            <td>互联网类</td>
+                            <td class="cge">已发布</td>
+                            <td>已审核</td>
+                            <td>
+                                <a href="">【预定】</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--职位列表-->
+            <div class="tab_content2 hide margintop30">
+                <div class="clear sea margintop30">
+                    <form action="" class=" clear">
+                        <input type="text" class="bt-l" placeholder="输入关键字">
+                        <button class="center-btn bt-l " >搜索</button>
+                        <div class="bt-l cge add-zw mtk-show marginleft20">
+                            <img src="/static/homePage/img/add_03.png" style="vertical-align: middle;" alt="">
+                            添加职位
+                        </div>
+                        <a href="" class="bt-l marginleft20">
+                            <img src="/static/homePage/img/stu-index_22.png" style="vertical-align: middle;" alt="">
+                        </a>
+                    </form>
+                </div>
+                <table class="ts-table f15 margintop20" style="width: 100%;table-layout: fixed;">
+                    <thead>
+                    <tr class="c95">
+                        <td>职位名称</td>
+                        <td>职位类型</td>
+                        <td>发布状态</td>
+                        <td>审核状态</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>软件工程师</td>
+                        <td>互联网类</td>
+                        <td class="cge">已发布</td>
+                        <td>已审核</td>
+                        <td>
+                            <a href="">【修改】</a>
+                            <a href="">【删除】</a>
+                            <a href="">【申请推送】</a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>软件工程师</td>
+                        <td>互联网类</td>
+                        <td class="cge">已发布</td>
+                        <td>已审核</td>
+                        <td>
+                            <a href="">【修改】</a>
+                            <a href="">【删除】</a>
+                            <a href="">【申请推送】</a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>软件工程师</td>
+                        <td>互联网类</td>
+                        <td class="cge">已发布</td>
+                        <td>已审核</td>
+                        <td>
+                            <a href="">【修改】</a>
+                            <a href="">【删除】</a>
+                            <a href="">【申请推送】</a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>软件工程师</td>
+                        <td>互联网类</td>
+                        <td class="cge">已发布</td>
+                        <td>已审核</td>
+                        <td>
+                            <a href="">【修改】</a>
+                            <a href="">【删除】</a>
+                            <a href="">【申请推送】</a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>软件工程师</td>
+                        <td>互联网类</td>
+                        <td class="cge">已发布</td>
+                        <td>已审核</td>
+                        <td>
+                            <a href="">【修改】</a>
+                            <a href="">【删除】</a>
+                            <a href="">【申请推送】</a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>软件工程师</td>
+                        <td>互联网类</td>
+                        <td class="cge">已发布</td>
+                        <td>已审核</td>
+                        <td>
+                            <a href="">【修改】</a>
+                            <a href="">【删除】</a>
+                            <a href="">【申请推送】</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--页尾-->
+    <div class="link margintop50">
+        <div class="bt-box-1024 text-c cff">
+            <p>联系电话：028-84768877,84760653（就业科）,028-84767065（传真）,电子邮件： scsdzjc@126.com</p>
+            <p class="margintop15">通讯地址：四川省成都市锦江区静安路5号（四川师范大学狮子山校区）&nbsp&nbsp&nbsp今日访问量：<span>2706739</span>&nbsp&nbsp&nbsp总访问量：<span>9983772</span></p>
+            <p class="margintop15">©四川师范大学招生就业处&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp成都易科士信息产业公司.</p>
+        </div>
+    </div>
+</div>
+<!--模态框-->
+<div class="sushe-mtkbg" style="position: fixed">
+    <div class="sushe-mtk" >
+        <p class="f15 clear">
+                <span class="bt-l">
+                    <span class="cge">
+                        <img src="/static/homePage/img/add_03.png"  alt="">
+                        添加职位
+                    </span>
+                    <span class="c95">
+                        （请务必填写真实有效信息）
+                    </span>
+                </span>
+            <u class="bt-r close"></u>
+        </p>
+        <form  action="/postion/save" method="post" onsubmit="return check(this)">
+        <div class="grxx-pro grxx-pro-mtk">
+            <input name="Id" type="hidden" id="id">
+            <input name="CorpId" type="hidden" value="${corp.id}">
+            <div class="margintop15 f15  sea">招聘负责人信息（请务必填写真实有效信息）</div>
+            <p>
+                <span class="bt-l">职位名称</span>
+                <span class="bt-l">
+                        <input type="text" name="Title" id="Title" placeholder="">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">工作地点</span>
+                <span class="bt-l">
+                         <input type="text" name="WorkAddress" id="WorkAddress" placeholder="">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">招聘人数</span>
+                <span class="bt-l">
+                        <input type="number" name="PeopleCount" id="PeopleCount" placeholder="请输入数字">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">工作年限</span>
+                <span class="bt-l">
+                         <input type="number" name="WorkYearLimit" id="WorkYearLimit" placeholder="请输入数字">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">月薪</span>
+                <span class="bt-l">
+                         <input type="number" name="Salary" id="Salary" placeholder="请输入数字">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">所属行业</span>
+                <span class="bt-l">
+                        <select name="IndustryCode" id="IndustryCode">
+                        </select>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">职位类型</span>
+                <span class="bt-l">
+                        <select name="TypeCode" id="TypeCode">
+                        </select>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">面向专业</span>
+                <span class="bt-l">
+                        <select name="SpecialtyCode" id="SpecialtyCode" >
+                        </select>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">学历要求</span>
+                <span class="bt-l">
+                        <select name="LevelCode" id="LevelCode">
+                        </select>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">岗位类型</span>
+                <span class="bt-l">
+                        <select name="PositionTypeCode" id="PositionTypeCode">
+                        </select>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">招聘类型</span>
+                <span class="bt-l">
+                        <select name="RecuitTypeCode" id="RecuitTypeCode">
+                            <option value="1">师范</option>
+                            <option value="2">非师范</option>
+                            <option value="3">无要求</option>
+                        </select>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">联系人</span>
+                <span class="bt-l">
+                        <input type="text" placeholder="" name="Contactor" id="Contactors">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">联系人电话</span>
+                <span class="bt-l">
+                        <input type="text" placeholder="" name="ContactPhone" id="ContactPhones">
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">职位职能</span>
+                <span class="bt-l">
+                        <textarea cols="60" name="functions" id="functions" rows="5" style="width:300px !important;height:80px !important;"></textarea>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">职位要求</span>
+                <span class="bt-l">
+                    <textarea cols="60" name="requirement" id="requirement" rows="5" style="width:300px !important;height:80px !important;"></textarea>
+                    </span>
+            </p>
+            <p>
+                <span class="bt-l">招聘简章</span>
+                <span class="bt-l">
+                        <input type="text" placeholder="" name="RecuitFiles" readonly="readonly" id="wjdz">
+                    <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file" accept=".pdf,.docx" onchange="uploadingFiles('wjdz','upload-file');"
+                       style="width: 70px;height: 30px; margin-left: -52px;">
+                </a>
+                </span>
+            </p>
+
+        </div>
+            <div class="text-c margintop30">
+                <button class="center-btn c32 close" type="reset" style="background: #DDDDDD">取消</button>
+                <button class="center-btn marginleft20" type="submit">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<link href="/static/main/Scripts/jquery-easyui-1.5/themes/bootstrap/easyui.css" rel="stylesheet" type="text/css"/>
+<script src="/static/homePage/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/static/homePage/js/backstage.js"></script>
+<script type="text/javascript" src="/static/homePage/js/swiper-4.2.6.min.js"></script>
+<script src="/static/main/Scripts/Utils.js" type="text/javascript"></script>
+<script type="text/javascript" src="/static/homePage/js/currency.js"></script>
+<script src="/static/main/Scripts/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="/static/main/Scripts/jquery-easyui-1.5/jquery.easyui.min.js" type="text/javascript"></script>
+<script src="/static/main/Scripts/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+<script>
+
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 6,
+        spaceBetween: 25,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+<script type="text/javascript">
+    var StartDate = "";
+    var EndDate = "";
+    var StartHours = "";
+    var EndHours = "";
+    $(function () {
+        var type = '${type!}';
+        if(type == 2){
+            alert("请完善单位信息资料");
+        }
+        var logo = '${corp.logo!}';
+        if(logo !=null && logo !="" && logo !=undefined){
+            $("#logo1").attr("src", logo);
+            $("#logo2").attr("src", logo);
+            $("#logo3").attr("src", logo);
+            $("#logos").val(logo);
+            $("#logos3").attr("src",logo);
+        }
+        var status = '${corp.status!}';
+        if(status == 0){
+            $("#status").text("审核状态：待审核");
+        }
+        if(status == 1){
+            $("#status").text("审核状态：审核通过");
+        }
+        if(status == 2){
+            $("#status").text("审核状态：审核拒绝");
+        }
+        //单位性质
+        $.post("/dictionary/dictionaryCode/DWXZDM",{}, function (data) {
+            var dwxz = '${corp.natureCdoe!}';
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].memberValue == dwxz){
+                    html +='<option value="'+data[i].memberValue+'" selected="selected">'+data[i].displayText+'</option>';
+                }else{
+                    html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+                }
+            }
+            $('#dwxz').append(html);
+        });
+        //单位规模
+        $.post("/dictionary/dictionaryCode/QYGMDM",{}, function (data) {
+            var html = "";
+            var dwgm = '${corp.scaleCode!}';
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].memberValue == dwgm){
+                    html +='<option value="'+data[i].memberValue+'" selected="selected">'+data[i].displayText+'</option>';
+                }else{
+                    html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+                }
+            }
+            $('#dwgm').append(html);
+        });
+        //单位行业
+        $.post("/dictionary/dictionaryCode/HYFLDM",{}, function (data) {
+            var html = "";
+            var dwhy = '${corp.industryCode!}';
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].memberValue == dwhy){
+                    html +='<option value="'+data[i].memberValue+'" selected="selected">'+data[i].displayText+'</option>';
+                }else{
+                    html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+                }
+            }
+            $('#dwhy').append(html);
+        });
+        //单位注册资金
+        $.post("/dictionary/dictionaryCode/ZCZJDM",{}, function (data) {
+            var html = "";
+            var dwzczj = '${corp.capitalCode!}';
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].memberValue == dwzczj){
+                    html +='<option value="'+data[i].memberValue+'" selected="selected">'+data[i].displayText+'</option>';
+                }else{
+                    html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+                }
+            }
+            $('#dwzczj').append(html);
+        });
+        //单位经济类型
+        $.post("/dictionary/dictionaryCode/DWJJLXDM",{}, function (data) {
+            var html = "";
+            var dwjjlx = '${corp.economicTypeCode!}';
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].memberValue == dwjjlx){
+                    html +='<option value="'+data[i].memberValue+'" selected="selected">'+data[i].displayText+'</option>';
+                }else{
+                    html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+                }
+            }
+            $('#dwjjlx').append(html);
+        });
+        //营业执照
+        var businessImage = '${corp.businessImage!}';
+        if(businessImage !=null && businessImage !="" && businessImage !=undefined){
+            $("#yezz").val(businessImage);
+            $("#yezz3").attr("src", businessImage);
+        }
+        //组织机构图片
+        var organizetionImage = '${corp.organizetionImage!}';
+        if(organizetionImage !=null && organizetionImage !="" && organizetionImage !=undefined){
+            $("#zzjg").val(organizetionImage);
+            $("#zzjg3").attr("src", organizetionImage);
+        }
+        //身份证正面照
+        var idCardPicPos = '${corp.idCardPicPos!}';
+        if(idCardPicPos !=null && idCardPicPos !="" && idCardPicPos !=undefined){
+            $("#sfzzmz").val(idCardPicPos);
+            $("#sfzzmz3").attr("src", idCardPicPos);
+        }
+        //身份证反面照
+        var idCardPicNeg = '${corp.idCardPicNeg!}';
+        if(idCardPicNeg !=null && idCardPicNeg !="" && idCardPicNeg !=undefined){
+            $("#sfzfmz").val(idCardPicNeg);
+            $("#sfzfmz3").attr("src", idCardPicNeg);
+        }
+        //校企合作图片
+        var schoolCorpImage = '${corp.schoolCorpImage!}';
+        if(schoolCorpImage !=null && schoolCorpImage !="" && schoolCorpImage !=undefined){
+            var schoolCorpImages = schoolCorpImage.split(",");
+            if(schoolCorpImages != null && schoolCorpImages.length >0){
+                for (var i = 0; i < schoolCorpImages.length; i++) {
+                    if(i==0){
+                        $("#qxhz").val(schoolCorpImages[i]);
+                        $("#qxhz3").attr("src", schoolCorpImages[i]);
+                    }
+                    if(i==1){
+                        $("#qxhz4").val(schoolCorpImages[i]);
+                        $("#qxhz6").attr("src", schoolCorpImages[i]);
+                    }
+                    if(i==2){
+                        $("#qxhz7").val(schoolCorpImages[i]);
+                        $("#qxhz9").attr("src", schoolCorpImages[i]);
+                    }
+                }
+
+            }
+        }
+
+
+        $("#exit").click(function () {
+            if (confirm("您确定要退出迎新系统吗？")) {
+                window.location.href = $(this).attr("rel")
+            }
+        });
+
+        $(".btn-slide").click(function () {
+            if($(this).next().is(':hidden')){
+                var btn = '<img src="/static/homePage/img/cen-up.png" alt=""> 收起内容';
+                $(this).html(btn);
+            }else {
+                btn ='<img src="/static/homePage/img/cen-bottom.png" alt=""> 展开更多';
+                $(this).html(btn);
+            }
+            $(this).next().slideToggle(500);
+        });
+
+        $('.mtk-show').click(function () {
+            $('.sushe-mtkbg').height($('html,body').height)
+            $('.sushe-mtkbg').fadeIn()
+
+        });
+        $('.close').click(function () {
+            $('.sushe-mtkbg').fadeOut()
+        });
+
+        //验证手机号码
+        $("#ContactPhone").blur(function(){
+            var mobile = $("#ContactPhone").val();
+            if (!(/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(mobile))) {
+                alert("手机号填写的格式不对，请正确填写");
+                return false;
+            }
+        });
+
+        //验证手机号码
+        $("#ContactPhone2").blur(function(){
+            var mobile = $("#ContactPhone2").val();
+            if (!(/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(mobile))) {
+                alert("手机号填写的格式不对，请正确填写");
+                return false;
+            }
+        });
+
+        //验证邮箱
+        $("#Email").blur(function(){
+            var email = $("#Email").val();
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+            if(!reg.test(email)){
+                alert("邮箱格式不对");
+                return false;
+            }
+        });
+
+        //查询出对应的场地列表
+        $("#UseDate").blur(function(){
+            setTimeout("findPlace()",200);
+        });
+
+        //查询出对应的场地列表
+        $("#StartHour").blur(function(){
+            findPlace();
+        });
+
+        //查询出对应的场地列表
+        $("#EndHour").blur(function(){
+            findPlace();
+        });
+
+        loadType();
+        //已投递简历列表
+        resumeList(1);
+
+        $("#dwszd").combotree({
+            panelWidth:200,
+            labelPosition:'left',
+            url:'/area/combotreeLists',
+            idField:'AreaCode',
+            textField:'AreaName',
+            onBeforeExpand: function (node) {
+                var $tree = $("#dwszd").combotree("tree");
+                $tree.tree("options").url = "/area/combotreeLists?id="+node.Id+"&type="+node.type;//展开节点时请求的后端接口（如果接口与初始时接口不同，可在此步进行修改）此处用静态json代替
+            },
+            onBeforeSelect:function(node){
+                //返回树对象
+                var tree = $(this).tree;
+                //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                var isLeaf = tree('isLeaf', node.target);
+                if(!isLeaf){
+                    $("#dwszd").tree("unselect");
+                }
+            }
+        });
+
+    });
+
+    /**
+     * 提交单位信息
+     */
+    function submtCorp() {
+        if($("#corpName").val() =="" || $("#corpName").val() ==null || $("#corpName").val() ==undefined || $("#corpName").val() =="undefined"){
+            alert("单位名称为空");
+            $("#corpName").focus();
+            return false;
+        }
+        if($("#OrganizetionCode").val() =="" || $("#OrganizetionCode").val() ==null || $("#OrganizetionCode").val() ==undefined || $("#OrganizetionCode").val() =="undefined"){
+            alert("单位组织机构代码为空");
+            $("#OrganizetionCode").val().focus();
+            return false;
+        }
+        if($("#Contactor").val() =="" || $("#Contactor").val() ==null || $("#Contactor").val() ==undefined || $("#Contactor").val() =="undefined"){
+            alert("单位联系人为空");
+            $("#Contactor").val().focus();
+            return false;
+        }
+        if($("#ContactPhone").val() =="" || $("#ContactPhone").val() ==null || $("#ContactPhone").val() ==undefined || $("#ContactPhone").val() =="undefined"){
+            alert("联系人电话为空");
+            $("#ContactPhone").val().focus();
+            return false;
+        }
+        if($("#Email").val() =="" || $("#Email").val() ==null || $("#Email").val() ==undefined || $("#Email").val() =="undefined"){
+            alert("单位邮箱为空");
+            $("#Email").val().focus();
+            return false;
+        }
+        if($("#Address").val() =="" || $("#Address").val() ==null || $("#Address").val() ==undefined || $("#Address").val() =="undefined"){
+            alert("单位联系地址为空");
+            $("#Address").val().focus();
+            return false;
+        }
+        if($("#yezz").val() =="" || $("#yezz").val() ==null || $("#yezz").val() ==undefined || $("#yezz").val() =="undefined"){
+            alert("营业执照为空");
+            $("#yezz3").focus();
+            return false;
+        }
+        if($("#sfzzmz").val() =="" || $("#sfzzmz").val() ==null || $("#sfzzmz").val() ==undefined || $("#sfzzmz").val() =="undefined"){
+            alert("身份证正面照为空");
+            $("#sfzzmz3").focus();
+            return false;
+        }
+        if($("#sfzfmz").val() =="" || $("#sfzfmz").val()==null || $("#sfzfmz").val() ==undefined || $("#sfzfmz").val() =="undefined"){
+            alert("身份证反面照为空");
+            $("#sfzfmz").focus();
+            return false;
+        }
+        if($("#logos").val() =="" || $("#logos").val() ==null || $("#logos").val() ==undefined || $("#logos").val() =="undefined"){
+            alert("单位logo为空");
+            $("#logos3").focus();
+            return false;
+        }
+        if($("#zzjg").val() =="" || $("#zzjg").val() ==null || $("#zzjg").val() ==undefined || $("#zzjg").val() =="undefined"){
+            alert("单位logo为空");
+            $("#zzjg3").focus();
+            return false;
+        }
+        var qxhz = "";
+        if($("#qxhz").val() !="" || $("#qxhz").val() !=null || $("#qxhz").val() !=undefined || $("#qxhz").val() !="undefined"){
+            qxhz += $("#qxhz").val();
+        }
+        if($("#qxhz4").val() !="" || $("#qxhz4").val() !=null || $("#qxhz4").val() !=undefined || $("#qxhz4").val() !="undefined"){
+            qxhz += ","+$("#qxhz4").val();
+        }
+        if($("#qxhz7").val() !="" || $("#qxhz7").val() !=null || $("#qxhz7").val() !=undefined || $("#qxhz7").val() !="undefined"){
+            qxhz += ","+$("#qxhz7").val();
+        }
+
+        var data = {
+            Id:$("#corpId").val(),
+            CorpName:$("#corpName").val(),
+            EconomicTypeCode:$("#dwjjlx").val(),
+            NatureCdoe:$("#dwxz").val(),
+            IndustryCode:$("#dwhy").val(),
+            ScaleCode:$("#dwgm").val(),
+            CapitalCode:$("#dwzczj").val(),
+            EstablishmentDate:$("#EstablishmentDate").val(),
+            OrganizetionCode:$("#OrganizetionCode").val(),
+            Contactor:$("#Contactor").val(),
+            ContactPhone:$("#ContactPhone").val(),
+            FixPhone:$("#FixPhone").val(),
+            Email:$("#Email").val(),
+            PostCode:$("#PostCode").val(),
+            Fax:$("#Fax").val(),
+            OrginCode:$("#OrginCode").val(),
+            Website:$("#Website").val(),
+            QQ:$("#qq").val(),
+            BusinessImage:$("#yezz").val(),
+            Logo:$("#logos").val(),
+            Address:$("#Address").val(),
+            Description:$("#Description").val(),
+            OrganizetionImage:$("#zzjg").val(),
+            SchoolCorpImage:qxhz,
+            IdCardPicPos:$("#sfzzmz").val(),
+            IdCardPicNeg:$("#sfzfmz").val()
+        };
+        //更新单位信息
+        $.post("/corp/save",data, function (data) {
+            alert(data.msg);
+        });
+
+    }
+
+    /**
+     * 加载添加职位需要的类型参数
+     */
+    function loadType() {
+        //职位所属行业
+        $.post("/dictionary/dictionaryCode/HYFLDM",{}, function (data) {
+            var html = ""
+            for (var i = 0; i < data.length; i++) {
+                html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+            }
+            $('#IndustryCode').append(html);
+        });
+        //职位类型
+        $.post("/dictionary/dictionaryCode/ZWLBDM",{}, function (data) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+            }
+            $('#TypeCode').append(html);
+        });
+        //职位学历要求
+        $.post("/dictionary/dictionaryCode/XLYQDM",{}, function (data) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+            }
+            $('#LevelCode').append(html);
+        });
+        //职位岗位类型
+        $.post("/dictionary/dictionaryCode/GWLXDM",{}, function (data) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html +='<option value="'+data[i].memberValue+'">'+data[i].displayText+'</option>';
+            }
+            $('#PositionTypeCode').append(html);
+        });
+        //职位面向专业
+        $.post("/specialty/currentYearSpecialty",{}, function (data) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html +='<option value="'+data[i].SpecialtyCode+'">'+data[i].SpecialtyName+'</option>';
+            }
+            $('#SpecialtyCode').append(html);
+        });
+    }
+
+    function check(from) {
+        /**
+         * 非空字段验证
+         * */
+        if (from.Title.value == "" || from.Title.value == null || from.Title.value == undefined || from.Title.value == "undefined") {
+            alert("职位名称为空");
+            from.Title.focus();
+            return false;
+        }
+        if (from.RecuitTypeCode.value == "" || from.RecuitTypeCode.value == null || from.RecuitTypeCode.value == undefined || from.RecuitTypeCode.value == "undefined") {
+            alert("招聘类型为空");
+            from.RecuitTypeCode.focus();
+            return false;
+        }
+        if (from.WorkAddress.value == "" || from.WorkAddress.value == null || from.WorkAddress.value == undefined || from.WorkAddress.value == "undefined") {
+            alert("工作地点为空");
+            from.WorkAddress.focus();
+            return false;
+        }
+        if (from.Salary.value == "" || from.Salary.value == null || from.Salary.value == undefined || from.Salary.value == "undefined") {
+            alert("月薪为空");
+            from.Salary.focus();
+            return false;
+        }
+    }
+
+   function  update(id){
+       $('.sushe-mtkbg').height($('html,body').height);
+       $('.sushe-mtkbg').fadeIn();
+       //查询出职位信息
+       $.post("/postion/edit/"+id,{}, function (data) {
+            if(data != null){
+                $("#id").val(data.Id);
+                $("#Title").val(data.Title);
+                $("#WorkAddress").val(data.WorkAddress);
+                $("#PeopleCount").val(data.PeopleCount);
+                $("#WorkYearLimit").val(data.WorkYearLimit);
+                $("#Salary").val(data.Salary);
+                $("#Contactors").val(data.Contactor);
+                $("#ContactPhones").val(data.ContactPhone);
+                $("#functions").val(data.Functions);
+                $("#requirement").val(data.Requirement);
+                $("#RecuitFiles").val(data.RecuitFiles);
+                $("#IndustryCode").val(data.IndustryCode);
+                $("#TypeCode").val(data.TypeCode);
+                $("#LevelCode").val(data.LevelCode);
+                $("#PositionTypeCode").val(data.PositionTypeCode);
+                $("#RecuitTypeCode").val(data.RecuitTypeCode);
+                $("#SpecialtyCode").val(data.SpecialtyCode);
+            }
+       });
+   }
+
+   function queryPostion(page) {
+       $.post("/postion/cropPostionList",{page:page,rows:10,sidx:"Status",sord:"asc","s_cp.CorpId":$("#corpId").val(),"sm_cp.Title":$("#postionName").val()}, function (data) {
+           $("#zwList").empty();
+           var html = "";
+           for (var i = 0; i < data.rows.length; i++) {
+               html += '<tr >\n' +
+                   '                            <td>'+shieldNull(data.rows[i].Title)+'</td>\n' +
+                   '                            <td>'+shieldNull(data.rows[i].DisplayText)+'</td>\n' +
+                   '                            <td class="cge">已发布</td>\n' +
+                   '                            <td>'+School.formatState(data.rows[i].Status)+'</td>\n' +
+                   '                            <td>\n' +
+                   '                                <a href="javascript:void(0);" onclick="update('+data.rows[i].Id+')">【修改】</a>\n' +
+                   '                                <a href="/postion/delete?id='+data.rows[i].Id+'">【删除】</a>\n' +
+                   '                            </td>\n' +
+                   '                        </tr>';
+           }
+           $("#zwList").append(html);
+           fy("fy2",data.total,data.page);
+       });
+   }
+
+
+    function queryPostion1(page) {
+        $.post("/postion/cropPostionList",{page:page,rows:10,sidx:"Id",sord:"asc","s_cp.CorpId":$("#corpId").val(),"sm_cp.Title":$("#postionName1").val()}, function (data) {
+            $("#zwList1").empty();
+            var html = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<tr >\n' +
+                    '                            <td><input name="check" type="checkbox" value="'+data.rows[i].Id+'" /></td>\n' +
+                    '                            <td>'+shieldNull(data.rows[i].Title)+'</td>\n' +
+                    '                            <td>'+shieldNull(data.rows[i].DisplayText)+'</td>\n' +
+                    '                            <td class="cge">已发布</td>\n' +
+                    '                            <td>'+School.formatState(data.rows[i].Status)+'</td>\n' +
+                 /*   '                            <td>\n' +
+                    '                                <a href="javascript:void(0);" onclick="update('+data.rows[i].Id+')">【修改】</a>\n' +
+                    '                                <a href="/postion/delete?id='+data.rows[i].Id+'">【删除】</a>\n' +
+                    '                            </td>\n' +*/
+                    '                        </tr>';
+            }
+            $("#zwList1").append(html);
+            fy("fy4",data.total,data.page);
+        });
+    }
+
+    /**
+     * 简历列表
+     */
+    function resumeList(page) {
+        var name = $("#name").val();
+        $.post("/resumePost/deliveryList",{page:page,rows:10,sidx:"CreateDate",sord:"desc","s_cp.CorpId":$("#corpId").val(),"sm_cp.Title-sl.RealName":name}, function (data) {
+            $("#jltdList").empty();
+            var html = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<tr>\n' +
+                    '                    <td width="150">'+shieldNull(data.rows[i].Title)+'</td>\n' +
+                    '                    <td width="80">'+shieldNull(data.rows[i].RealName)+'</td>\n' +
+                    '                    <td width="70">'+shieldNull(data.rows[i].sex)+'</td>\n' +
+                    '                    <td width="100">'+shieldNull(data.rows[i].FacultyName)+'</td>\n' +
+                    '                    <td width="180">'+shieldNull(data.rows[i].SpecialtyName)+'</td>\n' +
+                    '                    <td width="130">'+shieldNull(data.rows[i].ClassName)+'</td>\n' +
+                    '                    <td width="200">'+fmtDate(data.rows[i].CreateDate)+'</td>\n' +
+                    '                    <td width="190"><a href="'+data.rows[i].FileUrl+'">【下载简历】</a></td>\n' +
+                    '                </tr>';
+            }
+            $("#jltdList").append(html);
+            fy("fy1",data.total,data.page);
+        });
+    }
+
+    /**
+     * 分页
+     * @param total
+     * @param page
+     * @param code
+     */
+    function fy(id,total,page) {
+        $("#"+id).empty();
+        var fy = "";
+        fy += '<div class="news-tabs c32 text-c">\n' +
+            '    <a href="javascript:void(0)" onclick="previousPage('+id+');return false;" style="width: 80px"> < 上一页</a>\n';
+        /* '    <a href="" class="news-tabs-active">1</a>\n';*/
+        for (var j = 1; j <=total ; j++) {
+
+            if(page == j){
+                fy +='        <a href="javascript:void(0)" onclick="clickPage(this,'+id+');return false;"  class="news-tabs-active" id="dqy">'+j+'</a>\n';
+            }else{
+                fy +='        <a href="javascript:void(0)" onclick="clickPage(this,'+id+');return false;">'+j+'</a>\n';
+            }
+        }
+        fy +=  '    <a  href="javascript:void(0)" onclick="nextPage('+total+','+id+');return false;" style="width: 80px">下一页 > </a>\n';
+        fy += '    <span>共'+total+'页，到第</span>\n' +
+            '    <label for="">\n' +
+            '        <input type="number" min="1" id="srk">\n' +
+            '        页\n' +
+            '    </label>\n' +
+            '    <a href="javascript:void(0)" onclick="jumpPage('+total+','+id+');return false;" style="width: 70px">确 认</a>\n' +
+            '</div>';
+        $("#"+id).append(fy);
+    }
+
+    //上一页
+    function previousPage(id) {
+        var currentPage =  $("#dqy").text();
+        if(currentPage <=1){
+            alert("已经是第一页了");
+        }else{
+            if(id.id=="fy1"){
+                resumeList(currentPage-1);
+            }else if(id.id=="fy2"){
+                queryPostion(currentPage-1);
+            } else if(id.id=="fy3"){
+                myRecruit(currentPage-1);
+            }else if(id.id=="fy4"){
+                queryPostion1(currentPage-1);
+            }else if(id.id=="fy6"){
+                electionList(currentPage-1);
+            }else if(id.id=="fy7"){
+                queryLeaveList(currentPage-1);
+            }
+        }
+    }
+    //下一页
+    function nextPage(page,id) {
+        var currentPage =  parseInt($("#dqy").text());
+        if(currentPage >=page){
+            alert("已经是最后一页了");
+        }else{
+            if(id.id=="fy1"){
+                resumeList(currentPage+1);
+            }else if(id.id=="fy2"){
+                queryPostion(currentPage+1);
+            } else if(id.id=="fy3"){
+                myRecruit(currentPage+1);
+            }else if(id.id=="fy4"){
+                queryPostion1(currentPage+1);
+            }else if(id.id=="fy6"){
+                electionList(currentPage+1);
+            }else if(id.id=="fy7"){
+                queryLeaveList(currentPage+1);
+            }
+        }
+    }
+    //点击
+    function clickPage(obj,id) {
+        var page = parseInt(obj.text);
+        if(id.id=="fy1"){
+            resumeList(page);
+        }else if(id.id=="fy2"){
+            queryPostion(page);
+        } else if(id.id=="fy3"){
+            myRecruit(page);
+        }else if(id.id=="fy4"){
+            queryPostion1(page);
+        }else if(id.id=="fy6"){
+            electionList(page);
+        }else if(id.id=="fy7"){
+            queryLeaveList(page);
+        }
+    }
+    //跳转
+    function jumpPage(total,id) {
+        var page = $("#srk").val();
+        if(page>total || page<1){
+            alert("该页码不存在，请重新输入");
+        }else{
+            if(id.id=="fy1"){
+                resumeList(page);
+            }else if(id.id=="fy2"){
+                queryPostion(page);
+            } else if(id.id=="fy3"){
+                myRecruit(page);
+            }else if(id.id=="fy4"){
+                queryPostion1(page);
+            }else if(id.id=="fy6"){
+                electionList(page);
+            }else if(id.id=="fy7"){
+                queryLeaveList(page);
+            }
+        }
+    }
+
+    function xs() {
+        if($("#TypeId").val() == 2){
+            $("#lxzp").show();
+            //查询出场地列表
+            //placeList();
+        }else{
+            $("#lxzp").hide();
+        }
+    }
+
+    function qh() {
+        $("#xbzp").hide();
+        $("#xzzw").show();
+        queryPostion1(1);
+        // 全选
+        $('#allcheck').click(function(){
+            $('input[name="check"]').prop('checked',$(this).is(':checked')?true:false)
+        });
+    }
+    function sh() {
+        $('#xbzp').show();
+        $('#xzzw').hide();
+        /*$("#tab_content4").hide();
+        $("#tab_content5").hide();*/
+    }
+
+
+    function tijiao() {
+        var a =[];
+        $.each($('input:checkbox:checked'),function(){
+            if($(this).val() != null && $(this).val() != 'on'){
+                a.push($(this).val());
+            }
+        });
+        var IdCardPicPos = $("#fmz").val();
+        var IdCardPicNeg = $("#zmz").val();
+        if(IdCardPicPos == null || IdCardPicNeg =="" || IdCardPicNeg == undefined || IdCardPicNeg == "undefined"){
+            alert("身份证反面照为空");
+            return;
+        }
+        if(IdCardPicPos == null || IdCardPicPos =="" || IdCardPicPos == undefined || IdCardPicPos == "undefined"){
+            alert("身份证正面照为空");
+            return;
+        }
+        var TypeId = $("#TypeId").val();
+        var PlaceId = $("#PlaceId").val();
+        var UseDate = $("#UseDate").val();
+        var StartHour = $("#StartHour").val();
+        var EndHour = $("#EndHour").val();
+        var Files = $("#wjdz1").val();
+        var OpenTypeId = $("#OpenTypeId").val();
+        if(TypeId == 2){
+            if(PlaceId == null || PlaceId =="" || PlaceId == undefined || PlaceId == "undefined"){
+                alert("请选择场地");
+                return;
+            }
+            if(UseDate == null || UseDate =="" || UseDate == undefined || UseDate == "undefined"){
+                alert("请选择使用日期");
+                return;
+            }
+            if(UseDate>EndDate || UseDate<StartDate){
+               alert("使用日期不可用，请重新选择");
+               return;
+            }
+            if(StartHour == null || StartHour =="" || StartHour == undefined || StartHour == "undefined"){
+                alert("请填写开始时间");
+                return;
+            }
+            if(StartHour>EndHours || StartHour<StartHours){
+                alert("开始时间不可用，请重新选择");
+                return;
+            }
+            if(EndHour == null || EndHour =="" || EndHour == undefined || EndHour == "undefined"){
+                alert("请填写结束时间");
+                return;
+            }
+            if(EndHour>EndHours || EndHour<StartHours){
+                alert("结束时间不可用，请重新选择");
+                return;
+            }
+        }
+        if(a.length == 0){
+            alert("请选择职位");
+            return;
+        }
+        var data = {
+            TypeId: TypeId,
+            PlaceId:PlaceId,
+            OpenTypeId:OpenTypeId,
+            UseDate:UseDate,
+            StartHour:StartHour,
+            EndHour:EndHour,
+            IdCardPicPos:IdCardPicPos,
+            IdCardPicNeg:IdCardPicNeg,
+            Files:Files,
+            positionId:JSON.stringify(a)
+        };
+        $.post("/recruit/saveRecruit",data, function (data) {
+            alert(data.msg);
+        });
+    }
+
+    /**
+     * 查询出场地列表
+     */
+    function placeList() {
+        $.post("/place/placeList",{}, function (data) {
+            $("#PlaceId").empty();
+            var html = '<option value="">请选择</option>';
+            for (var i = 0; i < data.length; i++) {
+                html += '<option value="'+data[i].Id+'">'+data[i].Title+'</option>';
+            }
+            $("#PlaceId").append(html);
+        });
+    }
+
+    /**
+     * 查询出当前选择的场地开放时间
+     */
+    function find() {
+        //当前选择的场地的id
+        var id = $("#PlaceId").val();
+        $.post("/place/edit/"+id,{}, function (data) {
+            if(data !=null){
+                StartDate = data.startDate;
+                EndDate = data.endDate;
+                StartHours = data.startHour;
+                EndHours = data.endHour;
+            }
+        });
+    }
+
+
+    /**
+     * 查询出当前选择的时间段的场地
+     */
+    function findPlace() {
+        var UseDate = $("#UseDate").val();
+        var StartHour = $("#StartHour").val();
+        var EndHour = $("#EndHour").val();
+        //当前选择的场地的id
+        var id = $("#PlaceId").val();
+        $.post("/place/list",{page:1,rows:50,sidx:"Id",sord:"asc","s_StartDate_lt":UseDate,"s_EndDate_rt":UseDate,"s_EndHour_rt":EndHour,"s_StartHour_lt":StartHour}, function (data) {
+            $("#PlaceId").empty();
+            var html = '<option value="">请选择</option>';
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<option value="'+data.rows[i].Id+'">'+data.rows[i].Title+'</option>';
+            }
+            $("#PlaceId").append(html);
+        });
+    }
+
+
+    /**
+     * 我的招聘列表
+     */
+    function myRecruit(page) {
+       /* $("#tab_content4").show();
+        $("#tab_content5").show();*/
+        $.post("/recruit/list",{page:page,rows:10,sidx:"UseDate",sord:"desc","s_ss.CorpId":$("#corpId").val(),"sm_sp.Title-ss.UseDate":$("#parameter").val()}, function (data) {
+            $("#myRecruit").empty();
+            var html = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<tr>\n' +
+                    '                        <td>'+convertType(data.rows[i].TypeId)+'</td>\n' +
+                    '                        <td>'+shieldNull(data.rows[i].placeName)+'</td>\n' +
+                    '                        <td>'+convertDate(data.rows[i].UseDate,data.rows[i].StartHour,data.rows[i].EndHour)+'</td>\n' +
+                    '                        <td>'+School.formatState(data.rows[i].Status)+'</td>\n' +
+                    '                        <td>\n' +
+                    '                            <a href="">【查看】</a>\n' +
+                    '                        </td>\n' +
+                    '                    </tr>';
+            }
+            $("#myRecruit").append(html);
+            fy("fy3",data.total,data.page);
+        });
+    }
+
+    /**
+     * 双选会列表
+     */
+    function electionList(page) {
+        $.post("/election/list",{page:page,rows:10,sidx:"RunDate",sord:"desc","s_se.IsEnabled":1,"sm_se.Title-se.Address-se.RunDate":$("#electionName").val()}, function (data) {
+            $("#electionList").empty();
+            var html = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                html += '<tr>\n' +
+                    '                        <td>'+shieldNull(data.rows[i].Title)+'</td>\n' +
+                    '                        <td>'+shieldNull(data.rows[i].Address)+'</td>\n' +
+                    '                        <td>'+fmtDate(data.rows[i].RunDate)+'</td>\n' +
+                    '                        <td>'+shieldNull(data.rows[i].DayOff)+'</td>\n' +
+                    '                        <td>'+fmtDate(data.rows[i].SignEndDate)+'</td>\n' +
+                    '                        <td class="cge">'+shieldNull(data.rows[i].Description)+'</td>\n' +
+                    '                      <td>\n' +
+                    '                          <a href="javascript:void(0);" onclick="applyElection('+data.rows[i].Id+')">【申请】</a>\n' +
+                    '                      </td>\n' +
+                    '                    </tr>';
+            }
+            $("#electionList").append(html);
+            fy("fy6",data.total,data.page);
+        });
+    }
+
+    /**
+     * 申请双选会
+     */
+   function applyElection(id){
+       var data = {
+           CorpId:$("#corpId").val(),
+           ElectionId:id
+       };
+        $.post("/corpPart/applyElection",data, function (data) {
+            alert(data.msg)
+        });
+    }
+
+    /**
+     * 查询留言列表
+     */
+    function queryLeaveList(page) {
+        $("#leaveList").empty();
+        $.post("/leave/list",{page:page,rows:10,sidx:"CreateDate",sord:"desc","s_cl.CorpId":$("#corpId").val(),"sm_cl.Title-cl.Content-cl.ContactPhone-cl.ReplyContent":$("#keyword").val()}, function (data) {
+            var html = "";
+            for (var i = 0; i < data.rows.length; i++) {
+                    html += ' <div class="grxx-huifu clear">\n' +
+                            '                        <div class="name text-c bt-l">\n' +
+                            '                            '+shieldNull(data.rows[i].Contactor)+'\n' +
+                            '                        </div>\n' +
+                            '                        <div class="huifu-con bt-l">\n' +
+                            '                            <p class="onepai cge f15">'+shieldNull(data.rows[i].Title)+'</p>\n' +
+                            '                            <p class="c95 margintop15">留言时间 ：'+shieldNull(data.rows[i].CreateDate)+'</p>\n' +
+                            '                            <p class="jianjie onepai margintop20" style="width: 800px;" title="'+shieldNull(data.rows[i].Content)+'">'+shieldNull(data.rows[i].Content)+'</p>\n';
+                    if(data.rows[i].IsReply == 1){
+                        html +=  '                            <div class="margintop20 clear">\n' +
+                            '                                <div class="bt-l" style="width: 700px">\n' +
+                            '                                    <p><span>回复 ：'+shieldNull(data.rows[i].ReplyContent)+'</span></p>\n' +
+                            '                                    <p class="c95 margintop10">回复时间 ：'+shieldNull(data.rows[i].ReplyDate)+'</p>\n' +
+                            '                                </div>\n' +
+                            '                            </div>\n';
+                    }
+                    html += '                        </div>\n' +
+                            '                        <div class="bt-r text-r">\n' +
+                            '                            <p class="c95">\n' +
+                            '                                <img src="/static/homePage/img/iPhone_03.png"  style="vertical-align: middle;margin-right: 5px" alt="">\n' +
+                            '                                联系电话 ：'+data.rows[i].ContactPhone+'\n' +
+                            '                            </p>\n' +
+                            '                            <!--删除按钮-->\n' +
+                            '                            <img src="/static/homePage/img/del.png" class="del" onclick="deleteLeave('+data.rows[i].Id+')" alt="">\n' +
+                            '                        </div>\n' +
+                            '                    </div>';
+            }
+            $("#leaveList").append(html);
+            fy("fy7",data.total,data.page);
+        });
+    }
+
+
+    function queryLeaveLists() {
+        //清空填写参数
+        $("#Title2").val(null);
+        $("#ContactPhone2").val(null);
+        $("#Content").val(null);
+        queryLeaveList(1);
+    }
+
+    /**
+     * 添加留言
+     */
+    function saveLeave() {
+       var Title = $("#Title2").val();
+       var Content = $("#Content").val();
+       var ContactPhone = $("#ContactPhone2").val();
+        if(Title == null ||Title == undefined || Title == "" ||  Title == "undefined"){
+            alert("标题为空，请填写");
+            return;
+        }
+        if(Title.length>=50){
+            alert("标题过长，请删减标题字数");
+            return;
+        }
+        if(Content == null ||Content == undefined || Content == "" ||  Content == "undefined"){
+            alert("内容为空，请填写");
+            return;
+        }
+        if(ContactPhone == null ||ContactPhone == undefined || ContactPhone == "" ||  ContactPhone == "undefined"){
+            alert("手机号码为空，请填写");
+            return;
+        }
+        $.post("/leave/save",{CorpId:$("#corpId").val(),Title:Title,Content:Content,ContactPhone:ContactPhone}, function (data) {
+            alert(data.msg)
+        });
+    }
+
+
+    /**
+     * 删除留言
+     */
+    function deleteLeave(id) {
+        $.post("/leave/delete",{id:id}, function (data) {
+            queryLeaveList(1);
+        });
+    }
+
+</script>
+<script src="/static/homePage/js/laydate/laydate.js"></script>
+<script src="/static/homePage/js/upload.js"></script>
+<script>
+    lay('#version').html('-v'+ laydate.v);
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#EstablishmentDate' //指定元素
+    });
+
+    laydate.render({
+        elem: '#UseDate' //指定元素
+    });
+</script>
+</body>
+</html>

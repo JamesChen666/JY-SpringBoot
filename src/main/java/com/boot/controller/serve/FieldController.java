@@ -1,18 +1,13 @@
 package com.boot.controller.serve;
 
-import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Field;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -120,45 +115,6 @@ public class FieldController extends BaseController{
 
         }
         if (updateById <= 0) {
-            return fail(FAIL);
-        }
-        return success(SUCCESS);
-    }
-
-    @ResponseBody
-    @RequestMapping("/import")
-    public AjaxResult importExcel(MultipartHttpServletRequest request) {
-        MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
-        int insert = 0;
-        for (String s : multiFileMap.keySet()) {
-            MultipartFile file = request.getFile(s);
-            List<Field> Fields = importExcel(file, Field.class);
-            for (Field field : Fields) {
-                insert += sqlManager.insert(field);
-            }
-        }
-        if (insert<=0){
-            return fail(FAIL);
-        }
-        return success(SUCCESS);
-    }
-
-    @ResponseBody
-    @RequestMapping("/export")
-    public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
-        String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
-        if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("field.list",Map.class);
-        }else {
-            mapList = appendToList("field.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
-        }
-        try {
-            simpleExport("Field", mapList );
-        }catch (Exception e){
-            e.getStackTrace();
             return fail(FAIL);
         }
         return success(SUCCESS);

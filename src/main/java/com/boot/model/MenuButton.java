@@ -15,6 +15,8 @@ public class MenuButton implements Serializable {
     private String Type;
     private String BtnCode;
     private String BtnName;
+    private String ButtonCode;
+    private String ButtonName;
     private String Title;
     private String IconCls;
     private String ListId;
@@ -146,6 +148,23 @@ public class MenuButton implements Serializable {
     public void setArgs(String args) {
         Args = args;
     }
+
+    public String getButtonCode() {
+        return ButtonCode;
+    }
+
+    public void setButtonCode(String buttonCode) {
+        ButtonCode = buttonCode;
+    }
+
+    public String getButtonName() {
+        return ButtonName;
+    }
+
+    public void setButtonName(String buttonName) {
+        ButtonName = buttonName;
+    }
+
 
     @Override
     public String toString() {

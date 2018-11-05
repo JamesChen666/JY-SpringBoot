@@ -16,7 +16,6 @@ public class Postion implements Serializable{
 	  private String WorkAddress;
 	  private String IndustryCode;
 	  private String TypeCode;
-	  private String 面向专业;
 	  private String LevelCode;
 	  private String PositionTypeCode;
 	  private String RecuitTypeCode;
@@ -28,7 +27,6 @@ public class Postion implements Serializable{
 	  private String Functions;
 	  private String Requirement;
 	  private String RecuitFiles;
-	  private Boolean IsPortal;
 	  private Integer Status;
 	  private Integer ExamineUserId;
 	  private Date ExamineDate;
@@ -69,12 +67,6 @@ public class Postion implements Serializable{
 	  }
 	  public String getTypeCode() {
 		return TypeCode;
-	  }
-	  public void set面向专业(String 面向专业) {
-		this.面向专业 = 面向专业;
-	  }
-	  public String get面向专业() {
-		return 面向专业;
 	  }
 	  public void setLevelCode(String LevelCode) {
 		this.LevelCode = LevelCode;
@@ -142,12 +134,6 @@ public class Postion implements Serializable{
 	  public String getRecuitFiles() {
 		return RecuitFiles;
 	  }
-	  public void setIsPortal(Boolean IsPortal) {
-		this.IsPortal = IsPortal;
-	  }
-	  public Boolean getIsPortal() {
-		return IsPortal;
-	  }
 	  public void setStatus(Integer Status) {
 		this.Status = Status;
 	  }
@@ -181,7 +167,6 @@ public class Postion implements Serializable{
                 "WorkAddress='" + WorkAddress + '\'' +
                 "IndustryCode='" + IndustryCode + '\'' +
                 "TypeCode='" + TypeCode + '\'' +
-                "面向专业='" + 面向专业 + '\'' +
                 "LevelCode='" + LevelCode + '\'' +
                 "PositionTypeCode='" + PositionTypeCode + '\'' +
                 "RecuitTypeCode='" + RecuitTypeCode + '\'' +
@@ -193,7 +178,6 @@ public class Postion implements Serializable{
                 "Functions='" + Functions + '\'' +
                 "Requirement='" + Requirement + '\'' +
                 "RecuitFiles='" + RecuitFiles + '\'' +
-                "IsPortal='" + IsPortal + '\'' +
                 "Status='" + Status + '\'' +
                 "ExamineUserId='" + ExamineUserId + '\'' +
                 "ExamineDate='" + ExamineDate + '\'' +

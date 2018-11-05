@@ -21,7 +21,11 @@
                     {name: 'CampusName', index: 'CampusName', align: "center", width: 200},
                     {name: 'TypeName', index: 'TypeName', align: "center", width: 100},
                     {name: 'Remark', index: 'Remark', align: "center", width: 500},
-                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200},
+                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200,formatter:function (value, obj, row) {
+                            var displayText=value;
+                            if(!displayText||displayText=="") displayText="设置";
+                            return "<a class='btnA' href='javascript:' onclick=\"setManager('"+row.FacultyCode+"','"+row.FacultyName+"')\">"+displayText+"</a>"
+                        }},
                     {name: 'Sort', index: 'Sort', align: "center",  width: 100}
                 ],
                 pager: "#pager",
@@ -37,7 +41,7 @@
                                 listId: "#list",
                                 href: "/faculty/add",
                                 save: "save",
-                                fit:true
+                                height:400
                             },
                             {
                                 type: "AddOrUpdate",
@@ -48,7 +52,7 @@
                                 listId: "#list",
                                 href: "/faculty/edit?id={id}",
                                 save: "save",
-                                fit:true
+                                height:400
                             },
                             {
                                 type: "Del",
@@ -70,7 +74,7 @@
                                 btnCode: "Export",
                                 listId: "#list",
                                 save: "/faculty/export"
-                            },
+                            }/*,
                             {
                                 type: "SetManager",
                                 btnName: "设置管理员",
@@ -80,10 +84,22 @@
                                 listId: "#list",
                                 btnCode: "SetManager",
                                 save:"/faculty/setManager"
-                            }
+                            }*/
                         ]
             });
         })
+        function setManager(FacultyCode,FacultyName) {
+            School.showManager({
+                title:FacultyName+"-设置院系管理员",
+                moduleId: 1,
+                objectCode: FacultyCode,
+                save:"/faculty/setManager",
+                codeType:"faculty",
+                onLoad: function () {
+                    top.$('#labelDepartmentName').html('当前院系: ' + FacultyName);
+                }
+            })
+        }
     </script>
 </head>
 <body>

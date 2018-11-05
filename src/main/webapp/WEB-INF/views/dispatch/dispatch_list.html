@@ -13,6 +13,7 @@
                 textField: 'Id',
                 treeGridModel: 'adjacency',
                 sortName: "Id",
+                sortorder:"desc",
                 colNames: ['Id', "姓名", "学号","报到证签发类别","报到证签往单位","签往单位地址","备注"],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
@@ -35,8 +36,7 @@
                                 iconCls: "icon-add",
                                 listId: "#list",
                                 href: "/dispatch/add",
-                                save: "save",
-                                fit:true
+                                save: "save"
                             },
                             {
                                 type: "AddOrUpdate",
@@ -46,8 +46,7 @@
                                 btnCode: "Edit",
                                 listId: "#list",
                                 href: "/dispatch/edit?id={id}",
-                                save: "save",
-                                fit:true
+                                save: "save"
                             },
                             {
                                 type: "Del",

@@ -1,5 +1,7 @@
 package com.boot.model;
 
+import com.boot.util.excel.annotation.ExcelField;
+import com.boot.util.excel.converter.UserConverter.*;
 import org.beetl.sql.core.annotatoin.Table;
 
 import java.io.Serializable;
@@ -12,17 +14,29 @@ import java.util.Date;
 public class Examine implements Serializable {
 
     private Integer Id;
+    @ExcelField(title = "学号", order = 1, writeConverter = StudentConvert.class, readConverter = StudentConvert.class)
     private Integer StudentId;
+    @ExcelField(title = "字段", order = 2, writeConverter = FieldConvert.class, readConverter = FieldConvert.class)
     private Integer FieldId;
+    @ExcelField(title = "修改前字段", order = 3)
     private String BeforeValue;
+    @ExcelField(title = "修改前字段值", order = 4)
     private String BeforeText;
+    @ExcelField(title = "修改后字段", order = 5)
     private String AfterValue;
+    @ExcelField(title = "修改后字段值", order = 6)
     private String AfterText;
+    @ExcelField(title = "审核状态", order = 7,writeConverter = StatusConvert.class)
     private Integer Status;
+    @ExcelField(title = "修改人", order = 8,writeConverter = UserConvert.class, readConverter = UserConvert.class)
     private Integer UserId;
+    @ExcelField(title = "修改时间", order = 9,writeConverter = DateConvert.class,readConverter = DateConvert.class)
     private Date CreateDate;
+    @ExcelField(title = "审核人", order = 10,writeConverter = UserConvert.class, readConverter = UserConvert.class)
     private Integer ApprovalUserId;
+    @ExcelField(title = "审核时间", order = 11,writeConverter = DateConvert.class,readConverter = DateConvert.class)
     private Date ApprovalDate;
+    @ExcelField(title = "审核意见", order = 12)
     private String Opinion;
 
     public void setId(Integer Id) {

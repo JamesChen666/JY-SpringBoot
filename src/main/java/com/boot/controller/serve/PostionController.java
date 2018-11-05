@@ -1,10 +1,14 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Corp;
 import com.boot.model.Postion;
+import com.boot.model.PostionSpecialty;
 import com.boot.util.AjaxResult;
 import com.boot.util.ShiroUtils;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +53,25 @@ public class PostionController extends BaseController{
         return list;
     }
 
+    /**
+     * 某个单位的职位列表
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/cropPostionList")
+    public Object cropPostionList(HttpServletRequest httpServletRequest) {
+        /*List<Map> list = new ArrayList<>();
+        if(httpServletRequest.getParameter("title") !=null){
+            list = sqlManager.select("postion.findCorpPostionName",Map.class,Dict.create().
+                    set("corpId",httpServletRequest.getParameter("id")).set("title",httpServletRequest.getParameter("title")));
+        }else{
+            list = sqlManager.select("",Map.class,Dict.create().set("corpId",httpServletRequest.getParameter("id")));
+        }*/
+        Map map = pageQuery("postion.findCorpPostionList",httpServletRequest);
+        return map;
+    }
+
     @RequestMapping("/add")
     public String add() {
         return BASE_PATH + "/postion_add";
@@ -62,27 +86,62 @@ public class PostionController extends BaseController{
     @ResponseBody
     @RequestMapping("/edit/{id}")
     public Object edit(@PathVariable Integer id) {
-        Postion Postion = sqlManager.single(Postion.class,id);
-        return Postion;
+        Map map = sqlManager.selectSingle("postion.findOne",Dict.create().set("id",id),Map.class);
+        //Postion Postion = sqlManager.single(Postion.class,id);
+        return map;
     }
 
     @ResponseBody
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
+        List<String> list = new ArrayList<>();
         Postion model = mapping(Postion.class, request);
+        String specialtyCodes = request.getParameter("specialtyCodes");
+        if(specialtyCodes != null){
+            JSONArray array = JSONArray.fromObject(specialtyCodes);
+            list =(ArrayList)JSONArray.toCollection(array, String.class);
+        }else {
+            if(request.getParameter("SpecialtyCode")!=null){
+                list.add(request.getParameter("SpecialtyCode"));
+            }
+        }
         int result;
         if (model.getId() == null) {
-            model.setStatus(3);
+            if(model.getStatus() == null || model.getStatus() == 0){
+                model.setStatus(0);
+            }else{
+                model.setExamineDate(new Date());
+                model.setExamineUserId(ShiroUtils.getInstence().getUser().getId());
+            }
             result = sqlManager.insert(model);
         } else {
             Postion postion = sqlManager.single(Postion.class,model.getId());
-            model.setStatus(postion.getStatus());
-            model.setExamineRemark(postion.getExamineRemark());
-            model.setExamineDate(postion.getExamineDate());
-            model.setExamineUserId(postion.getExamineUserId());
+            if(model.getStatus() == null){
+                model.setStatus(postion.getStatus());
+                model.setExamineRemark(postion.getExamineRemark());
+                model.setExamineDate(postion.getExamineDate());
+                model.setExamineUserId(postion.getExamineUserId());
+            }else{
+                model.setExamineDate(new Date());
+                model.setExamineUserId(ShiroUtils.getInstence().getUser().getId());
+            }
             result = sqlManager.updateById(model);
         }
         if (result > 0) {
+            if(model.getId() ==null){
+                //查询出新添加的数据
+                Postion postion = sqlManager.selectSingle("postion.lastOne","",Postion.class);
+                model.setId(postion.getId());
+            }
+            //删除之前数据
+            sqlManager.update("postionSpecialty.deleteSpecialty",Dict.create().set("PositionId",model.getId()));
+            //添加新数据
+            for (int i = 0; i < list.size(); i++) {
+                PostionSpecialty postionSpecialty = new PostionSpecialty();
+                postionSpecialty.setPositionId(model.getId());
+                postionSpecialty.setSpecialtyCode(list.get(i));
+                sqlManager.insert(postionSpecialty);
+            }
             return success(SUCCESS);
         } else {
             return fail(FAIL);

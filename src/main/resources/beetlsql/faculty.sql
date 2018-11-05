@@ -17,3 +17,7 @@ GROUP BY sf.Id
 findOne
 ===
 SELECT * FROM school_faculty where id = #{id}
+
+findFaculty
+===
+SELECT * from School_Faculty WHERE CampusCode = #{CampusCode}

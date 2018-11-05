@@ -1,7 +1,7 @@
 package com.boot.model;
 
 import com.boot.util.excel.annotation.ExcelField;
-import com.boot.util.excel.converter.UserConverter.NationConvert;
+import com.boot.util.excel.converter.UserConverter.*;
 import org.beetl.sql.core.annotatoin.Table;
 
 import java.io.Serializable;
@@ -22,49 +22,49 @@ public class Student implements Serializable {
     private String ExamineNumber;
     @ExcelField(title = "身份证号",order = 4)
     private String IdCard;
-    @ExcelField(title = "性别",order = 5)
+    @ExcelField(title = "性别",order = 5,writeConverter = SexConvert.class,readConverter = SexConvert.class)
     private Integer Sex;
-    @ExcelField(title = "民族",order = 6,writeConverter = NationConvert.class)
+    @ExcelField(title = "民族",order = 6,writeConverter = NationConvert.class,readConverter = NationConvert.class)
     private String NationCode;
-    @ExcelField(title = "政治面貌",order = 7)
+    @ExcelField(title = "政治面貌",order = 7,writeConverter = PoliticalConvert.class,readConverter = PoliticalConvert.class)
     private String PoliticalCode;
-    @ExcelField(title = "学历",order = 8)
+    @ExcelField(title = "学历",order = 8,writeConverter = LevelConvert.class,readConverter = LevelConvert.class)
     private String LevelCode;
     @ExcelField(title = "生源地",order = 9)
     private String OriginCode;
-    @ExcelField(title = "培养方式",order = 10)
+    @ExcelField(title = "培养方式",order = 10,writeConverter = CultureConvert.class,readConverter = CultureConvert.class)
     private String CultureCode;
-    @ExcelField(title = "主修外语语种",order = 11)
+    @ExcelField(title = "主修外语语种",order = 11,writeConverter = MajorLanguageConvert.class,readConverter = MajorLanguageConvert.class)
     private String MajorLanguageCode;
     @ExcelField(title = "入学时间",order = 12)
     private Integer EnromDate;
     @ExcelField(title = "毕业时间",order = 13)
     private Integer GraduationDate;
-    @ExcelField(title = "生日",order = 14)
+    @ExcelField(title = "生日",order = 14,writeConverter = DateConvert.class,readConverter = DateConvert.class)
     private Date Birthday;
-    @ExcelField(title = "师范生类别",order = 15)
+    @ExcelField(title = "师范生类别",order = 15,writeConverter = NormalConvert.class,readConverter = NormalConvert.class)
     private String NormalCode;
-    @ExcelField(title = "困难生类别",order = 16)
+    @ExcelField(title = "困难生类别",order = 16,writeConverter = DifficultConvert.class,readConverter = DifficultConvert.class)
     private String DifficultCode;
-    @ExcelField(title = "低保家庭困难生类别",order = 17)
+    @ExcelField(title = "低保家庭困难生类别",order = 17,writeConverter = SubsistenceConvert.class,readConverter = SubsistenceConvert.class)
     private String SubsistenceCode;
     @ExcelField(title = "定向或委派单位",order = 18)
     private String DireOrDeleUnit;
-    @ExcelField(title = "班级",order = 19)
+    @ExcelField(title = "班级",order = 19,writeConverter = ClassConvert.class,readConverter = ClassConvert.class )
     private String ClassNumber;
-    @ExcelField(title = "专业",order = 20)
+    @ExcelField(title = "专业",order = 20,writeConverter = SpecialtyConvert.class,readConverter = SpecialtyConvert.class)
     private String SpecialtyCode;
     @ExcelField(title = "专业方向",order = 21)
     private String SpecialtyDir;
-    @ExcelField(title = "城乡生源",order = 22)
+    @ExcelField(title = "城乡生源",order = 22,writeConverter = UrbanOrRuralConvert.class,readConverter = UrbanOrRuralConvert.class)
     private String UrbanOrRuralCode;
     @ExcelField(title = "入学前档案所在单位",order = 23)
     private String BeforeArchives;
-    @ExcelField(title = "档案是否转入学校",order = 24)
+    @ExcelField(title = "档案是否转入学校",order = 24,readConverter = WhetherConvert.class,writeConverter = WhetherConvert.class)
     private Boolean IsArchiveIntoSchool;
     @ExcelField(title = "入学前户口所在地派出所",order = 25)
     private String BeforeResidentPolice;
-    @ExcelField(title = "户口是否转入学校",order = 26)
+    @ExcelField(title = "户口是否转入学校",order = 26,readConverter = WhetherConvert.class,writeConverter = WhetherConvert.class)
     private Boolean IsResidentIntoSchool;
     @ExcelField(title = "电话",order = 27)
     private String Telephone;
@@ -81,6 +81,13 @@ public class Student implements Serializable {
     private Boolean IsEnabled;
     @ExcelField(title = "备注",order = 1)
     private String Remarks;
+    @ExcelField(title = "毕业年份")
+    private String GraduationYear;
+    @ExcelField(title = "身高")
+    private Float Height;
+    @ExcelField(title = "体重")
+    private Float Weight;
+
 
     public void setId(Integer Id) {
         this.Id = Id;
@@ -362,6 +369,30 @@ public class Student implements Serializable {
         return Remarks;
     }
 
+    public String getGraduationYear() {
+        return GraduationYear;
+    }
+
+    public void setGraduationYear(String graduationYear) {
+        GraduationYear = graduationYear;
+    }
+
+    public Float getHeight() {
+        return Height;
+    }
+
+    public void setHeight(Float height) {
+        Height = height;
+    }
+
+    public Float getWeight() {
+        return Weight;
+    }
+
+    public void setWeight(Float weight) {
+        Weight = weight;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -400,6 +431,7 @@ public class Student implements Serializable {
                 "FamillZipCode='" + FamilyZipCode + '\'' +
                 "IsEnabled='" + IsEnabled + '\'' +
                 "Remarks='" + Remarks + '\'' +
+                "GraduationYear='" + GraduationYear + '\'' +
                 '}';
     }
 }

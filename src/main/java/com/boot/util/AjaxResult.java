@@ -21,6 +21,7 @@ public class AjaxResult implements Serializable {
 	
 	private boolean flag;
 	private String msg;
+	private Object data;
 
 	public boolean isFlag() {
 		return flag;
@@ -43,6 +44,12 @@ public class AjaxResult implements Serializable {
 		this.msg = msg;
 		return this;
 	}
+	public AjaxResult success(String msg, Object data) {
+		this.flag = true;
+		this.msg = msg;
+		this.data = data;
+		return this;
+	}
 
 	public AjaxResult fail(String msg) {
 		this.flag = false;
@@ -55,7 +62,15 @@ public class AjaxResult implements Serializable {
 		return this;
 	}
 
-    @Override
+	public Object getData() {
+		return data;
+	}
+
+	public void setData(Object data) {
+		this.data = data;
+	}
+
+	@Override
     public String toString() {
         return JSON.toJSONString(this);
     }

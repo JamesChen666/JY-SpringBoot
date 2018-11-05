@@ -7,6 +7,7 @@ import com.boot.model.Class;
 import com.boot.model.ClassInstructor;
 import com.boot.model.Teacher;
 import com.boot.util.AjaxResult;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -48,6 +49,28 @@ public class ClassController extends BaseController{
         List<Map> list = sqlManager.select("class.combotreeList", Map.class);
         List<Map> combotree = combotree(list);
         return combotree;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/findClassList")
+    public Object findClassList(HttpServletRequest request) {
+        List<Map> list = sqlManager.select("class.findClass", Map.class,Dict.create().set("SpecialtyCode",request.getParameter("SpecialtyCode")));
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/combotreeLists")
+    public Object combotreeLists(HttpServletRequest request) {
+        if(request.getParameter("year")!=null && !"".equals(request.getParameter("year")) && !"null".equals(request.getParameter("year"))){
+            List<Map> list = sqlManager.select("class.combotreeLists", Map.class,Dict.create().set("year",request.getParameter("year")));
+            List<Map> combotree = combotree(list);
+            return combotree;
+        }else{
+            List<Map> list = sqlManager.select("class.combotreeList", Map.class);
+            List<Map> combotree = combotree(list);
+            return combotree;
+        }
     }
 
     @RequestMapping("/add")
@@ -132,9 +155,23 @@ public class ClassController extends BaseController{
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Class> Classes = importExcel(file, Class.class);
+            for (Class aClass : Classes) {
+                err++;
+                Class className = sqlManager.query(Class.class)
+                        .andEq("ClassName", aClass.getClassName()).single();
+                if (ObjectUtil.isNotNull(className)){
+                    return error("第"+err+"行"+className.getClassName()+"重复");
+                }
+                Class classNo = sqlManager.query(Class.class)
+                        .andEq("ClassNo", aClass.getClassNo()).single();
+                if (ObjectUtil.isNotNull(classNo)){
+                    return error("第"+err+"行"+classNo.getClassNo()+"重复");
+                }
+            }
             for (Class cls : Classes) {
                 insert += sqlManager.insert(cls);
             }
@@ -185,10 +222,14 @@ public class ClassController extends BaseController{
     @ResponseBody
     @RequestMapping("/setManager")
     public AjaxResult setManager(HttpServletRequest httpServletRequest) {
-        String manager = httpServletRequest.getParameter("manager");
-        String[] split = manager.split(",");
+        /*String manager = httpServletRequest.getParameter("manager");
+        String[] split = manager.split(",");*/
+        String code = httpServletRequest.getParameter("objectCode");
+        String jobNumberss = httpServletRequest.getParameter("jobNumber");
+        JSONArray array = JSONArray.fromObject(jobNumberss);
+        List<String> list =(ArrayList)JSONArray.toCollection(array, String.class);
         List<String> jobNumbers = new ArrayList();
-        for (String s : split) {
+        for (String s : list) {
             Teacher teacher = sqlManager.selectSingle("teacher.findByJobNumber",
                     Dict.create().set("JobNumber", s), Teacher.class);
             if (ObjectUtil.isNotNull(teacher)) {
@@ -196,14 +237,14 @@ public class ClassController extends BaseController{
             }
         }
         int insert = 0;
-        String id = httpServletRequest.getParameter("id[]");
-        Class single = sqlManager.single(Class.class, id);
+        /*String id = httpServletRequest.getParameter("id[]");
+        Class single = sqlManager.single(Class.class, id);*/
         try {
             sqlManager.update("classinstructor.deleteByClassNo",
-                    Dict.create().set("ClassNo", single.getClassNo()));
+                    Dict.create().set("ClassNo", code/*single.getClassNo()*/));
             for (String jobNumber : jobNumbers) {
                 ClassInstructor classInstructor = new ClassInstructor();
-                classInstructor.setClassNo(single.getClassNo());
+                classInstructor.setClassNo(code/*single.getClassNo()*/);
                 classInstructor.setJobNumber(jobNumber);
                 insert += sqlManager.insert(classInstructor);
             }

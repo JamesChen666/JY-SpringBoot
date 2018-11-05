@@ -35,6 +35,8 @@
                         });
                     }
                 }
+                names.push("标签");
+                models.push({name: 'TagName', index: 'TagName', align: 'center', width: 100});
                 $("#list").ex_grid({
                     url: "/student/list",
                     idField: "Id",
@@ -56,7 +58,37 @@
                                     listId: "#list",
                                     href: "/student/add",
                                     save: "save",
-                                    fit:true
+                                    fit:true,
+                                    onLoad:function(){
+                                        //查询出当前毕业年份
+                                        $.post("/config/queryGraduationYear",{}, function (data) {
+                                            //赋值
+                                            $('#bynf').textbox('setValue',data.ParameterValue);
+                                            //查询出班级树形
+                                            //query(data.ParameterValue);
+                                        });
+                                        queryList();
+                                        $("#originCode").combotree({
+                                            panelWidth:200,
+                                            labelPosition:'left',
+                                            url:'/area/combotreeLists',
+                                            idField:'AreaCode',
+                                            textField:'AreaName',
+                                            onBeforeExpand: function (node) {
+                                                var $tree = $("#originCode").combotree("tree");
+                                                $tree.tree("options").url = "/area/combotreeLists?id="+node.Id+"&type="+node.type;//展开节点时请求的后端接口（如果接口与初始时接口不同，可在此步进行修改）此处用静态json代替
+                                            },
+                                            onBeforeSelect:function(node){
+                                                //返回树对象
+                                                var tree = $(this).tree;
+                                                //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                                                var isLeaf = tree('isLeaf', node.target);
+                                                if(!isLeaf){
+                                                    $("#originCode").tree("unselect");
+                                                }
+                                            }
+                                        });
+                                    }
                                 },
                                 {
                                     type: "AddOrUpdate",
@@ -67,7 +99,51 @@
                                     listId: "#list",
                                     href: "/student/edit?id={id}",
                                     save: "save",
-                                    fit:true
+                                    fit:true,
+                                    onLoad:function(){
+                                        /*setTimeout("a()",500);
+                                        $('#bynf').textbox().next('span').find('input').blur(function () {
+                                            var year = $("#bynf").val();
+                                            query(year);
+                                        });*/
+                                        setTimeout("voluation()",300);
+                                        queryList();
+                                        $("#originCode").combotree({
+                                            panelWidth:200,
+                                            labelPosition:'left',
+                                            url:'/area/combotreeLists',
+                                            idField:'AreaCode',
+                                            textField:'AreaName',
+                                            onBeforeExpand: function (node) {
+                                                var $tree = $("#originCode").combotree("tree");
+                                                $tree.tree("options").url = "/area/combotreeLists?id="+node.Id+"&type="+node.type;//展开节点时请求的后端接口（如果接口与初始时接口不同，可在此步进行修改）此处用静态json代替
+                                            },
+                                            onBeforeSelect:function(node){
+                                                //返回树对象
+                                                var tree = $(this).tree;
+                                                //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                                                var isLeaf = tree('isLeaf', node.target);
+                                                if(!isLeaf){
+                                                    $("#originCode").tree("unselect");
+                                                }
+                                            },
+                                            onExpand: function (node) {
+                                                if (arrayList.length==0)
+                                                    return
+                                                for (var i = index; i < arrayList.length; i++) {
+                                                    var item = arrayList[i]
+                                                    var tree = $('#originCode').combotree("tree")
+                                                    var node = tree.tree("find", item)
+                                                    if (i != (arrayList.length - 1)) {
+                                                        tree.tree("expand", node.target)
+                                                    } else {
+                                                        $('#originCode').combotree("setValue", item)
+                                                    }
+                                                }
+                                                arrayList=[]
+                                            }
+                                        });
+                                    }
                                 },
                                 {
                                     type: "Del",
@@ -76,7 +152,7 @@
                                     listId: "#list",
                                     save: "delete"
                                 },
-                                {
+                                /*{
                                     type: "Del",
                                     btnName: "启用",
                                     btnCode: "Enable",
@@ -93,7 +169,7 @@
                                     listId: "#list",
                                     args: {flag: false},
                                     save: "disableOrEnable"
-                                },
+                                },*/
                                 {
                                     type: "Custom",
                                     btnName: "导入",
@@ -115,11 +191,141 @@
                                     btnCode: "Export",
                                     listId: "#list",
                                     save: "/student/export"
+                                },
+                                {
+                                    type: "AddOrUpdate",
+                                    title: "学生管理-标签",
+                                    btnName: "标签",
+                                    btnCode: "Edit",
+                                    listId: "#list",
+                                    href: "/student/tag?id={id}",
+                                    save: "updateTag"
                                 }
                             ]
                 });
             })
         })
+
+        function query(year) {
+            $("#cls").combotree({
+                panelWidth:200,
+                labelPosition:'left',
+                url:'/class/combotreeLists?year='+year,
+                idField:'Id',
+                textField:'Name',
+                onSelect:function(node){
+                    if(node.children!='undefined'&&node.children!=null){
+                        $('#cls').combotree('clear');
+                    }
+                },
+                onClick: function(rowIndex, rowData){
+                    $.post('/student/specialty',{classNo:rowIndex.Id},function(data){
+                        $('#specialty').combobox('setValue',data.SpecialtyCode);
+                        $('#faculty').textbox('setValue',data.FacultyName);
+                        $('#campus').textbox('setValue',data.CampusName);
+                    })
+                }
+            });
+        };
+
+        function a() {
+            var cs = $('#cls').val();
+            //获取该学生填写的毕业年份
+            var year = $("#bynf").val();
+            query(year);
+            $('#cls').combotree('setValue',cs);
+        }
+
+        function queryList() {
+            $("#bynf").numberspinner({
+                required:true
+            });
+            $("#campus").combobox({
+                valueField:'CampusCode',
+                textField:'CampusName',
+                url:'/campus/gridList',//校区
+                onChange:function () {
+                    var CampusCode = $("#campus").val();
+                    $("#faculty").combobox({
+                        valueField:'FacultyCode',
+                        textField:'FacultyName',
+                        url:'/faculty/findFacultyList?CampusCode='+CampusCode,//院系
+                        onChange:function () {
+                            var FacultyCode = $("#faculty").val();
+                            $("#specialty").combobox({
+                                valueField:'SpecialtyCode',
+                                textField:'name',
+                                url:'/specialty/findSpecialtyList?FacultyCode='+FacultyCode,//专业
+                                onChange:function () {
+                                    var SpecialtyCode = $("#specialty").val();
+                                    $("#cls").combobox({
+                                        valueField:'ClassNo',
+                                        textField:'ClassName',
+                                        url:'/class/findClassList?SpecialtyCode='+SpecialtyCode,//班级
+                                        required:true
+                                    })
+                                },
+                                required:true
+                            })
+                        },
+                        required:true
+                    })
+                },
+                required:true
+            });
+        }
+
+        function voluation() {
+            $("#campus").combobox({
+                valueField:'CampusCode',
+                textField:'CampusName',
+                url:'/campus/gridList',//校区
+                required:true
+            });
+            $('#campus').combobox('setValue',$("#campuss").val());
+            var CampusCode = $("#campuss").val();
+            $("#faculty").combobox({
+                valueField:'FacultyCode',
+                textField:'FacultyName',
+                url:'/faculty/findFacultyList?CampusCode='+CampusCode,//院系
+                required:true
+            });
+            $('#faculty').combobox('setValue',$("#facultys").val());
+            var FacultyCode = $("#facultys").val();
+            $("#specialty").combobox({
+                valueField:'SpecialtyCode',
+                textField:'name',
+                url:'/specialty/findSpecialtyList?FacultyCode='+FacultyCode,//专业
+                required:true
+            });
+            $('#specialty').combobox('setValue',$("#specialtys").val());
+            var SpecialtyCode = $("#specialtys").val();
+            $("#cls").combobox({
+                valueField:'ClassNo',
+                textField:'ClassName',
+                url:'/class/findClassList?SpecialtyCode='+SpecialtyCode,//班级
+                required:true
+            });
+            $('#cls').combobox('setValue',$("#clss").val());
+        }
+
+        function initFormCallback(data) {
+            var code =data.originCode;
+            if (code != null && code != undefined && code != "") {
+                $.post("/area/combotreeEcho", {areaCode: code}, function (data) {
+                    if (data != null && data.length>0) {
+                        arrayList = data;
+                        var tree = $('#originCode').combotree("tree")
+                        var node = tree.tree("find", arrayList[0])
+                        if (node.target) {
+                            tree.tree("collapse", node.target)
+                            tree.tree("expand", node.target)
+                            index = 1;
+                        }
+                    }
+                })
+            }
+        }
     </script>
 </head>
 <body>
@@ -142,7 +348,15 @@
             <option value="">==所有==</option>
             <option value="1">男</option>
             <option value="0">女</option>
+
         </select>
+        <div class="adv-select-label">标签：</div>
+        <input class="easyui-combobox" name="s_sst.TagId"
+               data-options="
+                       valueField: 'Id',
+                       textField: 'Title',
+                       url: '/tag/queryTagList'">
+
         <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
         <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
     </div>

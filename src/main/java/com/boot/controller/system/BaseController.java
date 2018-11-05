@@ -6,10 +6,18 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.boot.model.TreeModel;
 import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
+import com.boot.util.AsianFontProvider;
 import com.boot.util.excel.ExcelUtils;
 import com.boot.util.excel.exceptions.Excel4JException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.annotatoin.Table;
@@ -19,9 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.sql.Time;
 import java.util.*;
 
@@ -129,8 +137,8 @@ public class BaseController extends AjaxResult {
     public <T> List<T> importExcel(MultipartFile file, Class<T> tClass) {
         File desktopDir = FileSystemView.getFileSystemView()
                 .getHomeDirectory();
-        String desktopPath = desktopDir.getAbsolutePath();
-        File File = new File(desktopPath + "/temp.xls");
+        String desktopPath = desktopDir.getPath();
+        File File = new File(desktopPath + "\\temp.xls");
         try {
             file.transferTo(File);
         } catch (IOException e) {
@@ -158,7 +166,9 @@ public class BaseController extends AjaxResult {
      * @return
      */
     public <T> void exportExcel(String fileName, List<T> data, Class<T> tClass) {
-        String filePath = "C:\\Users\\admin\\Desktop\\" + fileName + ".xls";
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+        File com = fsv.getHomeDirectory();
+        String filePath = com.getPath() +"\\"+fileName + ".xls";
         try {
             ExcelUtils.getInstance()
                     .exportObjects2Excel(data, tClass, true, filePath);
@@ -221,7 +231,7 @@ public class BaseController extends AjaxResult {
                     maps2.add(map1);
                 }
             }
-            if (CollUtil.isNotEmpty(maps2)){
+            if (CollUtil.isNotEmpty(maps2)) {
                 map.put("children", maps2);
             }
         }
@@ -233,6 +243,91 @@ public class BaseController extends AjaxResult {
         }
         return mapList;
     }
+
+
+    public  List<TreeModel> buildTree(List<TreeModel> list,String pId){
+        List<TreeModel> menus=new ArrayList<TreeModel>();
+        for (TreeModel menu : list) {
+            String menuId = menu.getId();
+            String ParentId = menu.getPid();
+            if("0".equals(menu.getPid())){
+                menu.setState("closed");
+            }
+            if (pId.equals(ParentId)) {
+                List<TreeModel> menuLists = buildTree(list, menuId);
+                menu.setChildren(menuLists);
+                menus.add(menu);
+            }
+        }
+        return menus;
+    }
+
+
+
+
+
+    /**
+     * 获取树状数据（组装tree所用  异步树）
+     *
+     * @param currentId 当前节点id
+     * @param currentType 当前节点类型 province=省  city=市 county=区县
+     *
+     * @return 省、市、区县
+     */
+    public List<Map> treeData(String currentId, String currentType)
+    {
+        List<Map> list = new LinkedList<>();
+
+        Map<String, String> attr = new HashMap<String, String>();
+
+        // 如果当前节点类型为空 则是第一次加载 即需要加载学校json
+        if(StringUtils.isEmpty(currentType))
+        {
+            // 查询所有的省级
+            list = sqlManager.select("area.queryProvince",Map.class);
+            for (Map<String, Object> school : list)
+            {
+                school.put("type", "province");
+                //school.put("attributes", attr);
+                //注意此时省级节点要关闭，方能触发onBeforeExpand事件
+                school.put("state", "closed");
+            }
+        }
+        // 如果当前节点类型为学校 则异步加载年级json
+        else if(StringUtils.equals("province", currentType))
+        {
+            // 根据省级id查询市级
+            list = sqlManager.select("area.queryCity",Map.class,Dict.create().set("ParentId",currentId));
+            if(!CollectionUtils.isEmpty(list))
+            {
+                for (Map<String, Object> grade : list)
+                {
+                    grade.put("type", "city");
+                    //grade.put("attributes", attr);
+                    //注意此时市级节点要关闭，方能触发onBeforeExpand事件
+                    grade.put("state", "closed");
+                }
+            }
+        }
+        // 如果当前节点类型为市级 则异步加载县级json
+        else if(StringUtils.equals("city", currentType))
+        {
+            // 根据市级id查询县级
+            list = sqlManager.select("area.queryCounty",Map.class,Dict.create().set("ParentId",currentId));
+            if(!CollectionUtils.isEmpty(list))
+            {
+                for (Map<String, Object> classs : list)
+                {
+                    classs.put("type", "county");
+                    //classs.put("attributes", attr);
+                    classs.put("state", "open");
+                }
+            }
+        }
+        return list;
+    }
+
+
 
     /**
      * @param sqlId              SQL ID
@@ -246,17 +341,17 @@ public class BaseController extends AjaxResult {
         String order = httpServletRequest.getParameter("sord");
         String sortName = httpServletRequest.getParameter("sort");
         String sortOrder = httpServletRequest.getParameter("order");
-        if(sort == null && sortName != null){
+        if (sort == null && sortName != null) {
             sort = sortName;
         }
-        if(order == null && sortOrder != null){
+        if (order == null && sortOrder != null) {
             order = sortOrder;
         }
         StringBuffer seach = new StringBuffer();
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
         for (String paramName : parameterMap.keySet()) {
             if (paramName.startsWith("s_")) {
-                if (!StrUtil.hasEmpty(httpServletRequest.getParameter(paramName))){
+                if (!StrUtil.hasEmpty(httpServletRequest.getParameter(paramName))) {
                     if (paramName.endsWith("_et")) {
                         seach.append(paramName.substring(2, paramName.length() - 3))
                                 .append(" = ")
@@ -267,16 +362,16 @@ public class BaseController extends AjaxResult {
                     } else if (paramName.endsWith("_rt")) {
                         seach.append(paramName.substring(2, paramName.length() - 3))
                                 .append(" >= ")
-                                .append(" ' ")
+                                .append(" '")
                                 .append(httpServletRequest.getParameter(paramName))
-                                .append(" ' ")
+                                .append("' ")
                                 .append(" AND ");
                     } else if (paramName.endsWith("_lt")) {
                         seach.append(paramName.substring(2, paramName.length() - 3))
                                 .append(" <= ")
-                                .append(" ' ")
+                                .append(" '")
                                 .append(httpServletRequest.getParameter(paramName))
-                                .append(" ' ")
+                                .append("' ")
                                 .append(" AND ");
                     } else if (NumberUtil.isNumber(httpServletRequest.getParameter(paramName))) {
                         seach.append(paramName.substring(2))
@@ -313,12 +408,12 @@ public class BaseController extends AjaxResult {
         if (seach.length() > 0) {
             if (seach.toString().endsWith("AND ")) {
                 seachSql = " WHERE " + seach.substring(0, seach.length() - 4);
-            } else if (seach.toString().contains("AND")){
+            } else if (seach.toString().contains("AND")) {
                 int and = seach.toString().lastIndexOf("AND");
-                seachSql = " WHERE " +seach.toString().substring(0, and) + "AND ("
-                        + seach.toString().substring(and+3,seach.length()-3)+")";
-            }else {
-                seachSql = " WHERE " + seach.toString().substring(0,seach.length()-3);
+                seachSql = " WHERE " + seach.toString().substring(0, and) + "AND ("
+                        + seach.toString().substring(and + 3, seach.length() - 3) + ")";
+            } else {
+                seachSql = " WHERE " + seach.toString().substring(0, seach.length() - 3);
             }
         }
         Integer integerPage = Integer.valueOf(page);
@@ -333,14 +428,20 @@ public class BaseController extends AjaxResult {
         Double doubleRows = Double.valueOf(rows);
         Integer totalPage = (int) Math.ceil(totalCount / doubleRows);
         map.put("total", totalPage);
+        map.put("page",integerPage);
+        if (!sql.contains("ORDER")&&!sql.contains("order")){
+            sort = "ORDER BY " + sort;
+        }else {
+            sort = ","+sort;
+        }
         if (totalCount < integerRows * integerPage) {
             List<Map> mapList = appendToList(sqlId,
-                    SqlIntercepter.create().set(seachSql + " ORDER BY " + sort + " " + order))
+                    SqlIntercepter.create().set(seachSql + sort + " " + order))
                     .subList(integerRows * (integerPage - 1), totalCount);
             map.put("rows", mapList);
         } else {
             List<Map> mapList = appendToList(sqlId,
-                    SqlIntercepter.create().set(seachSql + " ORDER BY " + sort + " " + order))
+                    SqlIntercepter.create().set(seachSql + sort + " " + order))
                     .subList(integerRows * (integerPage - 1), integerRows * integerPage);
             map.put("rows", mapList);
         }
@@ -366,17 +467,44 @@ public class BaseController extends AjaxResult {
         Double doubleRows = Double.valueOf(rows);
         Integer totalPage = (int) Math.ceil(totalCount / doubleRows);
         map.put("total", totalPage);
+        String sql = sqlManager.getScript(sqlId).getSql();
+        if (!sql.contains("ORDER")&&!sql.contains("order")){
+            sort = "ORDER BY " + sort;
+        }else {
+            sort = ","+sort;
+        }
         if (totalCount < integerRows * integerPage) {
             List<Map> mapList = appendToList(sqlId,
-                    SqlIntercepter.create().set("ORDER BY " + sort + " " + order), myMap)
+                    SqlIntercepter.create().set(sort + " " + order), myMap)
                     .subList(integerRows * (integerPage - 1), totalCount);
             map.put("rows", mapList);
         } else {
             List<Map> mapList = appendToList(sqlId,
-                    SqlIntercepter.create().set("ORDER BY " + sort + " " + order), myMap)
+                    SqlIntercepter.create().set(sort + " " + order), myMap)
                     .subList(integerRows * (integerPage - 1), integerRows * integerPage);
             map.put("rows", mapList);
         }
         return map;
+    }
+
+    public void printPdf(String htmlString, String pdfPath) {
+        try {
+            Document document = new Document(PageSize.A3);
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            document.open();
+           /* document.addAuthor("pdf作者");
+            document.addCreator("pdf创建者");
+            document.addSubject("pdf主题");
+            document.addCreationDate();
+            document.addTitle("pdf标题,可在html中指定title");*/
+            XMLWorkerHelper worker = XMLWorkerHelper.getInstance();
+            InputStream inputStream = null;
+            worker.parseXHtml(pdfWriter, document,
+                    new ByteArrayInputStream(htmlString.getBytes("UTF-8")),
+                    inputStream, Charset.forName("UTF-8"), new AsianFontProvider());
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author chenjiang
  */
-@Table(name="Specia_Place")
+@Table(name="Recruit_Place")
 public class Place implements Serializable{
 
 	  private Integer Id;

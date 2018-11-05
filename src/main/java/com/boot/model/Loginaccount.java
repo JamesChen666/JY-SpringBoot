@@ -1,5 +1,9 @@
 package com.boot.model;
 
+import com.boot.util.excel.annotation.ExcelField;
+import com.boot.util.excel.converter.UserConverter.DateConvert;
+import com.boot.util.excel.converter.UserConverter.UserTypeConvert;
+import com.boot.util.excel.converter.UserConverter.WhetherConvert;
 import org.beetl.sql.core.annotatoin.Table;
 
 import java.io.Serializable;
@@ -12,12 +16,17 @@ import java.util.Date;
 public class Loginaccount implements Serializable {
 
     private Integer Id;
+    @ExcelField(title = "姓名",order = 1)
     private String RealName;
+    @ExcelField(title = "用户名",order = 2)
     private String UserName;
     private String PassWord;
+    @ExcelField(title = "用户类型",order = 3,readConverter = UserTypeConvert.class,writeConverter = UserTypeConvert.class)
     private Integer UserTypeId;
+    @ExcelField(title = "是否启用",order = 5,writeConverter = WhetherConvert.class)
     private Boolean IsEnabled;
     private String Avatar;
+    @ExcelField(title = "创建时间",order = 4,writeConverter = DateConvert.class)
     private Date CreateDate;
     private String Salt;
 

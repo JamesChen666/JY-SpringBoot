@@ -1,3 +1,4 @@
+
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         define('calendar', ['jquery'], factory);
@@ -8,6 +9,13 @@
     }
 }(this, function($) {
 
+    var returnData ="";
+    $.ajaxSettings.async = false;
+    //查询出数据
+    $.post("/home/queryZczpList",{page:"1",rows:"8",sidx:"id",sord:"asc","s_ss.UseDate":fmtDateYM(new Date()),"s_ss.TypeId":2}, function (data) {
+        returnData =  data;
+    });
+    $.ajaxSettings.async = true;
     // default config
 
     var defaults = {
@@ -112,7 +120,7 @@
 
         ITEM_STYLE = 'style="width:{w}px;height:{h}px;line-height:{h}px"',
         WEEK_ITEM_TPL = '<li ' + ITEM_STYLE + '>{wk}</li>',
-        DAY_ITEM_TPL = '<li ' + ITEM_STYLE + ' class="{class}" {action}>{value}</li>',
+        DAY_ITEM_TPL = '<li ' + ITEM_STYLE + ' title="{ymd}" class="{class}" {action}>{value}</li>',
         MONTH_ITEM_TPL = '<li ' + ITEM_STYLE + ' ' + ITEM_MONTH + '>{m}月</li>',
 
         TEMPLATE = [
@@ -310,12 +318,26 @@
             return ret;
         },
         getDayItem: function(y, m, d, f) {
+                var t = d;
+                if(d<10){
+                    t = "0"+d;
+                }
+                var  ymd = y+"-"+m+"-"+t;
+                var a = "";
+                if(returnData.rows.length>0){
+                    for (var i = 0; i <returnData.rows.length ; i++) {
+                        if(fmtDate(returnData.rows[i].UseDate) == ymd){
+                            a += returnData.rows[i].CorpName+"\n";
+                        }
+                    }
+                }
             var dt = this.date,
                 idt = new Date(y, m - 1, d),
                 data = {
                     w: this.width / 7,
                     h: this.height / 7,
-                    value: d
+                    value: d,
+                    ymd:a
                 },
                 markData,
                 $item;
@@ -708,7 +730,10 @@
             });
 
             // hover
-            _this.$element.on('mouseenter', '[' + ITEM_DAY + ']', function(e) {
+           /* _this.$element.on('mouseenter', '[' + ITEM_DAY + ']', function(e) {
+                //debugger
+                //mouseOver(this,event,"+s+");
+
                 var arr = _this.getDisDateValue(),
                     day = new Date(arr[0], arr[1] - 1, parseInt(this.innerHTML));
 
@@ -717,10 +742,12 @@
                     _this.showLabel(e, 'date', day, $(this).data(MARK_DATA));
                 }
 
-                _this.options.onMouseenter.call(this, 'date', day, $(this).data(MARK_DATA));
+                //_this.options.onMouseenter.call(this, 'date', day, $(this).data(MARK_DATA));
+                _this.options.onSelected.call(this, 'date', day, $(this).data(MARK_DATA));
             }).on('mouseleave', '[' + ITEM_DAY + ']', function() {
-                _this.$label.hide();
-            });
+               _this.$label.hide();
+                mouseOut();
+            });*/
         },
         resize: function() {
             var w = this.width,
@@ -781,4 +808,34 @@
 
     $.fn.calendar.defaults = defaults;
 
+
+    /**
+     * 转换日期格式
+     * @param obj
+     * @returns {string}
+     */
+    function fmtDate(obj){
+        var date =  new Date(obj);
+        var y = 1900+date.getYear();
+        var m = "0"+(date.getMonth()+1);
+        var d = "0"+date.getDate();
+        return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
+    }
+
+
+    /**
+     * 转换日期格式(只要年月)
+     * @param obj
+     * @returns {string}
+     */
+    function fmtDateYM(obj){
+        var date =  new Date(obj);
+        var y = 1900+date.getYear();
+        var m = "0"+(date.getMonth()+1);
+        return y+"-"+m.substring(m.length-2,m.length);
+    }
+
 }));
+
+
+

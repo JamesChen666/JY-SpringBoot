@@ -13,21 +13,40 @@
                 textField: 'Id',
                 treeGridModel: 'adjacency',
                 sortName: "Id",
-                sortOrder:"asc",
-                colNames: ['Id', "类型", "审核状态","审核人","审核时间","审核意见"],
+                /*sortName: "Status",
+                sortorder:"desc",
+                colNames: ['Id', "审核类型","名称","审核状态","审核人","审核时间","审核意见"],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
-                    {name: 'tableName', index: 'tableName', align: "center", width: 100},
+                    {name: 'tableName', index: 'tableName', align: "center", width: 200,formatter:tableName},
+                    {name: 'name', index: 'name', align: "center", width: 200},
                     {name: 'Status', index: 'Status', align: "center", width: 150,formatter:convertStatus},
                     {name: 'RealName', index: 'RealName', align: "center", width: 200},
                     {name: 'ExamineDate', index: 'ExamineDate', align: "center", width: 200},
                     {name: 'ExamineRemark', index: 'ExamineRemark', align: "center", width: 200},
+                ],*/
+                colNames: ['Id', "单位名称", "已通过", "未通过", "未审核", "操作"],
+                colModel: [
+                    {name: 'Id', index: 'Id', hidden: true},
+                    {name: 'CorpName', index: 'CorpName', align: "center", width: 200},
+                    {name: 'zs1', index: 'zs1', align: "center", width: 200, formatter: zh},
+                    {name: 'zs2', index: 'zs2', align: "center", width: 150, formatter: zh},
+                    {name: 'zs3', index: 'zs3', align: "center", width: 200, formatter: zh},
+                    {
+                        name: "opera",
+                        index: "opera",
+                        align: "center",
+                        width: 60,
+                        formatter: function (value, obj, row) {
+                            return "<a href='javascript:' class='btnA' onclick=\"showSign('" + row.Id + "','" + row.CorpName + "')\">审核</a>"
+                        }
+                    }
                 ],
                 pager: "#pager",
                 ExpandColumn: "Id",
                 buttons:
                     [
-                        {
+                        /*{
                             type: "Examine",
                             btnName: "审核通过",
                             btnCode: "Enable",
@@ -44,31 +63,44 @@
                             listId: "#list",
                             args: {flag: false},
                             save: "toExamine"
-                        }
+                        }*/
                     ]
             });
-        })
+
+        });
+
+        function tableName(value, row, index) {
+            if (value == "School_Corp") {
+                return "单位审核";
+            } else if (value == "Corp_Postion") {
+                return "单位职位审核";
+            } else if (value == "School_Specia") {
+                return "专场招聘审核";
+            } else if (value == "Election_CorpPart") {
+                return "双选会参与单位审核";
+            }
+            return "";
+        }
+
+        function zh(value, row, index) {
+            if (value == null || value == "" || value == undefined) {
+                return 0;
+            }
+            return value;
+        }
+
+        function showSign(id,corpName) {
+            top.addTab("corp_examine_"+id,corpName+"--审核中心","/toExamine/edit?id=" + id,true,true)
+        }
     </script>
 </head>
 <body>
 
 <div class="search_area" id="search">
     <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
-        <!--<div class="adv-select-label">单位名称/联系人/单位联系地址</div>
-        <input class="easyui-textbox" name="sm_corpName-contactor-address" value=""/>-->
-        <!--<div class="adv-select-label">联系人：</div>
-        <input class="easyui-textbox"  name="s_contactor" value="">
-        <div class="adv-select-label">单位联系地址：</div>
-        <input class="easyui-textbox"  name="s_address" value="">-->
-        <div class="adv-select-label">审核状态：</div>
-        <select class="easyui-combobox" name="s_status" data-options="">
-            <option value="">==所有==</option>
-            <option value="1">通过</option>
-            <option value="2">不通过</option>
-            <option value="3">未审核</option>
-        </select>
-    </div>
-    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
+        <div class="adv-select-label">单位名称：</div>
+        <input class="easyui-textbox" name="s_sc.CorpName" value="">
+
         <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
         <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
     </div>

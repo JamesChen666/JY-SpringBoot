@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.5,user-scalable=no" />
+    <title>微就业</title>
+    <link rel="stylesheet" href="css/V_employment.css" />
+    <style>
+        input::-webkit-input-placeholder{
+            color: #959595;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+            color: #959595;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+            color: #959595;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+            color: #959595;
+        }
+        input::placeholder{  /* Internet Explorer 10-11 */
+            color: #959595;
+        }
+    </style>
+</head>
+<body class="com-re bg">
+<p class="c32 com-title text-center ">
+    <a href=""></a><span>留言发布</span>
+</p>
+<form class="margintoptwo" action="">
+    <label for="">
+        <span class="text-right">留言标题</span><input type="text" placeholder="输入标题">
+    </label>
+    <label for="">
+        <span class="text-right">手机号</span><input type="password" placeholder="输入手机号">
+    </label>
+    <label for="" style="height: 150px">
+        <span class="text-right">留言内容</span><input  type="password" placeholder="输入留言内容">
+    </label>
+    <button class="margintopfour box-s cff">发&nbsp&nbsp&nbsp布</button>
+</form>
+<div class="bot2 botmenu text-center">
+    <p><span class="c95">已注册账号，</span><a style="display: inline-block" class="cbl" href="">登录</a></p>
+</div>
+
+<script type="text/javascript" src="js/jquery-2.1.1.js" ></script>
+<script>
+    //alert($(window).height());
+    //alert(window.screen.availHeight);
+    var oHeight = $(document).height(); //浏览器当前的高度
+
+    $(window).resize(function(){
+
+        if($(document).height() < oHeight){
+
+            $(".botmenu").css("position","static");
+        }else{
+
+            $(".botmenu").css("position","absolute");
+        }
+
+    });
+</script>
+</body>
+</html>

@@ -3,11 +3,9 @@ package com.boot.controller.serve;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
-import com.boot.model.Menu;
-import com.boot.model.Role;
-import com.boot.model.RoleMenu;
-import com.boot.system.SqlIntercepter;
+import com.boot.model.*;
 import com.boot.util.AjaxResult;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -18,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author chenjiang
@@ -57,6 +52,13 @@ public class RoleController extends BaseController {
     }
 
     @ResponseBody
+    @RequestMapping("/roleList")
+    public Object roleList(HttpServletRequest httpServletRequest) {
+       List<Map> list = sqlManager.select(LIST,Map.class);
+        return list;
+    }
+
+    @ResponseBody
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
         Role model = mapping(Role.class, request);
@@ -79,6 +81,7 @@ public class RoleController extends BaseController {
             result = sqlManager.updateById(model);
         }
         if (result > 0) {
+            setPermissions(request);
             return success(SUCCESS);
         } else {
             return fail(FAIL);
@@ -88,8 +91,39 @@ public class RoleController extends BaseController {
     @ResponseBody
     @RequestMapping("/edit/{id}")
     public Object edit(@PathVariable Integer id) {
-        Role Role = sqlManager.single(Role.class, id);
-        return Role;
+        Map map = new HashMap();
+        String value = "";
+        String values = "";
+        Role single = sqlManager.single(Role.class, id);
+        List<RoleMenu> roleMenus = sqlManager.select("roleMenu.findByRoleId",
+                RoleMenu.class, Dict.create().set("RoleId", single.getId()));
+        StringBuffer StringBuffer = new StringBuffer();
+        for (RoleMenu roleMenu : roleMenus) {
+            StringBuffer.append(roleMenu.getMenuId()).append(",");
+        }
+        if (StringBuffer.length() > 1) {
+            value = StringBuffer.substring(0, StringBuffer.length() - 1);
+        }
+        String menuIds = sqlManager.selectSingle("role.findPermissionDataIds",
+                Dict.create().set("Ids", value), String.class);
+
+        List<RoleButton> roleButtons = sqlManager.select("roleButton.findByRoleId",
+                RoleButton.class, Dict.create().set("RoleId", single.getId()));
+        StringBuffer StringBuffers = new StringBuffer();
+        for (RoleButton roleButton : roleButtons) {
+            StringBuffers.append(roleButton.getButtonId()).append(",");
+        }
+        if (StringBuffers.length() > 1) {
+            values = StringBuffers.substring(0, StringBuffers.length() - 1);
+        }
+        String buttonIds = sqlManager.selectSingle("role.findButtonDataIds",
+                Dict.create().set("Ids", values), String.class);
+        map.put("Id",single.getId());
+        map.put("RoleName",single.getRoleName());
+        map.put("Sort",single.getSort());
+        map.put("menuIds",menuIds);
+        map.put("buttonIds",buttonIds);
+        return map;
     }
 
     @ResponseBody
@@ -113,10 +147,19 @@ public class RoleController extends BaseController {
     @RequestMapping("/import")
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
+        int err = 0;
         int insert = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Role> roles = importExcel(file, Role.class);
+            for (Role role : roles) {
+                Role roleName = sqlManager.query(Role.class)
+                        .andEq("RoleName", role.getRoleName()).single();
+                err++;
+                if (ObjectUtil.isNotNull(roleName)){
+                    return error("第"+err+"行"+roleName.getRoleName()+"已存在");
+                }
+            }
             for (Role role : roles) {
                 insert += sqlManager.insert(role);
             }
@@ -131,16 +174,14 @@ public class RoleController extends BaseController {
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Role> mapList;
         if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("role.list",Map.class);
+            mapList = sqlManager.all(Role.class);
         }else {
-            mapList = appendToList("role.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Role.class,ids);
         }
         try {
-            simpleExport("角色信息", mapList );
+            exportExcel("角色信息", mapList,Role.class );
         }catch (Exception e){
             e.getStackTrace();
             return fail(FAIL);
@@ -194,6 +235,61 @@ public class RoleController extends BaseController {
                     roleMenu.setMenuId(Integer.valueOf(menuId));
                     roleMenu.setRoleId(single.getId());
                     insert += sqlManager.insert(roleMenu);
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+            return fail(FAIL);
+        }
+        return success(SUCCESS);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/setPermissions")
+    public AjaxResult setPermissions(HttpServletRequest httpServletRequest) {
+        String data = httpServletRequest.getParameter("data");
+        JSONArray array = JSONArray.fromObject(data);
+        List list =(ArrayList)JSONArray.toCollection(array, String.class);
+        Set<String> menuIds = new LinkedHashSet<>();
+        Set<String> buttonIds = new LinkedHashSet<>();
+        for (int i = 0; i < list.size(); i++) {
+            if(i == 0){
+                buttonIds.addAll((ArrayList)list.get(i));
+            }
+            if(i==1){
+                menuIds.addAll((ArrayList)list.get(i));
+            }
+        }
+        int insert = 0;
+        String id = httpServletRequest.getParameter("Id");
+        Role single = sqlManager.single(Role.class, id);
+        //添加菜单
+        try {
+            sqlManager.update("roleMenu.deleteByRoleId",
+                    Dict.create().set("RoleId", single.getId()));
+            for (String menuId : menuIds) {
+                if (!menuId.equals("0")){
+                    RoleMenu roleMenu = new RoleMenu();
+                    roleMenu.setMenuId(Integer.valueOf(menuId));
+                    roleMenu.setRoleId(single.getId());
+                    insert += sqlManager.insert(roleMenu);
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+            return fail(FAIL);
+        }
+        //添加按钮
+        try {
+            sqlManager.update("roleButton.deleteByRoleId",
+                    Dict.create().set("RoleId", single.getId()));
+            for (String buttonId : buttonIds) {
+                if (!buttonId.equals("0")){
+                    RoleButton roleButton = new RoleButton();
+                    roleButton.setRoleId(single.getId());
+                    roleButton.setButtonId(Integer.parseInt(buttonId));
+                    insert += sqlManager.insert(roleButton);
                 }
             }
         } catch (Exception e) {

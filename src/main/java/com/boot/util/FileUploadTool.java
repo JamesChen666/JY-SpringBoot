@@ -4,11 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.crypto.Data;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadTool {
@@ -64,7 +63,8 @@ public class FileUploadTool {
             String name = fileName.substring(0, fileName.lastIndexOf("."));
             System.out.println("文件名称：" + name);
             // 新的文件名
-            String newFileName = this.getName(fileName);
+            //String newFileName = this.getName(fileName);
+            String newFileName = System.currentTimeMillis()+"";//当前时间毫秒值
             // 文件扩展名
             String fileEnd = this.getFileExt(fileName);
             // 绝对路径
@@ -83,7 +83,7 @@ public class FileUploadTool {
             entity.put("type",fileEnd);
             String fileDir = logoPathDir + newFileName + fileEnd;
             StringBuilder builder = new StringBuilder(fileDir);
-            String finalFileDir = builder.substring(1);
+            //String finalFileDir = builder.substring(1);
             // size存储为String
             String size = this.getSize(filedirs);
             // 源文件保存路径
@@ -109,13 +109,13 @@ public class FileUploadTool {
                         transfMediaTool.processFLV(ffmpegPath, aviPath,    codcFilePath);
                         fileDir = logoPathDir + newFileName + ".flv";
                         builder = new StringBuilder(fileDir);
-                        finalFileDir = builder.substring(1);
+                        //finalFileDir = builder.substring(1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 entity.put("size",size);
-                entity.put("path",finalFileDir);
+                entity.put("path",fileDir/*finalFileDir*/);
                 entity.put("titleOrig",name);
                 entity.put("titleAlter",newFileName);
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());

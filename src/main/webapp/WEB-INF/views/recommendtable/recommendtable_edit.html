@@ -55,7 +55,7 @@
                 </td>
                 <td class="right b width150">生源地</td>
                 <td>
-                    <div>${student.OriginCode}</div>
+                    <div>${student.OriginCode!}</div>
                 </td>
             </tr>
             </tbody>
@@ -92,6 +92,24 @@
                 <td>
                     <input class="easyui-textbox" name="RecommendUserId"
                            data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">担任各类学生干部情况</td>
+                <td>
+                    <textarea name="PositionRemark" style="width: 300px;height: 100px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">获奖及有关证书获得情况</td>
+                <td>
+                    <textarea name="RewardRemark" style="width: 300px;height: 100px"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">社会实践情况</td>
+                <td>
+                    <textarea name="PracticeRemark" style="width: 300px;height: 100px"></textarea>
                 </td>
             </tr>
             </tbody>

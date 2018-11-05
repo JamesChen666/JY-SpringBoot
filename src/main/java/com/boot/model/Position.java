@@ -5,19 +5,12 @@ import java.io.Serializable;
 /**
  * @author chenjiang
  */
-@Table(name="Specia_Position")
+@Table(name="Recruit_Position")
 public class Position implements Serializable{
 
-	  private Integer id;
 	  private Integer SpecialId;
 	  private Integer PositionId;
 
-	  public void setId(Integer id) {
-		this.id = id;
-	}
-	  public Integer getId() {
-		return id;
-	}
 	  public void setSpecialId(Integer SpecialId) {
 		this.SpecialId = SpecialId;
 	  }
@@ -33,7 +26,6 @@ public class Position implements Serializable{
       @Override
       public String toString() {
          return "Position{" +
-				 "id='" + id + '\'' +
                 "SpecialId='" + SpecialId + '\'' +
                 "PositionId='" + PositionId + '\'' +
                 '}';

@@ -12,55 +12,42 @@
     <script>
         $(function () {
             var code = '${code}';
-            if(code == 1 || code == 6){
-                queryTzgg(code);
+            if(code == 1){
+                queryTzgg(code,1);
             }else if(code == 4 || code == 5){
                 queryXgxz(code);
             }
         });
 
+
+
         //通知公告
-        function queryTzgg(code) {
-            debugger
-            $("#newsList").empty;
+        function queryTzgg(code,page) {
+            $("#newsList").empty();
             var html ="";
             $.ajax({
                 type: "post",
                 dataType: "json",
                 url: '/home/homeNoticeList',
-                data: {"code": code,"page":"1","rows":"5","sidx":"Id","sord":"asc"},
+                data: {"code": code,"page":page,"rows":"5","sidx":"Id","sord":"asc"},
                 success: function (data) {
-                    debugger
                     if (data != null) {
                         for (var i = 0; i < data.rows.length ; i++) {
                             html += '<div class=" margintop20" >\n' +
                                 '        <div class=" news-list news-list2" style="width: 100%">\n' +
-                                '            <a href="/home/details?id='+data.rows[i].Id+'&code='+code+'">'+data.rows[i].Title+'</a>\n' +
-                                '            <div style="height: 50px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 20px;" class="c32"><p class="margintop20 c32">'+data.rows[i].Content+'</p></div>\n' +
+                                '            <a href="/home/details?id='+data.rows[i].Id+'&code='+code+'">'+data.rows[i].Title+'</a>\n' +   //decodeURIComponent(data.rows[i].Content)
+                                '            <div style="height: 50px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 20px;" class="c32"><p class="margintop20 c32">'+ data.rows[i].SubTitle+'</p></div>\n' +
                                 '            <p class="c95 margintop20">\n' +
                                 '                <span>'+fmtDate(data.rows[i].CreateDate)+'</span>\n' +
                                 '                <span class="xcb bt-r"><img src="../../../static/homePage/img/news-data-bg01.png" alt="">阅读 ：'+data.rows[i].ClickCount+'</span>\n' +
-                                '                <span class="xcb bt-r"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+data.rows[i].Resource+'</span>\n' +
+                                '                <span class="xcb bt-r"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+shieldNull(data.rows[i].Resource)+'</span>\n' +
                                 '            </p>\n' +
                                 '        </div>\n' +
                                 '    </div>\n' +
                                 '    <div class="line margintop20" ></div>';
                         }
-                        html += '<div class="news-tabs c32 text-c">\n' +
-                            '    <a href="" style="width: 80px"> < 上一页</a>\n' +
-                            '    <a href="" class="news-tabs-active">1</a>\n';
-                        for (var j = 2; j <=data.total ; j++) {
-                            html +='        <a href="">'+j+'</a>\n';
-                        }
-                        html +=  '    <a href="" style="width: 80px">下一页 > </a>\n';
-                        html += '    <span>共'+data.total+'页，到第</span>\n' +
-                            '    <label for="">\n' +
-                            '        <input type="number" min="1">\n' +
-                            '        页\n' +
-                            '    </label>\n' +
-                            '    <a href="" style="width: 70px">确 认</a>\n' +
-                            '</div>';
                         $("#newsList").append(html);
+                        fy(data.total,data.page,code);
                     }
                     else {
                         alert("暂无数据!");
@@ -69,9 +56,67 @@
             });
         }
 
+
+        function fy(total,page,code) {
+            $("#fy").empty();
+            var fy = "";
+            fy += '<div class="news-tabs c32 text-c">\n' +
+                '    <a href="javascript:void(0)" onclick="previousPage('+code+');return false;" style="width: 80px"> < 上一页</a>\n';
+               /* '    <a href="" class="news-tabs-active">1</a>\n';*/
+            for (var j = 1; j <=total ; j++) {
+                if(page == j){
+                    fy +='        <a href="javascript:void(0)" onclick="clickPage(this,'+code+');return false;"  class="news-tabs-active" id="dqy">'+j+'</a>\n';
+                }else{
+                    fy +='        <a href="javascript:void(0)" onclick="clickPage(this,'+code+');return false;">'+j+'</a>\n';
+                }
+            }
+            fy +=  '    <a  href="javascript:void(0)" onclick="nextPage('+total+','+code+');return false;" style="width: 80px">下一页 > </a>\n';
+            fy += '    <span>共'+total+'页，到第</span>\n' +
+                '    <label for="">\n' +
+                '        <input type="number" min="1" id="srk">\n' +
+                '        页\n' +
+                '    </label>\n' +
+                '    <a href="javascript:void(0)" onclick="jumpPage('+total+','+code+');return false;" style="width: 70px">确 认</a>\n' +
+                '</div>';
+            $("#fy").append(fy);
+        }
+
+        //上一页
+        function previousPage(code) {
+            var currentPage =  $("#dqy").text();
+            if(currentPage <=1){
+                alert("已经是第一页了");
+            }else{
+                queryTzgg(code,currentPage-1);
+            }
+        }
+        //下一页
+        function nextPage(page,code) {
+            var currentPage =  parseInt($("#dqy").text());
+            if(currentPage >=page){
+                alert("已经是最后一页了");
+            }else{
+                queryTzgg(code,currentPage+1);
+            }
+        }
+        //点击
+        function clickPage(obj,code) {
+            var page = parseInt(obj.text);
+            queryTzgg(code,page);
+        }
+        //跳转
+        function jumpPage(total,code) {
+            var page = $("#srk").val();
+            if(page>total || page<1){
+                alert("该页码不存在，请重新输入");
+            }else{
+                queryTzgg(code,page);
+            }
+        }
+
         //相关下载
         function queryXgxz(code) {
-            $("#newsList").empty;
+            $("#newsList").empty();
             var html ="";
             $.ajax({
                 type: "post",
@@ -79,38 +124,23 @@
                 url: '/home/homeDownloadList',
                 data: {"code": code,"page":"1","rows":"5","sidx":"Id","sord":"asc"},
                 success: function (data) {
-                    debugger
                     if (data != null) {
                         for (var i = 0; i < data.rows.length ; i++) {
                             html += '<div class=" margintop20" >\n' +
                                 '        <div class=" news-list news-list2" style="width: 100%">\n' +
-                                '            <a href="'+data.rows[i].Url+'" >'+data.rows[i].Title+'</a>\n' +
+                                '            <a href="'+data.rows[i].Url+'" >'+shieldNull(data.rows[i].Title)+'</a>\n' +
                                 /* '            <p class="margintop20 c32">'+list[i].Content+'</p>\n' +*/
                                 '            <p class="c95 margintop20">\n' +
                                 '                <span>'+fmtDate(data.rows[i].CreateDate)+'</span>\n' +
                                 '                <span class="xcb bt-r"><img src="../../../static/homePage/img/news-data-bg01.png" alt="">下载 ：'+data.rows[i].DownCount+'</span>\n' +
-                                '                <span class="xcb bt-r"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+data.rows[i].UserId+'</span>\n' +
+                                '                <span class="xcb bt-r"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+shieldNull(data.rows[i].UserId)+'</span>\n' +
                                 '            </p>\n' +
                                 '        </div>\n' +
                                 '    </div>\n' +
                                 '    <div class="line margintop20" ></div>';
                         }
-                        html += '<div class="news-tabs c32 text-c">\n' +
-                            '    <a href="" style="width: 80px"> < 上一页</a>\n' +
-                            '    <a href="" class="news-tabs-active">1</a>\n' +
-                            '    <a href="">2</a>\n' +
-                            '    <a href="">3</a>\n' +
-                            '    <a href="">...</a>\n' +
-                            '    <a href="">30</a>\n' +
-                            '    <a href="" style="width: 80px">下一页 > </a>\n' +
-                            '    <span>共5页，到第</span>\n' +
-                            '    <label for="">\n' +
-                            '        <input type="number" min="1">\n' +
-                            '        页\n' +
-                            '    </label>\n' +
-                            '    <a href="" style="width: 70px">确 认</a>\n' +
-                            '</div>';
                         $("#newsList").append(html);
+                        fy(data.total,data.page,code);
                     }
                     else {
                         alert("暂无数据!");
@@ -150,6 +180,9 @@
 </div>
 <!--新闻详情-->
 <div class="bt-box-1024" style="padding: 0 20px" id="newsList">
+
+</div>
+<div class="bt-box-1024" style="padding: 0 20px" id="fy">
 
 </div>
 

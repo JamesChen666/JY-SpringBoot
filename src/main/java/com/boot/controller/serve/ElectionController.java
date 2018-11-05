@@ -40,6 +40,20 @@ public class ElectionController extends BaseController{
         Map map = pageQuery(LIST,httpServletRequest);
         return map;
     }
+	@ResponseBody
+	@RequestMapping("/stuList")
+	public Object stuList() {
+        List<Map> mapList = sqlManager.select("election.stuList", Map.class);
+        return mapList;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/corpPartList")
+    public Object corpPartList(HttpServletRequest httpServletRequest) {
+        Map map = pageQuery("election.findList",httpServletRequest);
+        return map;
+    }
 
 
     @ResponseBody
@@ -83,39 +97,28 @@ public class ElectionController extends BaseController{
                 //查询出刚刚添加的数据
                Election election = sqlManager.selectSingle("election.lastOne",new HashMap<>(),Election.class);
                 //添加面向行业
-               Industry industry = new Industry();
-                String[] industryIds = request.getParameter("IndustryCode").split(",");
-                for (int i = 0; i < industryIds.length; i++) {
-                    industry.setElectionId(election.getId());
-                    industry.setIndustryCode(industryIds[i]);
-                    sqlManager.insert(industry);
-                }
+                addIndustry(request,election.getId());
                 //添加场地
-                RunPlace runPlace = new RunPlace();
-                String[] placeIds = request.getParameter("PlaceId").split(",");
-                for (int i = 0; i < industryIds.length; i++) {
-                    runPlace.setElectionId(election.getId());
-                    runPlace.setPlaceId(Integer.parseInt(placeIds[i]));
-                    sqlManager.insert(runPlace);
-                }
-                //添加职位
-                CorpPosition corpPosition = new CorpPosition();
-                String[] positionIds = request.getParameter("PositionId").split(",");
-                for (int i = 0; i < industryIds.length; i++) {
-                    corpPosition.setElectionCorpId(election.getId());
-                    corpPosition.setPositionId(Integer.parseInt(positionIds[i]));
-                    sqlManager.insert(corpPosition);
-                }
-                //添加展位
-                CorpBooth corpBooth = new CorpBooth();
-                String[] boothIds = request.getParameter("BoothId").split(",");
-                for (int i = 0; i < industryIds.length; i++) {
-                    corpBooth.setElectionCorpId(election.getId());
-                    corpBooth.setBoothId(Integer.parseInt(boothIds[i]));
-                    sqlManager.insert(corpBooth);
-                }
+                addRunPlace(request,election.getId());
             }
         } else {
+            Map map = sqlManager.selectSingle("election.findOne",Dict.create().set("id",model.getId()),Map.class);
+            if(map!= null && map.get("IndustryCode")!=null && !map.get("IndustryCode").equals(request.getParameter("IndustryCode"))){
+                String[] eiIds = (map.get("eiId")+"").split(",");
+                //删除面向行业关联
+                for (int i = 0; i <eiIds.length ; i++) {
+                    sqlManager.deleteById(Industry.class,Integer.parseInt(eiIds[i]));
+                }
+                addIndustry(request,model.getId());
+            }
+            if(map!= null && map.get("PlaceId")!=null && !map.get("PlaceId").equals(request.getParameter("PlaceId"))){
+                String[] erIds = (map.get("erId")+"").split(",");
+                //删除场地关联
+                for (int i = 0; i <erIds.length ; i++) {
+                    sqlManager.deleteById(RunPlace.class,Integer.parseInt(erIds[i]));
+                }
+                addRunPlace(request,model.getId());
+            }
             Election election = sqlManager.single(Election.class,model.getId());
             model.setIsEnabled(election.getIsEnabled());
             result = sqlManager.updateById(model);
@@ -202,6 +205,38 @@ public class ElectionController extends BaseController{
             return fail(FAIL);
         }
         return success(SUCCESS);
+    }
+
+
+    /**
+     * 添加面向行业
+     * @param request
+     * @param electionId
+     */
+    public void addIndustry(HttpServletRequest request,Integer electionId){
+        //添加面向行业
+        Industry industry = new Industry();
+        String[] industryIds = request.getParameter("IndustryCode").split(",");
+        for (int i = 0; i < industryIds.length; i++) {
+            industry.setElectionId(electionId);
+            industry.setIndustryCode(industryIds[i]);
+            sqlManager.insert(industry);
+        }
+    }
+
+    /**
+     * 添加场地
+     * @param request
+     * @param electionId
+     */
+    public void addRunPlace (HttpServletRequest request,Integer electionId){
+        RunPlace runPlace = new RunPlace();
+        String[] placeIds = request.getParameter("PlaceId").split(",");
+        for (int i = 0; i < placeIds.length; i++) {
+            runPlace.setElectionId(electionId);
+            runPlace.setPlaceId(Integer.parseInt(placeIds[i]));
+            sqlManager.insert(runPlace);
+        }
     }
 
 }

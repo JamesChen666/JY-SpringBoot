@@ -1,5 +1,6 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Makeupregistercard;
 import com.boot.util.AjaxResult;
@@ -56,6 +57,15 @@ public class MakeupregistercardController extends BaseController{
     public Object edit(@PathVariable Integer id) {
         Makeupregistercard Makeupregistercard = sqlManager.single(Makeupregistercard.class,id);
         return Makeupregistercard;
+    }
+
+    @ResponseBody
+    @RequestMapping("/studentList/{id}")
+    public Object studentList(@PathVariable Integer id) {
+        List<Map> makeupregistercards
+                = sqlManager.select("makeupregistercard.findByStudentId" ,Map.class,
+                Dict.create().set("StudentId", id));
+        return makeupregistercards;
     }
 
     @ResponseBody

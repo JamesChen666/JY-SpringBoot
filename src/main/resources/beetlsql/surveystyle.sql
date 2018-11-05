@@ -1,0 +1,57 @@
+
+
+
+
+findByQuId
+===
+SELECT
+  id as id,
+        body_bg_color as bodyBgColor,
+        body_bg_image as bodyBgImage,
+        show_survey_haed as showSurveyHaed,
+        survey_bg_color as surveyBgColor,
+        survey_bg_image as surveyBgImage,
+        survey_content_bg_colo_topr as surveyContentBgColoTopr,
+        survey_content_bg_color_bottom as surveyContentBgColorBottom,
+        survey_content_bg_color_middle as surveyContentBgColorMiddle,
+        survey_content_bg_image_bottom as surveyContentBgImageBottom,
+        survey_content_bg_image_middle as surveyContentBgImageMiddle,
+        survey_content_bg_image_top as surveyContentBgImageTop,
+        survey_content_padding_bottom as surveyContentPaddingBottom,
+        survey_content_padding_left as surveyContentPaddingLeft,
+        survey_content_padding_right as surveyContentPaddingRight,
+        survey_content_padding_top as surveyContentPaddingTop,
+        survey_content_width as surveyContentWidth,
+        survey_head_bg_color as surveyHeadBgColor,
+        survey_head_bg_image as surveyHeadBgImage,
+        survey_head_height as surveyHeadHeight,
+        survey_head_padding_bottom as surveyHeadPaddingBottom,
+        survey_head_padding_left as surveyHeadPaddingLeft,
+        survey_head_padding_right as surveyHeadPaddingRight,
+        survey_head_padding_top as surveyHeadPaddingTop,
+        survey_head_width as surveyHeadWidth,
+        survey_id as surveyId,
+        survey_padding_bottom as surveyPaddingBottom,
+        survey_padding_left as surveyPaddingLeft,
+        survey_padding_right as surveyPaddingRight,
+        survey_padding_top as surveyPaddingTop,
+        survey_style_type as surveyStyleType,
+        survey_width as surveyWidth,
+        show_body_bi as showBodyBi,
+        show_survey_bi as showSurveyBi,
+        show_survey_cbim as showSurveyCbim,
+        show_survey_hbgi as showSurveyHbgi,
+        survey_content_bg_color_top as surveyContentBgColorTop,
+        show_survey_logo as showSurveyLogo,
+        survey_logo_image as surveyLogoImage,
+        question_option_text_color as questionOptionTextColor,
+        question_title_text_color as questionTitleTextColor,
+        survey_note_text_color as surveyNoteTextColor,
+        survey_title_text_color as surveyTitleTextColor,
+        survey_btn_bg_color as surveyBtnBgColor,
+        show_sur_note as showSurNote,
+        show_sur_title as showSurTitle,
+        show_progressbar as showProgressbar,
+        show_ti_num as show_ti_num
+ FROM sv_survey_style where survey_id=#{surveyId}
+

@@ -21,9 +21,9 @@ function show() {
         contentType: false, //必须
         success: function (result) {
             if(result.entity.path !=null && result.entity.path != undefined && result.entity.path != "undefined"){
-                $('#wjdz').textbox('setValue',"/"+result.entity.path);
-                $("#cs").attr('href',"/"+result.entity.path);//显示
-                $("#yl").attr("src","/"+result.entity.path);
+                $('#wjdz').textbox('setValue',result.entity.path);
+                $("#cs").attr('href',result.entity.path);//显示
+                $("#yl").attr("src",result.entity.path);
             }
         },
         error:function(){
@@ -73,9 +73,133 @@ function show1() {
         contentType: false, //必须
         success: function (result) {
             if(result.entity.path !=null && result.entity.path != undefined && result.entity.path != "undefined"){
-                $('#fmtp').textbox('setValue',"/"+result.entity.path);
-                $("#cs1").attr('href',"/"+result.entity.path);
-                $("#yl1").attr("src","/"+result.entity.path);
+                $('#fmtp').textbox('setValue',result.entity.path);
+                $("#cs1").attr('href',result.entity.path);
+                $("#yl1").attr("src",result.entity.path);
+            }
+        },
+        error:function(){
+            alert("错误");
+        }
+    });
+}
+
+/**
+ * 上传图片
+ * @param id
+ * @param id1
+ * @param id2
+ * @param id3
+ */
+function uploadPhoto(id,id1,id2,id3) {
+    var a = $("#"+id1).val();
+    if(a !="" && a != undefined){
+        $("#sc").val(a);
+    }
+    var fileObj = document.getElementById(id1).files[0]; // js 获取文件对象
+    if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+        alert("请选择文件");
+        return;
+    }
+    if(!fileObj.type.match('image.*')){
+        alert("只能上传图片，请重新上传");
+        return;
+    }
+    var formFile = new FormData();
+    formFile.append("action", "UploadVMKImagePath");
+    formFile.append("file", fileObj); //加入文件对象
+    $.ajax({
+        url: "/uploadflv/upload",
+        data: formFile,
+        type: "POST",
+        dataType: 'json',
+        cache: false,//上传文件无需缓存
+        processData: false,//用于对data参数进行序列化处理 这里必须false
+        contentType: false, //必须
+        success: function (result) {
+            if(result.entity.path !=null && result.entity.path != undefined && result.entity.path != "undefined"){
+                $("#"+id).textbox('setValue',result.entity.path);
+                $("#"+id2).attr('href',result.entity.path);
+                $("#"+id3).attr("src",result.entity.path);
+            }
+        },
+        error:function(){
+            alert("错误");
+        }
+    });
+}
+
+
+
+/**
+ * 单位注册上传图片
+ * @param id
+ * @param id1
+ * @param id2
+ * @param id3
+ */
+function registerUploadPhoto(id,id1,id2,id3) {
+    var a = $("#"+id1).val();
+    if(a !="" && a != undefined){
+        $("#sc").val(a);
+    }
+    var fileObj = document.getElementById(id1).files[0]; // js 获取文件对象
+    if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+        alert("请选择文件");
+        return;
+    }
+    if(!fileObj.type.match('image.*')){
+        alert("只能上传图片，请重新上传");
+        return;
+    }
+    var formFile = new FormData();
+    formFile.append("action", "UploadVMKImagePath");
+    formFile.append("file", fileObj); //加入文件对象
+    $.ajax({
+        url: "/uploadflv/upload",
+        data: formFile,
+        type: "POST",
+        dataType: 'json',
+        cache: false,//上传文件无需缓存
+        processData: false,//用于对data参数进行序列化处理 这里必须false
+        contentType: false, //必须
+        success: function (result) {
+            if(result.entity.path !=null && result.entity.path != undefined && result.entity.path != "undefined"){
+                $("#"+id).val(result.entity.path);
+                $("#"+id2).attr('href',result.entity.path);
+                $("#"+id3).attr("src",result.entity.path);
+            }
+        },
+        error:function(){
+            alert("错误");
+        }
+    });
+}
+
+
+/**
+ * 上传文件
+ */
+function uploadingFiles(id,id1) {
+    var fileObj = document.getElementById(id1).files[0]; // js 获取文件对象
+    if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+        alert("请选择文件");
+        return;
+    }
+    var formFile = new FormData();
+    formFile.append("action", "UploadVMKImagePath");
+    formFile.append("file", fileObj); //加入文件对象
+    $.ajax({
+        url: "/uploadflv/upload",
+        data: formFile,
+        type: "POST",
+        dataType: 'json',
+        cache: false,//上传文件无需缓存
+        processData: false,//用于对data参数进行序列化处理 这里必须false
+        contentType: false, //必须
+        success: function (result) {
+            if(result.entity.path !=null && result.entity.path != undefined && result.entity.path != "undefined"){
+                $('#'+id).val(result.entity.path);
             }
         },
         error:function(){

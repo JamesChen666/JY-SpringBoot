@@ -32,3 +32,29 @@ FROM school_class sc
 LEFT JOIN school_specialty ss ON sc.SpecialtyCode = ss.SpecialtyCode
 LEFT JOIN school_faculty sf ON ss.FacultyCode = sf.FacultyCode
 LEFT JOIN school_campus sc1 ON sf.CampusCode = sc1.CampusCode
+
+combotreeLists
+===
+SELECT * from (
+SELECT sc.ClassNo AS Id,sc.ClassName AS Name,sc.SpecialtyCode AS ParentId,sc.GraduationYear
+FROM school_class sc
+UNION ALL
+SELECT DISTINCT ss.SpecialtyCode,ss.SpecialtyName,ss.FacultyCode,sc.GraduationYear
+FROM school_class sc
+LEFT JOIN school_specialty ss ON sc.SpecialtyCode = ss.SpecialtyCode
+UNION ALL
+SELECT DISTINCT sf.FacultyCode,sf.FacultyName,sf.CampusCode,sc.GraduationYear
+FROM school_class sc
+LEFT JOIN school_specialty ss ON sc.SpecialtyCode = ss.SpecialtyCode
+LEFT JOIN school_faculty sf ON ss.FacultyCode = sf.FacultyCode
+UNION ALL
+SELECT DISTINCT sc1.CampusCode,sc1.CampusName,0,sc.GraduationYear
+FROM school_class sc
+LEFT JOIN school_specialty ss ON sc.SpecialtyCode = ss.SpecialtyCode
+LEFT JOIN school_faculty sf ON ss.FacultyCode = sf.FacultyCode
+LEFT JOIN school_campus sc1 ON sf.CampusCode = sc1.CampusCode
+) as class where GraduationYear=#{year}
+
+findClass
+===
+SELECT * from School_Class sc WHERE sc.SpecialtyCode = #{SpecialtyCode}

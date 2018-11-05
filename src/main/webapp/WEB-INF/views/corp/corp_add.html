@@ -11,28 +11,18 @@
     <table class="tb1">
         <tbody>
         <tr>
-            <td class="left b">姓名</td>
-            <td>
-                <input class="easyui-textbox" name="RealName"
-                       data-options="required:false">
-            </td>
-            <td class="left b">登录用户名</td>
+            <td class="right b width150">用户名：</td>
             <td>
                 <input class="easyui-textbox" name="UserName"
                        data-options="required:true">
             </td>
         </tr>
         <tr>
-            <td class="left b">登录密码</td>
+            <td class="right b">登录密码：</td>
             <td>
                 <input class="easyui-passwordbox" name="PassWord"
                        data-options="required:true">
             </td>
-            <!--<td class="left b">是否启用</td>
-            <td>
-                <input class="easyui-textbox" name="UserName"
-                       data-options="required:true">
-            </td>-->
         </tr>
         </tbody>
     </table>
@@ -43,32 +33,24 @@
     <table class="tb1">
         <tbody>
         <tr>
-            <!--<td class="left b">用户Id</td>
-            <td>
-                <input class="easyui-textbox" name="userId"
-                       data-options="required:true">
-            </td>-->
-            <td class="left b">单位名称</td>
-            <td>
+
+            <td class="right b width150">单位名称：</td>
+            <td  colspan="3">
                 <input class="easyui-textbox" name="corpName"
-                       data-options="required:true">
+                       data-options="required:true" style="width: 500px;">
             </td>
-            <td class="left b">单位联系地址</td>
-            <td>
-                <input class="easyui-textbox" name="address"
-                       data-options="required:true">
-            </td>
+
         </tr>
         <tr>
-            <td class="left b">单位经济类型代码</td>
-            <td>
+            <td class="right b">单位经济类型代码：</td>
+            <td style="width: 200px;">
                 <input class="easyui-combobox" name="economicTypeCode"
                        data-options="required:true,
                        valueField: 'memberValue',
                        textField: 'displayText',
                        url: '/dictionary/dictionaryCode/DWJJLXDM'">
             </td>
-            <td class="left b">单位性质代码</td>
+            <td class="right b">单位性质代码：</td>
             <td>
                 <input class="easyui-combobox" name="natureCdoe"
                        data-options="required:true,
@@ -78,7 +60,7 @@
             </td>
         </tr>
         <tr>
-            <td class="left b">单位行业代码</td>
+            <td class="right b">单位行业代码：</td>
             <td>
                 <input class="easyui-combobox" name="industryCode"
                        data-options="required:true,
@@ -86,7 +68,7 @@
                        textField: 'displayText',
                        url: '/dictionary/dictionaryCode/HYFLDM'">
             </td>
-            <td class="left b">单位规模代码</td>
+            <td class="right b">单位规模代码：</td>
             <td>
                 <input class="easyui-combobox" name="scaleCode"
                        data-options="required:true,
@@ -96,7 +78,7 @@
             </td>
         </tr>
         <tr>
-            <td class="left b">注册资金代码</td>
+            <td class="right b">注册资金：</td>
             <td>
                 <input class="easyui-combobox" name="capitalCode"
                        data-options="required:true,
@@ -104,14 +86,14 @@
                        textField: 'displayText',
                        url: '/dictionary/dictionaryCode/ZCZJDM'">
             </td>
-            <td class="left b">成立日期</td>
+            <td class="right b">成立日期：</td>
             <td>
                 <input class="easyui-datebox" name="establishmentDate"
                        data-options="required:true">
             </td>
         </tr>
         <tr>
-            <td class="left b">组织机构代码</td>
+            <td class="right b">组织机构代码：</td>
             <td>
                 <input class="easyui-textbox" name="organizetionCode"
                        data-options="required:true">
@@ -121,79 +103,104 @@
                        textField: 'DisplayText',
                        url: '/dictionary/dictionaryCode/ZCZJDM'">-->
             </td>
-            <td class="left b">联系人</td>
+            <td class="right b">联系人：</td>
             <td>
                 <input class="easyui-textbox" name="contactor"
                        data-options="required:true">
             </td>
         </tr>
         <tr>
-            <td class="left b">联系电话</td>
+            <td class="right b">联系电话：</td>
             <td>
                 <input class="easyui-textbox" name="contactPhone" validType="mobile"
                        data-options="required:true">
             </td>
-            <td class="left b">固定电话</td>
+            <td class="right b">固定电话：</td>
             <td>
                 <input class="easyui-textbox" name="fixPhone" validType="phone"
                        data-options="required:false">
             </td>
         </tr>
         <tr>
-            <td class="left b">电子邮箱</td>
+            <td class="right b">单位联系地址：</td>
+            <td colspan="3">
+                <input class="easyui-textbox" name="address"
+                       data-options="required:true" style="width: 400px;">
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">电子邮箱：</td>
             <td>
                 <input class="easyui-textbox" name="email" validType="email"
                        data-options="required:true">
             </td>
-            <td class="left b">邮政编码</td>
+            <td class="right b">邮政编码：</td>
             <td>
                 <input class="easyui-textbox" name="postCode" validType="zip"
                        data-options="required:false">
             </td>
         </tr>
         <tr>
-            <td class="left b">传真号码</td>
+            <td class="right b">传真号码：</td>
             <td>
                 <input class="easyui-textbox" name="fax" validType="faxno"
                        data-options="required:false">
             </td>
-            <td class="left b">单位所在地代码</td>
+            <td class="right b">单位所在地代码：</td>
+                <!--<input class="easyui-textbox" name="orginCode"
+                       data-options="required:false">-->
             <td>
-                <input class="easyui-textbox" name="orginCode"
-                       data-options="required:false">
+                <input class="easyui-combotreegrid" name="orginCode" id="orginCode"
+                       data-options="required:true">
             </td>
         </tr>
         <tr>
-            <td class="left b">主页地址</td>
+            <td class="right b">主页地址：</td>
             <td>
                 <input class="easyui-textbox" name="website"
                        data-options="required:false">
             </td>
-            <td class="left b">QQ号码</td>
+            <td class="right b">QQ号码：</td>
             <td>
                 <input class="easyui-textbox" name="QQ" data-options="required:false">
             </td>
         </tr>
         <tr>
-            <td class="left b">营业执照照片</td>
-            <td>
+            <td class="right b">营业执照照片：</td>
+            <td colspan="3">
                 <input class="easyui-textbox" name="businessImage"
                        data-options="required:false" id="fmtp" style="width: 150px !important;">
                 <a href="javascript:;" class="file">选择文件
-                    <input type="file" name="file" id="upload-file1" onchange="show1();"
-                           style="width: 70px;height: 30px; margin-left: -52px;">
+                    <input type="file" name="file" id="upload-file1" onchange="uploadPhoto('fmtp','upload-file1','cs1','yl1');"
+                           style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
                 </a>
                 <a target="_blank" href="" id="cs1">
                     <img id="yl1" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
                 </a>
             </td>
-            <td class="left b">企业LOGO</td>
-            <td>
+        </tr>
+        <tr>
+            <td class="right b">组织机构图片：</td>
+            <td colspan="3">
+                <input class="easyui-textbox" name="organizetionImage"
+                       data-options="required:false" id="fmtp2" style="width: 150px !important;">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file2" onchange="uploadPhoto('fmtp2','upload-file2','cs2','yl2');"
+                           style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+                </a>
+                <a target="_blank" href="" id="cs2">
+                    <img id="yl2" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">企业LOGO：</td>
+            <td colspan="3">
                 <input class="easyui-textbox" name="logo"
                        data-options="required:false" style="width: 150px !important;" id="wjdz">
                 <a href="javascript:;" class="file">选择文件
-                    <input type="file" name="file" id="upload-file" onchange="show();"
-                           style="width: 70px;height: 30px; margin-left: -52px;">
+                    <input type="file" name="file" id="upload-file" onchange="uploadPhoto('wjdz','upload-file','cs','yl');"
+                           style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
                 </a>
                 <a target="_blank" href="" id="cs">
                     <img id="yl" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
@@ -202,44 +209,74 @@
                        data-options="required:true,onChange:function(){show();},prompt:'请选择文件...'" style="width: 210px !important;">-->
             </td>
         </tr>
-        <!--<tr>
-
-            <td class="left b">审核状态</td>
-             <td>
-                 &lt;!&ndash;<input class="easyui-textbox" name="status"
-                        data-options="required:true">&ndash;&gt;
-                 <select class="easyui-combobox" name="status" data-options="required:true">
-                     <option value="1">通过</option>
-                     <option value="2">不通过</option>
-                     <option value="3">未审核</option>
-                 </select>
-             </td>
-        </tr>-->
-        <!-- <tr>
-             <td class="left b">审核人</td>
-             <td>
-                 <input class="easyui-textbox" name="examineUserId"
-                        data-options="required:true">
-             </td>
-         </tr>-->
-        <!--<tr>
-            <td class="left b">审核时间</td>
-            <td>
-                <input class="easyui-datebox" name="examineDate"
-                       data-options="required:true">
-            </td>
-            <td class="left b">审核意见</td>
-            <td>
-               &lt;!&ndash; <input class="easyui-textbox" name="examineRemark" data-options="required:true,multiline:true" style="width: 200px;height: 60px;">&ndash;&gt;
-                <textarea  name="examineRemark" class="textarea easyui-validatebox" style="width: 200px;height: 60px !important;"></textarea>
-            </td>
-        </tr>-->
         <tr>
-            <td class="left b">单位简介</td>
-            <td>
-                <!--<input class="easyui-textbox" name="description"
-                       data-options="required:true" id="nr">-->
-                <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'" name="description" rows="5" style="width:100% !important;height:80px !important;"></textarea>
+            <td class="right b">校企合作图片：</td>
+            <td colspan="3">
+                <input class="easyui-textbox" name="schoolCorpImage"
+                       data-options="required:false" id="fmtp3" style="width: 150px !important;">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file3" onchange="uploadPhoto('fmtp3','upload-file3','cs3','yl3');"
+                           style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+                </a>
+                <a target="_blank" href="" id="cs3">
+                    <img id="yl3" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">身份证正面照：</td>
+            <td colspan="3">
+                <input class="easyui-textbox" name="idCardPicPos"
+                       data-options="required:false" id="fmtp4" style="width: 150px !important;">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file4" onchange="uploadPhoto('fmtp4','upload-file4','cs4','yl4');"
+                           style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+                </a>
+                <a target="_blank" href="" id="cs4">
+                    <img id="yl4" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">身份证反面照：</td>
+            <td colspan="3">
+                <input class="easyui-textbox" name="idCardPicNeg"
+                       data-options="required:false" id="fmtp5" style="width: 150px !important;">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file5" onchange="uploadPhoto('fmtp5','upload-file5','cs5','yl5');"
+                           style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+                </a>
+                <a target="_blank" href="" id="cs5">
+                    <img id="yl5" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">单位简介：</td>
+            <td colspan="3">
+                <textarea cols="60"   name="description" rows="5" style="width:400px !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">备注：</td>
+            <td colspan="3">
+                <textarea cols="60"   name="Remark" rows="5" style="width:400px !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">审核状态：</td>
+            <td colspan="3">
+                <select class="easyui-combobox" name="Status" data-options="required:true">
+                    <option value="0">待审核</option>
+                    <option value="1">通过</option>
+                    <option value="2">拒绝</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">审核意见：</td>
+            <td colspan="3">
+                <textarea cols="60"   name="ExamineRemark" rows="5" style="width:400px !important;height:80px !important;"></textarea>
             </td>
         </tr>
         </tbody>

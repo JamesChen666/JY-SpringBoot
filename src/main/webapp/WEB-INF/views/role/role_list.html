@@ -24,7 +24,7 @@
                 buttons:
                         [
                             {
-                                type: "AddOrUpdate",
+                                type: "treeAddOrUpdate",
                                 title: "角色管理-新增角色",
                                 btnName: "新增角色",
                                 btnCode: "Add",
@@ -32,10 +32,20 @@
                                 listId: "#list",
                                 href: "/role/add",
                                 save: "save",
-                                fit: true
+                                fit: false,
+                                height: 500,
+                                onLoad:function () {
+                                    top.$("#tree").tree({
+                                        animate: true,
+                                        height: 300,
+                                        checkbox: true,
+                                        cascadeCheck: true,
+                                        url: '/menu/treeList'
+                                    })
+                                }
                             },
                             {
-                                type: "AddOrUpdate",
+                                type: "treeAddOrUpdate",
                                 iconCls: "icon-edit",
                                 title: "角色管理-修改角色",
                                 btnName: "修改角色",
@@ -43,7 +53,17 @@
                                 listId: "#list",
                                 href: "/role/edit?id={id}",
                                 save: "save",
-                                fit: true
+                                fit: false,
+                                height: 500,
+                                onLoad:function () {
+                                    top.$("#tree").tree({
+                                        animate: true,
+                                        height: 300,
+                                        checkbox: true,
+                                        cascadeCheck: true,
+                                        url: '/menu/treeList'
+                                    })
+                                }
                             },
                             {
                                 type: "Del",
@@ -85,7 +105,10 @@
                             }
                         ]
             });
-        })
+        });
+
+
+
     </script>
 </head>
 <body>
@@ -94,7 +117,7 @@
         <div class="adv-select-label">角色名称：</div>
         <input id="s_RoleName" name="s_RoleName" type="text" value="" />
         <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
-        <button type="reset" class="btn btn-info" id="btnSearch">重置查询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重置查询</button>
     </div>
 </div>
 <div data-options="region:'center'">

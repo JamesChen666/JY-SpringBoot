@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-<#include "../base/header.html">
+    <#include "../base/header.html">
 </head>
 <body>
 <from id="from" action="/notice/edit/${id}" class="easyui-form">
@@ -11,23 +11,29 @@
     <table class="tb1">
         <tbody>
         <tr>
-            <td class="left b">公告类型</td>
+            <td class="right b width100">公告类型：</td>
             <td>
-                <select name="typeCode" class="easyui-combobox" data-options="required:true" id="code">
-                </select>
+                <input class="easyui-combobox" name="typeCode" data-options="required:true,
+                                                                         valueField: 'TypeCode',
+                                                                         textField: 'TypeName',
+                                                                         url: '/noticeType/noticeTypeList'">
             </td>
-            <td class="left b">标题</td>
+
+        </tr>
+        <tr>
+            <td class="right b">标题：</td>
             <td>
-                <input class="easyui-textbox" name="title" data-options="required:true">
+                <input class="easyui-textbox" name="title" data-options="required:true,validType:'validBytesLength[100]'" style="width: 300px">
             </td>
         </tr>
         <tr>
-            <td class="left b">副标题</td>
+            <td class="right b">副标题：</td>
             <td>
-                <input class="easyui-textbox" name="subTitle"
-                       data-options="required:true">
+                <textarea name="subTitle" rows="3" style="width: 400px;"></textarea>
             </td>
-            <td class="left b">封面</td>
+        </tr>
+        <tr>
+            <td class="right b">封面：</td>
             <td>
                 <input class="easyui-textbox" name="cover" data-options="required:true"
                        id="fmtp">
@@ -38,7 +44,7 @@
             </td>
         </tr>
         <tr>
-            <td class="left b">视频地址</td>
+            <td class="right b">视频地址：</td>
             <td>
                 <input class="easyui-textbox" name="videoUrl"
                        data-options="required:true" id="wjdz">
@@ -47,20 +53,27 @@
                            style="width: 50px;height: 30px;margin-left: -60px;">
                 </a>
             </td>
-            <td class="left b">是否置顶</td>
+
+        </tr>
+        <tr>
+            <td class="right b">是否置顶：</td>
             <td>
                 <select class="easyui-combobox" name="isTop" data-options="required:true">
-                    <option value="true">是</option>
-                    <option value="false">否</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
                 </select>
             </td>
         </tr>
         <tr>
-            <td class="left b">内容</td>
+            <td class="right b">内容：</td>
             <td>
-                <input class="easyui-textbox" name="content"
-                       data-options="required:true" id="nr">
+                <input type="hidden" id="ue_content" name="content">
+                <script id="content" type="text/plain">
+
+                </script>
             </td>
+
+
             <!--<td class="left b">点击数</td>
             <td>
                 <input class="easyui-textbox" name="clickCount"
@@ -79,7 +92,7 @@
                        data-options="required:true">
             </td>
         </tr>-->
-       <!-- <tr>
+        <!--<tr>
             <td class="left b">发布时间</td>
             <td>
                 <input class="easyui-datebox" name="createDate"
@@ -94,57 +107,8 @@
         </tbody>
     </table>
 </from>
-<div style="margin-left: 20px;">
-    <script id="editor"  type="text/plain"></script>
-</div>
 <script src="/static/main/EditFrom.js"></script>
 <link rel="stylesheet" href="/static/homePage/css/upload.css">
 <script type="text/javascript" src="/static/homePage/js/upload.js"></script>
-<!-- 配置文件 -->
-<script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/ueditor.config.js"></script>
-<!-- 编辑器源码文件 -->
-<script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/ueditor.all.js"></script>
-<script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/lang/zh-cn/zh-cn.js"></script>
-<script>
-    $(function () {
-        var html = "";
-        var url = '/noticeType/list';
-        $.post(url, {page: 1, rows: 50, sidx: "Id", sord: "asc"}, function (data) {
-            for (var i = 0; i < data.rows.length; i++) {
-                html += '<option value ="' + data.rows[i].TypeCode + '">' + data.rows[i].TypeName + '</option>';
-            }
-            $('#code').append(html);
-            $("#code").combobox({});
-        });
-
-        $("#nr").next().hide();
-        ResetEditor(editor);
-        var ue = UE.getEditor('editor');
-
-        ue.ready(function () {
-            ue.setContent($("#nr").val());
-            UE.getEditor('editor').addListener('blur',function(editor){
-                $("#nr").textbox("setValue",ue.getContent());
-            });
-        });
-    });
-
-    function ResetEditor() {
-        UE.getEditor('editor', {
-            initialFrameHeight: 300,
-            initialFrameWidth: 700,
-            enableAutoSave: false,
-            elementPathEnabled: false,
-            wordCount: false,
-            //z-index: 1
-            /*  toolbars: [
-             [
-             'fontfamily', 'fontsize', 'forecolor', 'backcolor', 'bold', 'italic', 'underline', '|',
-             'link', '|',
-             ]
-             ]  */
-        });
-    }
-</script>
 </body>
 </html>

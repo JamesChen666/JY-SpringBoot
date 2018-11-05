@@ -42,7 +42,8 @@
                                 listId: "#list",
                                 href: "/place/add",
                                 save: "save",
-                                height: 500
+                                height: 400,
+                                width:750
                             },
                             {
                                 type: "AddOrUpdate",
@@ -53,7 +54,19 @@
                                 listId: "#list",
                                 href: "/place/edit?id={id}",
                                 save: "save",
-                                height: 500
+                                height: 400,
+                                width:750,
+                                onLoad:function () {
+                                    $("#isEnabled").click(function(){
+                                        if ($(this).prop("checked")) {
+                                            alert("选中");
+                                            $("#isE").val("1");
+                                        } else {
+                                            alert("没有选中");
+                                            $("#isE").val("0");
+                                        }
+                                    });
+                                }
                             },
                             {
                                 type: "Del",
@@ -105,6 +118,10 @@
                 return "临时";
             }
         }
+
+        function f() {
+            alert("11111")
+        }
     </script>
 </head>
 <body>
@@ -117,10 +134,12 @@
         <input class="easyui-datebox" name="s_StartDate_rt" value=""/>
         <div class="adv-select-label">开发时间段开始（小于）</div>
         <input class="easyui-datebox" name="s_StartDate_lt" value=""/>
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
     </div>
-    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;margin-top: 10px">
         <div class="adv-select-label">场地类型</div>
-        <select class="easyui-combobox" name="s_typeId" >
+        <select  name="s_typeId" >
             <option value="">==所有==</option>
             <option value="1">固定</option>
             <option value="2">临时</option>
@@ -131,10 +150,6 @@
         <input class="easyui-datebox" name="s_EndDate_lt" value=""/>
     </div>
 
-    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
-        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
-        <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
-    </div>
 </div>
 
 <div data-options="region:'center'">

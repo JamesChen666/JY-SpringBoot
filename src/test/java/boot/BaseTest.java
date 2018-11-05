@@ -5,7 +5,6 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.boot.Application;
 import com.boot.controller.system.BaseController;
-import com.boot.model.Menu;
 import com.boot.model.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,9 +43,7 @@ public class BaseTest extends BaseController {
 
     @Test
     public void test1() {
-        Menu menu = sqlManager.single(Menu.class, 1);
     }
-
 
     @Test
     public void test2() {

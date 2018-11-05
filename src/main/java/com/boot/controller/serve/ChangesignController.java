@@ -74,18 +74,42 @@ public class ChangesignController extends BaseController{
     }
 
     @ResponseBody
+    @RequestMapping("/studentEdit/{id}")
+    public Object studentEdit(@PathVariable Integer id) {
+        Changesign changesign = sqlManager.query(Changesign.class)
+                .andEq("StudentId", id).single();
+        return changesign;
+    }
+
+    @ResponseBody
+    @RequestMapping("/studentSign/{id}")
+    public Object studentSign(@PathVariable Integer id) {
+        Map changesign = sqlManager.selectSingle("changesign.findByStudentId",
+                Dict.create().set("StudentId", id), Map.class);
+        return changesign;
+    }
+
+    @ResponseBody
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
         Changesign model = mapping(Changesign.class, request);
-        int result;
+        ChangesignLog  changesignLog = mapping(ChangesignLog.class, request);
+        int result=0;
         if (model.getId() == null) {
             model.setCreateDate(new Date());
-            result = sqlManager.insert(model);
+            model.setGraduationWhereAboutCode("10");
+            model.setStatus(0);
+            result += sqlManager.insert(model);
         } else {
             Changesign single = sqlManager.single(Changesign.class, model.getId());
             model.setCreateDate(single.getCreateDate());
-            result = sqlManager.updateById(model);
+            model.setGraduationWhereAboutCode("10");
+            model.setStatus(0);
+            result += sqlManager.updateById(model);
         }
+        changesignLog.setCreateDate(new Date());
+        changesignLog.setGraduationWhereAboutCode("10");
+        result +=sqlManager.insert(changesignLog);
         if (result > 0) {
             return success(SUCCESS);
         } else {

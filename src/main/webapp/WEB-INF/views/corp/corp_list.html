@@ -7,6 +7,7 @@
     <#include "../base/header.html">
     <script>
         $(function () {
+            var loadFlag = false;
             $("#list").ex_grid({
                 url: "/corp/list",
                 idField: "Id",
@@ -15,7 +16,7 @@
                 sortName: "ExamineDate",
                 sortorder:"desc",
                 colNames: ['Id', "单位名称", /*"单位经济类型代码","单位性质代码","单位行业代码","单位规模代码","注册资金代码",*//*"成立日期",*//*"组织机构代码",*/
-                    "联系人",/*"联系电话",*/"固定电话",/*"电子邮箱","邮政编码",*/"单位联系地址","审核状态","审核人","审核时间","审核意见"],
+                    "联系人",/*"联系电话",*/"固定电话",/*"电子邮箱","邮政编码",*/"单位联系地址","审核状态","审核人","审核时间","审核意见","操作"],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
                     //{name: 'UserId', index: 'UserId', align: "center", width: 100},
@@ -27,7 +28,7 @@
                     {name: 'CapitalCode', index: 'CapitalCode', align: "center", width: 100},*/
                    // {name: 'EstablishmentDate', index: 'EstablishmentDate', align: "center", width: 100},
                     //{name: 'OrganizetionCode', index: 'OrganizetionCode', align: "center", width: 100},
-                    {name: 'Contactor', index: 'Contactor', align: "center", width: 200},
+                    {name: 'Contactor', index: 'Contactor', align: "center", width: 100},
                     //{name: 'ContactPhone', index: 'ContactPhone', align: "center", width: 100},
                     {name: 'FixPhone', index: 'FixPhone', align: "center", width: 200},
                     /*{name: 'Email', index: 'Email', align: "center", width: 50},
@@ -40,10 +41,19 @@
                     {name: 'Logo', index: 'Logo', align: "center", width: 100},*/
                     {name: 'Address', index: 'Address', align: "center", width: 200},
                     //{name: 'Description', index: 'Description', align: "center", width: 100},
-                    {name: 'Status', index: 'Status', align: "center", width: 150,formatter:convertStatus},
+                    {name: 'Status', index: 'Status', align: "center", width: 150, formatter:School.formatState},
                     {name: 'RealName', index: 'RealName', align: "center", width: 200},
                     {name: 'ExamineDate', index: 'ExamineDate', align: "center", width: 200},
                     {name: 'ExamineRemark', index: 'ExamineRemark', align: "center", width: 200},
+                    {
+                        name: "opera",
+                        index: "opera",
+                        align: "center",
+                        width: 100,
+                        formatter: function (value,index,row) {
+                            return "<a href='javascript:' class='btnA' onclick=\"showSign('" + row.Id+ "')\">加入黑名单</a>"
+                        }
+                    }
                 ],
                 pager: "#pager",
                 ExpandColumn: "Id",
@@ -58,7 +68,29 @@
                                 listId: "#list",
                                 href: "/corp/add",
                                 save: "save",
-                                fit:true
+                                fit:true,
+                                onLoad:function(){
+                                    $("#orginCode").combotree({
+                                        panelWidth:200,
+                                        labelPosition:'left',
+                                        url:'/area/combotreeLists',
+                                        idField:'AreaCode',
+                                        textField:'AreaName',
+                                        onBeforeExpand: function (node) {
+                                            var $tree = $("#orginCode").combotree("tree");
+                                            $tree.tree("options").url = "/area/combotreeLists?id="+node.Id+"&type="+node.type;//展开节点时请求的后端接口（如果接口与初始时接口不同，可在此步进行修改）此处用静态json代替
+                                        },
+                                        onBeforeSelect:function(node){
+                                            //返回树对象
+                                            var tree = $(this).tree;
+                                            //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                                            var isLeaf = tree('isLeaf', node.target);
+                                            if(!isLeaf){
+                                                $("#OrginCode").tree("unselect");
+                                            }
+                                        }
+                                    });
+                                }
                             },
                             {
                                 type: "AddOrUpdate",
@@ -69,7 +101,44 @@
                                 listId: "#list",
                                 href: "/corp/edit?id={id}",
                                 save: "save",
-                                fit:true
+                                fit:true,
+                                onLoad:function(){
+                                    $("#OrginCode").combotree({
+                                        panelWidth:200,
+                                        labelPosition:'left',
+                                        url:'/area/combotreeLists',
+                                        idField:'AreaCode',
+                                        textField:'AreaName',
+                                        onBeforeExpand: function (node) {
+                                            var $tree = $("#OrginCode").combotree("tree");
+                                            $tree.tree("options").url = "/area/combotreeLists?id="+node.Id+"&type="+node.type;//展开节点时请求的后端接口（如果接口与初始时接口不同，可在此步进行修改）此处用静态json代替
+                                        },
+                                        onBeforeSelect:function(node){
+                                            //返回树对象
+                                            var tree = $(this).tree;
+                                            //选中的节点是否为叶子节点,如果不是叶子节点,清除选中
+                                            var isLeaf = tree('isLeaf', node.target);
+                                            if(!isLeaf){
+                                                $("#OrginCode").tree("unselect");
+                                            }
+                                        },
+                                        onExpand: function (node) {
+                                            if (arrayList.length==0)
+                                                return
+                                            for (var i = index; i < arrayList.length; i++) {
+                                                var item = arrayList[i]
+                                                var tree = $('#OrginCode').combotree("tree")
+                                                var node = tree.tree("find", item)
+                                                if (i != (arrayList.length - 1)) {
+                                                    tree.tree("expand", node.target)
+                                                } else {
+                                                    $('#OrginCode').combotree("setValue", item)
+                                                }
+                                            }
+                                            arrayList=[]
+                                        }
+                                    });
+                                }
                             },
                             {
                                 type: "Del",
@@ -112,7 +181,34 @@
                             }
                         ]
             });
-        })
+        });
+
+        function showSign(id) {
+            $.messager.prompt('加入黑名单','请输入原因：',function(r){
+                //添加单位黑名单
+                $.post("/blackList/save",{corpId:id,Reason:r}, function (data) {
+                    $.messager.alert('我的消息',data.msg,'info');
+                });
+            });
+        }
+        function initFormCallback(data) {
+            var code =data.OrginCode;
+            if (code != null && code != undefined && code != "") {
+                $.post("/area/combotreeEcho", {areaCode: code}, function (data) {
+                    if (data != null && data.length>0) {
+                        arrayList = data;
+                        var tree = $('#OrginCode').combotree("tree")
+                        var node = tree.tree("find", arrayList[0])
+                        if (node.target) {
+                            tree.tree("collapse", node.target)
+                            tree.tree("expand", node.target)
+                            index = 1;
+                        }
+                    }
+                })
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -121,19 +217,13 @@
     <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
         <div class="adv-select-label">单位名称/联系人/单位联系地址</div>
         <input class="easyui-textbox" name="sm_corpName-contactor-address" value=""/>
-        <!--<div class="adv-select-label">联系人：</div>
-        <input class="easyui-textbox"  name="s_contactor" value="">
-        <div class="adv-select-label">单位联系地址：</div>
-        <input class="easyui-textbox"  name="s_address" value="">-->
         <div class="adv-select-label">审核状态：</div>
-        <select class="easyui-combobox" name="s_status" data-options="">
+        <select   name="s_status"  >
             <option value="">==所有==</option>
             <option value="1">通过</option>
-            <option value="2">不通过</option>
-            <option value="3">未审核</option>
+            <option value="2">拒绝</option>
+            <option value="0">待审核</option>
         </select>
-    </div>
-    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
         <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
         <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
     </div>

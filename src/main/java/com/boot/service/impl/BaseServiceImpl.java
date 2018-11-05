@@ -10,7 +10,7 @@ import java.util.List;
 public class BaseServiceImpl implements BaseService {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    SQLManager SQLManager;
+    public SQLManager SQLManager;
 
     @Override
     public Object selectById(Class<?> entity, Integer id) {

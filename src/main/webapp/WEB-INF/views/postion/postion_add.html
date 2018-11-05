@@ -9,25 +9,42 @@
 <table class="tb1">
     <tbody>
     <tr>
-        <td class="left b">单位</td>
-        <td>
-            <input class="easyui-combobox" name="corpId" data-options="required:true,
-                                                                         valueField: 'Id',
-                                                                         textField: 'CorpName',
-                                                                         url: '/corp/corpList'">
-        </td>
-        <td class="left b">职位名称</td>
-        <td>
-            <input class="easyui-textbox" name="title" data-options="required:true">
+        <td class="right b width120">选择单位：</td>
+        <td  colspan="3">
+            <input class="easyui-combogrid" name="corpId" data-options="required:true,
+                                                                        width:500,
+                                                                        panelWidth:500,
+                                                                        idField:'Id',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        textField:'CorpName',
+                                                                        url:'/corp/list',
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:100},
+                                                                        {field:'CorpName',title:'单位名称',width:100},
+                                                                        {field:'Address',title:'单位地址',width:100},
+                                                                        {field:'EstablishmentDate',title:'单位成立日期',width:130},
+                                                                        ]]">
         </td>
     </tr>
+    <tr> <td class="right b">职位名称：</td>
+        <td colspan="3">
+            <input class="easyui-textbox" name="title" data-options="required:true" style="width: 400px">
+        </td></tr>
     <tr>
-        <td class="left b">工作地点</td>
-        <td>
+        <td class="right b">工作地点：</td>
+        <td style="width:300px">
             <input class="easyui-textbox" name="workAddress"
                    data-options="required:true">
         </td>
-        <td class="left b">所属行业代码</td>
+        <td class="right b">所属行业：</td>
         <td>
             <input class="easyui-combobox" name="industryCode"
                    data-options="required:true,
@@ -37,7 +54,7 @@
         </td>
     </tr>
     <tr>
-        <td class="left b">职位类型</td>
+        <td class="right b">职位类型：</td>
         <td>
             <input class="easyui-combobox" name="typeCode"
                    data-options="required:true,
@@ -45,21 +62,48 @@
                        textField: 'displayText',
                        url: '/dictionary/dictionaryCode/ZWLBDM'">
         </td>
-        <td class="left b">面向专业</td>
+        <td class="right b">面向专业：</td>
         <td>
-            <input class="easyui-textbox" name="面向专业" data-options="required:true">
+            <input class="easyui-combobox" name="SpecialtyCode" id="specialtyCode"
+                   data-options="required:true,
+                        multiple:true,
+                       valueField: 'SpecialtyCode',
+                       textField: 'SpecialtyName',
+                       url: '/specialty/currentYearSpecialty'">
+            <!--<input class="easyui-combogrid" name="SpecialtyCode" data-options="required:true,
+                                                                        width:500,
+                                                                        panelWidth:500,
+                                                                        idField:'SpecialtyCode',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        textField:'SpecialtyName',
+                                                                        url:'/specialty/list',
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:100},
+                                                                        {field:'SpecialtyName',title:'单位名称',width:100},
+                                                                        {field:'SpecialtyCode',title:'专业代码',width:100},
+                                                                        {field:'GbCode',title:'专业国标码',width:100},
+                                                                        {field:'SpecialtyDirection',title:'专业方向',width:100},
+                                                                        ]]">-->
         </td>
     </tr>
     <tr>
-        <td class="left b">学历要求</td>
+        <td class="right b">学历要求：</td>
         <td>
             <input class="easyui-combobox" name="levelCode"
                    data-options="required:true,
                        valueField: 'memberValue',
                        textField: 'displayText',
-                       url: '/dictionary/dictionaryCode/JYXLDM'">
+                       url: '/dictionary/dictionaryCode/XLYQDM'">
         </td>
-        <td class="left b">岗位类型</td>
+        <td class="right b">岗位类型：</td>
         <td>
             <input class="easyui-combobox" name="positionTypeCode"
                    data-options="required:true,
@@ -69,55 +113,55 @@
         </td>
     </tr>
     <tr>
-        <td class="left b">招聘类型</td>
+        <td class="right b">招聘类型：</td>
         <td>
-            <select class="easyui-textbox" name="recuitTypeCode">
-                <option value="1">社会招聘</option>
-                <option value="2">校园双选会招聘</option>
-                <option value="3">专场招聘</option>
+            <select class="easyui-combobox" name="recuitTypeCode">
+                <option value="1">师范</option>
+                <option value="2">非师范</option>
+                <option value="3">无要求</option>
             </select>
         </td>
-        <td class="left b">招聘人数</td>
+        <td class="right b">招聘人数：</td>
         <td>
             <input class="easyui-textbox" name="peopleCount"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">工作年限</td>
+        <td class="right b">工作年限：</td>
         <td>
             <input class="easyui-textbox" name="workYearLimit"
                    data-options="required:true">
         </td>
-        <td class="left b">月薪</td>
+        <td class="right b">月薪：</td>
         <td>
             <input class="easyui-textbox" name="salary" data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">职位联系人</td>
+        <td class="right b">职位联系人：</td>
         <td>
             <input class="easyui-textbox" name="contactor"
                    data-options="required:true">
         </td>
-        <td class="left b">联系人电话</td>
+        <td class="right b">联系人电话：</td>
         <td>
             <input class="easyui-textbox" name="contactPhone" validType="mobile"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="left b">职位职能</td>
+        <td class="right b">职位职能：</td>
         <td>
             <!--<input class="easyui-textbox" name="functions"
                    data-options="required:true">-->
             <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
-                      name="functions" rows="5" style="width:60% !important;height:80px !important;"></textarea>
+                      name="functions" rows="5" style="width:300px !important;height:80px !important;"></textarea>
 
         </td>
    <!-- </tr>
     <tr>-->
-        <td class="left b">职位要求</td>
+        <td class="right b">职位要求：</td>
         <td>
             <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
                       name="requirement" rows="5" style="width:60% !important;height:80px !important;"></textarea>
@@ -125,53 +169,38 @@
         </td>
     </tr>
     <tr>
-        <td class="left b">招聘简章</td>
-        <td>
-            <textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
-                      name="recuitFiles" rows="5" style="width:100% !important;height:80px !important;"></textarea>
+        <td class="right b">招聘简章：</td>
+        <td colspan="3">
+            <!--<textarea class="easyui-validatebox textbox  validatebox-text" cols="60" data-options="validType:'maxLength[1000]'"
+                      name="recuitFiles" rows="5" style="width:400px !important;height:80px !important;"></textarea>-->
+            <input class="easyui-textbox" name="recuitFiles" data-options="required:true" id="wjdz">
+            <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file" accept=".pdf,.docx" onchange="show();"
+                       style="width: 70px;height: 30px; margin-left: -52px;">
+            </a>
         </td>
     </tr>
     <tr>
-        <td class="left b">是否发布至自行联系</td>
-        <td>
-            <!--<input class="easyui-textbox" name="isPortal"
-                   data-options="required:true">-->
-            <select class="easyui-combobox" name="isPortal" data-options="required:true">
-                <option value="true">是</option>
-                <option value="false">否</option>
+        <td class="right b">审核状态：</td>
+        <td colspan="3">
+            <select class="easyui-combobox" name="Status" data-options="required:true">
+                <option value="0">待审核</option>
+                <option value="1">通过</option>
+                <option value="2">拒绝</option>
             </select>
         </td>
     </tr>
-    <!--<tr>
-        <td class="left b">审核状态</td>
-        <td>
-            &lt;!&ndash;<input class="easyui-textbox" name="status" data-options="required:true">&ndash;&gt;
-            <select class="easyui-combobox" name="status" data-options="required:true">
-                <option value="1">通过</option>
-                <option value="2">不通过</option>
-                <option value="3">未审核</option>
-            </select>
+    <tr>
+        <td class="right b">审核意见：</td>
+        <td colspan="3">
+            <textarea cols="60"   name="ExamineRemark" rows="5" style="width:400px !important;height:80px !important;"></textarea>
         </td>
-        <td class="left b">审核人</td>
-        <td>
-            <input class="easyui-textbox" name="examineUserId"
-                   data-options="required:true">
-        </td>
-    </tr>-->
-    <!--<tr>
-        <td class="left b">审核时间</td>
-        <td>
-            <input class="easyui-datebox" name="examineDate"
-                   data-options="required:true">
-        </td>
-        <td class="left b">审核意见</td>
-        <td>
-            <input class="easyui-textbox" name="examineRemark"
-                   data-options="required:true">
-        </td>
-    </tr>-->
+    </tr>
+
     </tbody>
 </table>
 <script src="/static/homePage/js/fieldValidation.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
 </body>
 </html>

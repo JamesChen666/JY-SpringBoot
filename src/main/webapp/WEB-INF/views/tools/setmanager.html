@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style type="text/css">
+    /*界面样式*/
+    .dataShow {
+        width: 850px; /*整体宽度*/
+        margin: 50px auto; /*100*/
+        margin-left: 20px;
+    }
+
+    .select_side {
+        float: left;
+        width: 400px; /*200*/
+    }
+
+    select {
+        width: 380px; /*列表框宽度*/
+        height: 300px; /*120*/
+    }
+
+    .select_opt {
+        float: left;
+        width: 40px; /*添加移除按钮宽度*/
+        height: 100%;
+        margin-top: 136px; /*36*/
+    }
+
+    .select_opt p {
+        width: 26px;
+        height: 26px;
+        margin-top: 6px;
+        background: url(/images/arr.gif) no-repeat;
+        cursor: pointer;
+        text-indent: -999em;
+    }
+
+    .select_opt p#toright {
+        background-position: 2px 0;
+    }
+
+    .select_opt p#toleft {
+        background-position: 2px -22px;
+    }
+
+    .sub_btn {
+        clear: both;
+        height: 42px;
+        line-height: 42px;
+        padding-top: 10px;
+        text-align: center;
+    }
+</style>
+
+    <script>
+        $(function () {
+            setCampusManager(null);
+            fillLeft();
+            $("#inputSubmit").click(function () {
+                var text = $("#SearchValue").val();
+                setCampusManager(text);
+            })
+            $('#SearchValue').bind('keypress', function (event) {
+                if (event.keyCode == "13") {
+                    $('#inputSubmit').click();
+                }
+            });
+            var leftSel = $("#selectL");
+            var rightSel = $("#selectR");
+            $("#toright").bind("click", function () {
+                leftSel.find("option:selected").each(function () {
+                    $(this).remove().appendTo(rightSel);
+                });
+            });
+            $("#toleft").bind("click", function () {
+                rightSel.find("option:selected").each(function () {
+                    $(this).remove().appendTo(leftSel);
+                });
+            });
+            leftSel.dblclick(function () {
+                $(this).find("option:selected").each(function () {
+                    $(this).remove().appendTo(rightSel);
+                });
+            });
+            rightSel.dblclick(function () {
+                $(this).find("option:selected").each(function () {
+                    $(this).remove().appendTo(leftSel);
+                });
+            });
+        })
+        function fillLeft(key) {
+        }
+
+        /**
+         * 设置校区管理员
+         */
+        function setCampusManager(obj) {
+            $('#selectR').empty();
+            var list = JSON.parse('${list}');
+            var js = "";
+            for (var i = 0; i < list.length; i++) {
+                js +='<option value="'+list[i].JobNumber+'">'+list[i].FacultyName+' ==> '+list[i].RealName+'('+list[i].JobNumber+')</option>';
+            }
+            $('#selectR').append(js);
+            var html= "";
+            $('#selectL').empty();
+            $.post("/teacher/list",{page:"1",rows:"100",sidx:"id",sord:"asc","sm_st.JobNumber-st.RealName-sf.FacultyName":obj}, function (data) {
+                for (var i = 0; i < data.rows.length; i++) {
+                    if(list != null && list.length >0){
+                        var a = false;
+                        for (var j = 0; j < list.length; j++) {
+                            if(data.rows[i].JobNumber == list[j].JobNumber){
+                                a = true;
+                                break;
+                            }
+                        }
+                        if(a == false){
+                            html +='<option value="'+data.rows[i].JobNumber+'">'+data.rows[i].Faculty+' ==> '+data.rows[i].RealName+'('+data.rows[i].JobNumber+')</option>';
+                        }
+                    }else{
+                        html +='<option value="'+data.rows[i].JobNumber+'">'+data.rows[i].Faculty+' ==> '+data.rows[i].RealName+'('+data.rows[i].JobNumber+')</option>';
+                    }
+                }
+                $('#selectL').append(html);
+            })
+        }
+
+    </script>
+    <div style="padding:10px;">
+        <label id="labelDepartmentName" class="text-left" style="margin-left:10px;"></label>
+       <input type="text" class="easyui-validatebox" id="SearchValue" name="SearchValue" placeholder="请输入教工号/教职工姓名/院系名称"
+       style="margin-left:10px;width:300px;height:30px;float:left;" />
+        <input type="button" class="btn-primary" id="inputSubmit" name="inputSubmit" value="查找" style="margin-left:10px;width:100px;height:37px;float:left;">
+    </div>
+    <div class="dataShow">
+
+        <div class="select_side">
+            <p>待选区教职工列表</p>
+            <select id="selectL" name="selectL" multiple="multiple" style="height:340px;">
+            </select>
+        </div>
+        <div class="select_opt">
+            <p id="toright" title="添加">&gt;</p>
+            <p id="toleft" title="移除">&lt;</p>
+        </div>
+        <div class="select_side">
+            <p>已选区教职工列表</p>
+            <select id="selectR" name="selectR" multiple="multiple" style="height:340px;">
+            </select>
+        </div>
+        <div class="sub_btn" style="display:none;">
+            <input type="button" id="sub" value="getValue" />
+        </div>
+    </div>
+
+</body>
+</html>

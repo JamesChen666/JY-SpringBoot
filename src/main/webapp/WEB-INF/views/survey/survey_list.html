@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <#include "../base/header.html">
+    <script>
+        $(function () {
+            $("#list").ex_grid({
+                url: "/survey/list",
+                idField: "id",
+                textField: 'surveyName',
+                treeGridModel: 'adjacency',
+                sortName: "createDate",
+                colNames: ['Id', "问卷名称","面向对象","问卷状态","创建时间","开始时间","结束时间","是否强制","访问地址"],
+                colModel: [
+                    {name: 'id', index: 'id', hidden: true},
+                    {name: 'surveyName', index: 'surveyName', align: "center", width: 300},
+                    {name: 'toGroup', index: 'toGroup', align: "center", width: 100,
+                        formatter: function(cellvalue,options,rowObject){
+                            if(cellvalue == 1){
+                                return "学生";
+                            }
+                            if(cellvalue == 2){
+                                return "单位";
+                            }
+                            return "";
+                        }
+                    },
+                    {name: 'surveyState', index: 'surveyState', align: "center", width: 100,
+                        formatter: function(cellvalue,options,rowObject){
+                            if(cellvalue == 0){
+                                return "设计中";
+                            }
+                            if(cellvalue == 1){
+                                return "调查中";
+                            }
+                            if(cellvalue == 2){
+                                return "已结束";
+                            }
+                            if(cellvalue == 3){
+                                return "未开始";
+                            }
+                            return "";
+                        }
+                    },
+                    {name: 'createDate', index: 'createDate', align: "center", width: 300},
+                    {name: 'begTime', index: 'begTime', align: "center", width: 300},
+                    {name: 'endTime', index: 'endTime', align: "center", width: 300},
+                    {name: 'isForce', index: 'isForce', align: "center", width: 100,
+                        formatter: function(cellvalue,options,rowObject){
+                            if(cellvalue == 0){
+                                return "否";
+                            }
+                            if(cellvalue == 1){
+                                return "是";
+                            }
+                            return "";
+                        }
+                    },
+                    {name: 'sid', index: 'sid', align: "center", width: 100,
+                        formatter: function(cellvalue,options,rowObject){
+                            var sid =  '';
+                            if (cellvalue != null && cellvalue != '') {
+                                 sid = cellvalue;
+                            }
+
+                            return "<a href='http://"+location.hostname+":"+location.port+"/survey/toAnswer?sid="+sid+"' target='_blank'>"+sid+"</a>";
+                        }
+                    },
+                ],
+                pager: "#pager",
+                ExpandColumn: "surveyName",
+                buttons:
+                        [
+                            {
+                                type: "survey",
+                                title: "问卷调查-新增问卷",
+                                btnName: "新增问卷",
+                                btnCode: "Add",
+                                iconCls: "icon-add",
+                                listId: "#list",
+                                href: "/survey/design",
+                                fit: true
+                            },
+                            {
+                                type: "survey",
+                                iconCls: "icon-edit",
+                                title: "问卷调查-修改问卷",
+                                btnName: "修改问卷",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/survey/design?id={id}",
+                                fit: true
+                            },
+                            {
+                                type: "Del",
+                                btnName: "删除",
+                                btnCode: "Delete",
+                                listId: "#list",
+                                save: "/survey/delete"
+                            },
+                            {
+                                type: "surveyPublish",
+                                iconCls: "icon-edit",
+                                title: "问卷调查-发布问卷",
+                                btnName: "发布问卷",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                save: "/survey/publish",
+                            },
+                            {
+                                type: "surveyPublish",
+                                iconCls: "icon-edit",
+                                title: "问卷调查-取消发布",
+                                btnName: "取消发布",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                save: "/survey/cancel",
+                            },
+                            {
+                                type: "survey",
+                                iconCls: "icon-edit",
+                                title: "问卷调查-问卷统计",
+                                btnName: "问卷统计",
+                                btnCode: "Edit",
+                                listId: "#list",
+                                href: "/survey_report/surveyreport?id={id}",
+                                fit: true
+                            },
+                        ]
+            });
+        })
+    </script>
+</head>
+<body>
+<div class="search_area" id="search">
+    <div class="form-search form-search-top" style="text-align:left;padding-left:10px;">
+        <div class="adv-select-label">问卷名称：</div>
+        <input id="s_survey_name" name="s_survey_name" type="text" value="" />
+        <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
+        <button type="reset" class="btn btn-info" id="btnSearch">重置查询</button>
+    </div>
+</div>
+<div data-options="region:'center'">
+    <div class="data-wrap">
+        <div class="data-operation">
+
+            <div class="button-operation">
+                <!--放按钮的层11-->
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="data-list">
+            <table id="list"></table>
+            <div id="pager"></div>
+            <script src="/static/main/Scripts/jqgrid/js/jquery.jqpager.js"></script>
+            <script src="/static/main/Scripts/jqgrid/js/bootstrap.paginator.min.js"></script>
+            <script>
+                var pageUnit = "条"
+            </script>
+            <div id="sorry" style="display: none; margin-top: 55px;" align="center">
+                <small>暂无符合条件的数据.</small>
+            </div>
+            <div class="pager_operation">
+                <div class="page-info-block">
+                    共<span id="total_records"></span>条 第<span id="current_page" style="display: none;"></span><input
+                        type="hidden" id="gopage_url"/><input type="text" id="gopage" name="gopage" value=""/>/<span
+                        id="total_page"></span>页 <span class="pager-gopager" id="gopager-img" onclick="gopager();"
+                                                       title="跳转">&nbsp;</span>
+                </div>
+                <div class="pagination" id="work-pager-block"></div>
+                <div class="page-info-block">
+                    <div class="btn-group dropup pager-selbox-div" id="pager-selbox-div">
+                        <button style="border:none;padding:0px;"></button>
+                        <button class="btn pager-selbox-button dropdown-toggle" id="pager-selbox" title="显示条数"
+                                data-toggle="dropdown"></button>
+                        <ul class="dropdown-menu pager-selbox-menu"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

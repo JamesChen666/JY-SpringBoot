@@ -13,20 +13,50 @@
         <tr>
             <td class="left b">角色名称</td>
             <td>
-                <input class="easyui-textbox" name="roleName"
+                <input class="easyui-textbox" name="RoleName"
                        data-options="required:true">
             </td>
         </tr>
         <tr>
             <td class="left b">排序</td>
             <td>
-                <input class="easyui-numberbox" name="sort"
+                <input class="easyui-numberbox" name="Sort"
                        data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">权限分配</td>
+            <td>
+                <div id="tree" style="overflow-y: scroll; height: 300px"></div>
             </td>
         </tr>
         </tbody>
     </table>
 </from>
 <script src="/static/main/EditFrom.js"></script>
+<script>
+    function initFormCallback(data) {
+        debugger
+        var arr = data.menuIds.split(',');
+        var func = data.buttonIds.split(',');
+        for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if (item == "")
+                continue;
+            var node = $("#tree").tree("find", item);
+            if (node && $('#tree').tree("isLeaf", node.target))
+                $("#tree").tree("check", node.target);
+        }
+        for (var i = 0; i < func.length; i++) {
+            var item = func[i];
+            if (item == "")
+                continue;
+            var node = $("#tree").tree("find", item)
+            if (node) {
+                $("#tree").tree("check", node.target);
+            }
+        }
+    }
+</script>
 </body>
 </html>

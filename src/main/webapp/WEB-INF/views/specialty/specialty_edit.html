@@ -8,46 +8,27 @@
 <body>
 <from id="from" action="/specialty/edit/${id}" class="easyui-form">
     <input type="hidden" name="Id" value="${id}">
+    <div style="padding: 10px;">
     <table class="tb1">
         <tbody>
         <tr>
-            <td class="left b">专业名称</td>
-            <td>
+            <td class="right b width100">专业名称：</td>
+            <td colspan="3">
                 <input class="easyui-textbox" name="specialtyName" data-options="required:true">
             </td>
         </tr>
         <tr>
-            <td class="left b">专业代码</td>
+            <td class="right b">专业代码：</td>
             <td>
                 <input class="easyui-textbox" name="specialtyCode" data-options="required:true">
             </td>
-        </tr>
-        <tr>
-            <td class="left b">专业国标码</td>
+            <td class="right b width100">专业国标码：</td>
             <td>
                 <input class="easyui-textbox" name="gbCode" data-options="required:true">
             </td>
         </tr>
         <tr>
-            <td class="left b">专业方向</td>
-            <td>
-                <input class="easyui-textbox" name="specialtyDirection" data-options="required:false">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">培养层次</td>
-            <td>
-                <input class="easyui-textbox" name="levelCode" data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">学制</td>
-            <td>
-                <input class="easyui-textbox" name="schoolLength" data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">院系</td>
+            <td class="right b">所属院系：</td>
             <td>
                 <input class="easyui-combobox" name="facultyCode" data-options="required:true,
                                                                          valueField: 'FacultyCode',
@@ -55,15 +36,29 @@
                                                                          url: '/faculty/gridList'
                                                                          ">
             </td>
+            <td class="right b">专业方向：</td>
+            <td>
+                <input class="easyui-textbox" name="specialtyDirection" data-options="required:false">
+            </td>
         </tr>
         <tr>
-            <td class="left b">备注</td>
+            <td class="right b">培养层次：</td>
             <td>
-                <input class="easyui-textbox" name="remark" data-options="required:false">
+                <input class="easyui-textbox" name="levelCode" data-options="required:true">
+            </td>
+            <td class="right b">学制：</td>
+            <td>
+                <input class="easyui-textbox" name="schoolLength" data-options="required:true">
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">备注：</td>
+            <td colspan="3">
+                <textarea  name="remark" ></textarea>
             </td>
         </tr>
         </tbody>
-    </table>
+    </table></div>
 </from>
 <script src="/static/main/EditFrom.js"></script>
 </body>

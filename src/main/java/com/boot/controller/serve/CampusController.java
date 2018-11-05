@@ -6,8 +6,8 @@ import com.boot.controller.system.BaseController;
 import com.boot.model.Campus;
 import com.boot.model.CampusManager;
 import com.boot.model.Teacher;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,9 +133,23 @@ public class CampusController extends BaseController {
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Campus> campuses = importExcel(file, Campus.class);
+            for (Campus campus : campuses) {
+                err++;
+                Campus campusName = sqlManager.query(Campus.class)
+                        .andEq("CampusName", campus.getCampusName()).single();
+                if (ObjectUtil.isNotNull(campusName)){
+                    return error("第"+err+"行"+campusName.getCampusName()+"重复");
+                }
+                Campus campusCode = sqlManager.query(Campus.class)
+                        .andEq("CampusCode", campus.getCampusCode()).single();
+                if (ObjectUtil.isNotNull(campusCode)){
+                    return error("第"+err+"行"+campusCode.getCampusCode()+"重复");
+                }
+            }
             for (Campus campus : campuses) {
                 insert += sqlManager.insert(campus);
             }
@@ -149,16 +164,14 @@ public class CampusController extends BaseController {
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Campus> mapList;
         if (ids == null || ids.isEmpty()) {
-            mapList = sqlManager.select("campus.list", Map.class);
+            mapList = sqlManager.all(Campus.class);
         } else {
-            mapList = appendToList("campus.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Campus.class,ids);
         }
         try {
-            simpleExport("校区信息", mapList);
+            exportExcel("校区信息", mapList,Campus.class);
         } catch (Exception e) {
             e.getStackTrace();
             return fail(FAIL);
@@ -187,10 +200,14 @@ public class CampusController extends BaseController {
     @ResponseBody
     @RequestMapping("/setManager")
     public AjaxResult setManager(HttpServletRequest httpServletRequest) {
-        String manager = httpServletRequest.getParameter("manager");
-        String[] split = manager.split(",");
+        String CampusCode = httpServletRequest.getParameter("objectCode");
+        String jobNumberss = httpServletRequest.getParameter("jobNumber");
+        JSONArray array = JSONArray.fromObject(jobNumberss);
+        List<String> list =(ArrayList)JSONArray.toCollection(array, String.class);
+        /*String manager = httpServletRequest.getParameter("manager");
+        String[] split = manager.split(",");*/
         List<String> jobNumbers = new ArrayList();
-        for (String s : split) {
+        for (String s : list) {
             Teacher teacher = sqlManager.selectSingle("teacher.findByJobNumber",
                     Dict.create().set("JobNumber", s), Teacher.class);
             if (ObjectUtil.isNotNull(teacher)) {
@@ -198,14 +215,14 @@ public class CampusController extends BaseController {
             }
         }
         int insert = 0;
-        String id = httpServletRequest.getParameter("id[]");
-        Campus single = sqlManager.single(Campus.class, id);
+        /*String id = httpServletRequest.getParameter("id[]");
+        Campus single = sqlManager.single(Campus.class, id);*/
         try {
             sqlManager.update("campusManager.deleteByCampusCode",
-                    Dict.create().set("CampusCode", single.getCampusCode()));
+                    Dict.create().set("CampusCode", CampusCode/*single.getCampusCode()*/));
             for (String jobNumber : jobNumbers) {
                 CampusManager CampusManager = new CampusManager();
-                CampusManager.setCampusCode(single.getCampusCode());
+                CampusManager.setCampusCode(CampusCode/*single.getCampusCode()*/);
                 CampusManager.setJobNumber(jobNumber);
                 insert += sqlManager.insert(CampusManager);
             }

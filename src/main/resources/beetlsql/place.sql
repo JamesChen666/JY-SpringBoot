@@ -1,7 +1,11 @@
 list
 ===
-SELECT * FROM Specia_Place
+SELECT * FROM Recruit_Place
 
 findOne
 ===
-SELECT * FROM Specia_Place WHERE id = #{id}
+SELECT * FROM Recruit_Place WHERE id = #{id}
+
+updatePlace
+===
+UPDATE Recruit_Place SET IsEnabled = 0 WHERE Id = #{id}

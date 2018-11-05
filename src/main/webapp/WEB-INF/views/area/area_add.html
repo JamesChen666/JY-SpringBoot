@@ -6,22 +6,23 @@
     <#include "../base/header.html">
 </head>
 <body>
+<div style="padding: 10px;">
 <table class="tb1">
     <tbody>
     <tr>
-        <td class="right b">地区名称</td>
+        <td class="right b">地区名称：</td>
         <td><input class="easyui-textbox" name="areaName"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="right b">地区代码</td>
+        <td class="right b">地区代码：</td>
         <td><input class="easyui-textbox" name="areaCode"
                    data-options="required:true">
         </td>
     </tr>
     <tr>
-        <td class="right b">上级地区</td>
+        <td class="right b">上级地区：</td>
         <td><input class="easyui-combotreegrid" name="parentId"
                    data-options=" panelWidth:400,
                                 labelPosition:'left',
@@ -35,12 +36,13 @@
         </td>
     </tr>
     <tr>
-        <td class="right b">排序</td>
+        <td class="right b">排序：</td>
         <td><input class="easyui-numberbox" name="sort"
                    data-options="required:true">
         </td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

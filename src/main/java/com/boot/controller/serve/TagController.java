@@ -1,10 +1,8 @@
 package com.boot.controller.serve;
 
-import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Tag;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +22,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/tag")
-public class TagController extends BaseController{
+public class TagController extends BaseController {
 
     private static final String BASE_PATH = "tag";
     private static final String LIST = "tag.list";
@@ -48,7 +46,7 @@ public class TagController extends BaseController{
     @ResponseBody
     @RequestMapping("/list")
     public Object list(HttpServletRequest httpServletRequest) {
-        Map map = pageQuery(LIST,httpServletRequest);
+        Map map = pageQuery(LIST, httpServletRequest);
         return map;
     }
 
@@ -61,7 +59,7 @@ public class TagController extends BaseController{
             Tag title = sqlManager.query(Tag.class)
                     .andEq("Title", model.getTitle())
                     .single();
-            if (ObjectUtil.isNotNull(title)){
+            if (ObjectUtil.isNotNull(title)) {
                 return error("标签名称重复");
             }
             result = sqlManager.insert(model);
@@ -70,7 +68,7 @@ public class TagController extends BaseController{
                     .andEq("Title", model.getTitle())
                     .andNotEq("Id", model.getId())
                     .single();
-            if (ObjectUtil.isNotNull(title)){
+            if (ObjectUtil.isNotNull(title)) {
                 return error("标签名称重复");
             }
             result = sqlManager.updateById(model);
@@ -109,14 +107,24 @@ public class TagController extends BaseController{
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Tag> tags = importExcel(file, Tag.class);
             for (Tag tag : tags) {
+                err++;
+                Tag title = sqlManager.query(Tag.class)
+                        .andEq("Title", tag.getTitle()).single();
+                if (ObjectUtil.isNotNull(title)) {
+                    return error("第" + err + "行"+title.getTitle()+"重复");
+                }
+
+            }
+            for (Tag tag : tags) {
                 insert += sqlManager.insert(tag);
             }
         }
-        if (insert<=0){
+        if (insert <= 0) {
             return fail(FAIL);
         }
         return success(SUCCESS);
@@ -126,21 +134,26 @@ public class TagController extends BaseController{
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
-        if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("tag.list",Map.class);
-        }else {
-            mapList = appendToList("tag.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+        List<Tag> mapList;
+        if (ids == null || ids.isEmpty()) {
+            mapList = sqlManager.all(Tag.class);
+        } else {
+            mapList = selectByIds(Tag.class,ids);
         }
         try {
-            simpleExport("角色信息", mapList );
-        }catch (Exception e){
+            exportExcel("标签信息", mapList,Tag.class);
+        } catch (Exception e) {
             e.getStackTrace();
             return fail(FAIL);
         }
         return success(SUCCESS);
+    }
+
+    @ResponseBody
+    @RequestMapping("/queryTagList")
+    public Object queryTagList(HttpServletRequest request){
+        List<Map> list = sqlManager.select(LIST,Map.class);
+        return list;
     }
 
 }

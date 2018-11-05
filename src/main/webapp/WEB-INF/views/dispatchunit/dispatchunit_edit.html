@@ -8,98 +8,95 @@
 <body>
 <from id="from" action="/dispatchunit/edit/${id}" class="easyui-form">
     <input type="hidden" name="Id" value="${id}">
-    <table class="tb1">
-        <tbody>
-        <tr>
-            <td class="left b">派遣单位名称</td>
-            <td>
-                <input class="easyui-textbox" name="providerName"
-                       data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">派遣单位所在地</td>
-            <td>
-                <input class="easyui-combotreegrid" name="areaCode"
-                       data-options=" panelWidth:400,
-                                    labelPosition:'left',
-                                    url:'/area/combotreeList',
-                                    idField:'AreaCode',
-                                    treeField:'AreaName',
-                                    columns:[[
-                                        {field:'AreaName',title:'名称',width:200},
-                                        {field:'AreaCode',title:'代码',width:200}
-                                    ]]">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">单位详细地址</td>
-            <td>
-                <input class="easyui-textbox" name="address"
-                       data-options="required:false">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">单位联系人</td>
-            <td>
-                <input class="easyui-textbox" name="contactor"
-                       data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">单位联系人电话</td>
-            <td>
-                <input class="easyui-textbox" name="contactPhone"
-                       data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">单位邮政编码</td>
-            <td>
-                <input class="easyui-textbox" name="zipCode"
-                       data-options="required:false">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">是否师范单位</td>
-            <td>
-                <select id="cc" class="easyui-combobox" name="isNormal"
-                        data-options="required:true">
+    <div style="padding: 10px;">
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="right b width100">派遣单位名称：</td>
+                <td colspan="3">
+                    <input class="easyui-textbox" name="providerName"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">派遣单位所在地：</td>
+                <td>
+                    <input class="easyui-combotreegrid" name="areaCode"
+                           data-options=" panelWidth:400,
+                                labelPosition:'left',
+                                url:'/area/combotreeList',
+                                idField:'AreaCode',
+                                treeField:'AreaName',
+                                columns:[[
+                                    {field:'AreaName',title:'名称',width:200},
+                                    {field:'AreaCode',title:'代码',width:200}
+                                ]]">
+                </td>
+                <td class="right b">单位详细地址：</td>
+                <td>
+                    <input class="easyui-textbox" name="address"
+                           data-options="required:false">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">单位联系人：</td>
+                <td>
+                    <input class="easyui-textbox" name="contactor"
+                           data-options="required:true">
+                </td>
+                <td class="right b width100">单位联系人电话：</td>
+                <td>
+                    <input class="easyui-textbox" name="contactPhone"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">单位邮政编码：</td>
+                <td>
+                    <input class="easyui-textbox" name="zipCode"
+                           data-options="required:false">
+                </td>
+                <td class="right b">是否师范单位：</td>
+                <td>
+                    <select id="cc" class="easyui-combobox" name="isNormal"
+                            data-options="required:true">
                         <option value="1">是</option>
                         <option value="0">否</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">档案接收单位</td>
-            <td>
-                <input class="easyui-textbox" name="fileReceivUnit"
-                       data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">档案单位地址</td>
-            <td>
-                <input class="easyui-textbox" name="fileReceivAddress"
-                       data-options="required:true">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">备注</td>
-            <td>
-                <input class="easyui-textbox" name="remark"
-                       data-options="required:false">
-            </td>
-        </tr>
-        <tr>
-            <td class="left b">排序</td>
-            <td>
-                <input class="easyui-numberbox" name="sort"
-                       data-options="required:false">
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="right b">档案接收单位：</td>
+                <td>
+                    <input class="easyui-textbox" name="fileReceivUnit"
+                           data-options="required:true">
+                </td>
+                <td class="right b">档案单位地址：</td>
+                <td>
+                    <input class="easyui-textbox" name="fileReceivAddress"
+                           data-options="required:true">
+                </td>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+                <td class="right b">排序：</td>
+                <td colspan="3">
+                    <input class="easyui-numberspinner" name="sort"
+                           data-options="required:false">
+                </td>
+            </tr>
+            <tr>
+                <td class="right b">备注：</td>
+                <td colspan="3">
+                    <textarea  name="remark" ></textarea>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
 </from>
 <script src="/static/main/EditFrom.js"></script>
 </body>

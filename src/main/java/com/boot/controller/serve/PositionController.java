@@ -1,5 +1,6 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Position;
 import com.boot.util.AjaxResult;
@@ -27,7 +28,8 @@ public class PositionController extends BaseController{
     private static final String LIST = "position.list";
 
     @RequestMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request) {
+        request.setAttribute("id",request.getParameter("id"));
 		return BASE_PATH+"/position_list";
 	}
 
@@ -39,7 +41,11 @@ public class PositionController extends BaseController{
     }
 
     @RequestMapping("/add")
-    public String add() {
+    public String add(HttpServletRequest request) {
+        request.setAttribute("specialId",request.getParameter("specialId"));
+        Map map = sqlManager.selectSingle("position.findCorpName",Dict.create().set("id",request.getParameter("specialId")),Map.class);
+        request.setAttribute("corpName",map.get("CorpName"));
+        request.setAttribute("corpId",map.get("CorpId"));
         return BASE_PATH + "/position_add";
     }
 
@@ -59,13 +65,14 @@ public class PositionController extends BaseController{
     @ResponseBody
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
+        String SpecialId = request.getParameter("SpecialId");
         Position model = mapping(Position.class, request);
         int result;
-        if (model.getId() == null) {
+       /* if (model.getId() == null) {*/
             result = sqlManager.insert(model);
-        } else {
+        /*} else {
             result = sqlManager.updateById(model);
-        }
+        }*/
         if (result > 0) {
             return success(SUCCESS);
         } else {

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:c="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .tb1#list1 td,.tb1#list2 td,.tb1#list3 td{
+            text-align: center;
+        }
+    </style>
+<#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/toExamine/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <fieldset>
+        <legend>单位信息</legend>
+        <table class="tb1">
+            <tbody>
+            <tr>
+                <td class="right b width150">单位名称：</td>
+                <td style="text-align: left" colspan="7" >
+                    ${corp.CorpName}
+                </td>
+            </tr>
+            <tr>
+
+                <td class="right b width150">组织机构代码：</td>
+                <td style="width: 200px;" class="left">
+                  ${corp.OrganizetionCode}
+                </td>
+                <td class="right b width150">联系人：</td>
+                <td style="width:200px" class="left">
+                   <div>${corp.Contactor}</div>
+                </td>
+                <td class="right b width150">联系人电话：</td>
+                <td style="width: 200px;" class="left">
+                    <div>${corp.ContactPhone}</div>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+            <td class="right b width150">成立日期：</td>
+                <td class="left">
+                   <div>${corp.EstablishmentDate}</div>
+                </td>
+                <td class="right b width150">企业Logo：</td>
+                <td class="left">
+                   <div>${corp.Logo}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="right b width150">当前状态：</td>
+                <td colspan="7" style="text-align: left;">
+                    审核通过
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>专场招聘（来校招聘）</legend>
+        <table class="tb1" id="list1"  >
+            <tr>
+                <td class="b width100" >召开类型</td>
+                <td class="b width120">使用日期</td>
+                <td class="b width100">开始时间</td>
+                <td class="b width100">结束时间</td>
+                <td class="b width100">招聘简章</td>
+                <td class="b width100">附件</td>
+                <td class="b" style="text-align: left;">分配场地</td>
+            </tr>
+            <tr style="color:red;">
+                <td>宣讲</td>
+                <td>2018-10-11</td>
+                <td>9:00</td>
+                <td>12:00</td>
+                <td>招聘简章</td>
+                <td><a href="javascript:">查看</a></td>
+                <td style="text-align: left;"><select style="width:200px"><option>场地1</option></select></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>自行联系（单位职位）</legend>
+        <table class="tb1" id="list2"  >
+            <tr>
+                <td class="b width100" >职位名称</td>
+                <td class="b width120">工作地点</td>
+                <td class="b width100">职位类型</td>
+                <td class="b width100">学历要求</td>
+                <td class="b width100">招聘人数</td>
+                <td class="b width100">工作年限</td>
+                <td class="b" style="text-align: left;">月薪</td>
+            </tr>
+            <tr style="color:red;">
+                <td>Java软件工程师</td>
+                <td>四川省成都市</td>
+                <td>研发人员</td>
+                <td>本科及以上</td>
+                <td>2</td>
+                <td>1</td>
+                <td style="text-align: left;">10K+</td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>双选会招聘（双选会报名）</legend>
+        <table class="tb1" id="list3"  >
+            <tr>
+                <td class="b" style="width: 300px;">名称</td>
+                <td class="b width200">参与职位</td>
+                <td class="b width200">展位</td>
+                <td class="b" style="text-align: left;">招聘简章</td>
+            </tr>
+            <tr style="color:red;">
+                <td>2019级秋季大型双选会</td>
+                <td>Java软件工程师</td>
+                <td>A0101</td>
+                <td style="text-align: left;">招聘简章</td>
+            </tr>
+        </table>
+    </fieldset>
+    <div class="panel1" id="bottom">
+        <button class="btn btn-success" style="cursor: pointer" onclick="tj()">审核通过</button>
+        <button class="btn btn-danger" style="cursor: pointer" onclick="tj()">审核不通过</button>
+        <button class="btn btn-primary" style="cursor: pointer" onclick="tj()">取消</button>
+    </div>
+</from>
+
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

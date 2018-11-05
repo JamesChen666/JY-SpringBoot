@@ -1,9 +1,7 @@
 package com.boot.controller.serve;
 
-import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Roll;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import com.boot.util.DictionaryType;
 import com.boot.util.ShiroUtils;
@@ -129,16 +127,14 @@ public class RollController extends BaseController{
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Roll> mapList;
         if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("roll.list",Map.class);
+            mapList = sqlManager.all(Roll.class);
         }else {
-            mapList = appendToList("roll.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Roll.class,ids);
         }
         try {
-            simpleExport("Roll", mapList );
+            exportExcel("学籍异动", mapList ,Roll.class);
         }catch (Exception e){
             e.getStackTrace();
             return fail(FAIL);

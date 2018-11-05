@@ -14,91 +14,82 @@
                 treeGridModel: 'adjacency',
                 sortName: "Sort",
                 colNames: ['Id', "派遣单位名称", "单位详细地址",
-                    "是否师范单位","档案接收单位", "档案接收单位地址", "状态","操作"],
+                    "是否师范单位", "档案接收单位", "档案接收单位地址", "状态"],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
-                    {name: 'ProviderName', index: 'ProviderName', align: "center", width: 200},
-                    {name: 'Address', index: 'Address', align: "center", width: 250},
-                    {name: 'IsNormal', index: 'IsNormal', align: "center", formatter: School.formatBIT},
-                    {name: 'FileReceivUnit', index: 'FileReceivUnit', align: "center", width: 200},
+                    {name: 'ProviderName', index: 'ProviderName', align: "center", width: 300},
+                    {name: 'Address', index: 'Address', align: "center", width: 150},
+                    {name: 'IsNormal', index: 'IsNormal', align: "center", formatter: School.formatBIT,width:80},
+                    {name: 'FileReceivUnit', index: 'FileReceivUnit', align: "center", width: 100},
                     {name: 'FileReceivAddress', index: 'FileReceivAddress', align: "center", width: 250},
-                    {name: 'IsEnabled', index: 'IsEnabled', align: "center", formatter: School.formatBIT},
-                    {
-                        name: "opera",
-                        index: "opera",
-                        align: "center",
-                        width: 100,
-                        formatter: function (value, obj, row) {
-                            return "<a href='javascript:' class='btnA' onclick=\"viewDetail('" + row.Id + "','" + row.RealName + "')\">查看详细</a>"
-                        }
-                    }
+                    {name: 'IsEnabled', index: 'IsEnabled', align: "center", formatter: School.formatBIT}
                 ],
                 pager: "#pager",
                 ExpandColumn: "ProviderName",
                 buttons:
-                        [
-                            {
-                                type: "AddOrUpdate",
-                                title: "派遣单位管理-新增派遣单位",
-                                btnName: "新增派遣单位",
-                                btnCode: "Add",
-                                iconCls: "icon-add",
-                                listId: "#list",
-                                href: "/dispatchunit/add",
-                                save: "save",
-                                fit:true
-                            },
-                            {
-                                type: "AddOrUpdate",
-                                iconCls: "icon-edit",
-                                title: "派遣单位管理-修改派遣单位",
-                                btnName: "修改派遣单位",
-                                btnCode: "Edit",
-                                listId: "#list",
-                                href: "/dispatchunit/edit?id={id}",
-                                save: "save",
-                                fit:true
-                            },
-                            {
-                                type: "Del",
-                                btnName: "删除",
-                                btnCode: "Delete",
-                                listId: "#list",
-                                save: "delete"
-                            },
-                            {
-                                type: "Del",
-                                btnName: "启用",
-                                btnCode: "Enable",
-                                confirm: "您确定要启用选中的用户吗？",
-                                listId: "#list",
-                                args: {flag: true},
-                                save: "disableOrEnable"
-                            },
-                            {
-                                type: "Del",
-                                btnName: "禁用",
-                                btnCode: "Disable",
-                                confirm: "您确定要禁用选中的用户吗？",
-                                listId: "#list",
-                                args: {flag: false},
-                                save: "disableOrEnable"
-                            },
-                            {
-                                type: "Import",
-                                btnName: "导入",
-                                btnCode: "Import",
-                                listId: "#list",
-                                save: "/dispatchunit/import"
-                            },
-                            {
-                                type: "Export",
-                                btnName: "导出",
-                                btnCode: "Export",
-                                listId: "#list",
-                                save: "/dispatchunit/export"
-                            }
-                        ]
+                    [
+                        {
+                            type: "AddOrUpdate",
+                            title: "派遣单位管理-新增派遣单位",
+                            btnName: "新增派遣单位",
+                            btnCode: "Add",
+                            iconCls: "icon-add",
+                            listId: "#list",
+                            href: "/dispatchunit/add",
+                            save: "save",
+                            height: 450
+                        },
+                        {
+                            type: "AddOrUpdate",
+                            iconCls: "icon-edit",
+                            title: "派遣单位管理-修改派遣单位",
+                            btnName: "修改派遣单位",
+                            btnCode: "Edit",
+                            listId: "#list",
+                            href: "/dispatchunit/edit?id={id}",
+                            save: "save",
+                            height: 450
+                        },
+                        {
+                            type: "Del",
+                            btnName: "删除",
+                            btnCode: "Delete",
+                            listId: "#list",
+                            save: "delete"
+                        },
+                        {
+                            type: "Del",
+                            btnName: "启用",
+                            btnCode: "Enable",
+                            confirm: "您确定要启用选中的用户吗？",
+                            listId: "#list",
+                            args: {flag: true},
+                            save: "disableOrEnable"
+                        },
+                        {
+                            type: "Del",
+                            btnName: "禁用",
+                            btnCode: "Disable",
+                            confirm: "您确定要禁用选中的用户吗？",
+                            listId: "#list",
+                            args: {flag: false},
+                            save: "disableOrEnable"
+                        },
+                        {
+                            type: "Import",
+                            btnName: "导入",
+                            btnCode: "Import",
+                            listId: "#list",
+                            save: "/dispatchunit/import"
+                        },
+                        {
+                            type: "Export",
+                            btnName: "导出",
+                            btnCode: "Export",
+                            listId: "#list",
+                            save: "/dispatchunit/export"
+                        }
+                    ]
             });
         })
     </script>
@@ -123,7 +114,7 @@
             <option value="0">否</option>
         </select>
         <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
-        <button type="reset" class="btn btn-info" id="btnSearch">重置查询</button>
+        <button type="reset" class="btn btn-info" id="btnSearch1">重置查询</button>
     </div>
 </div>
 <div data-options="region:'center'">

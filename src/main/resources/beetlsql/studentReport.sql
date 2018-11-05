@@ -1,7 +1,7 @@
 list
 ===
-SELECT * FROM Special_StudentReport
+SELECT * FROM Recruit_StudentReport
 
 findOne
 ===
-SELECT * FROM Special_StudentReport WHERE id = #{id}
+SELECT * FROM Recruit_StudentReport WHERE id = #{id}

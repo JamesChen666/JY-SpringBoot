@@ -1,5 +1,6 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Loginaccount;
@@ -7,6 +8,7 @@ import com.boot.model.Role;
 import com.boot.model.Student;
 import com.boot.util.AjaxResult;
 import com.boot.util.Md5Util;
+import com.boot.util.ShiroUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,7 +69,9 @@ public class LoginaccountController extends BaseController {
                     single.setIsEnabled(false);
                 }
                 updateById += sqlManager.updateById(single);
-                updateById += sqlManager.updateById(student);
+                if(student != null){
+                    updateById += sqlManager.updateById(student);
+                }
             }
 
         }
@@ -92,6 +96,49 @@ public class LoginaccountController extends BaseController {
             updateById += sqlManager.updateById(single);
         }
         if (updateById <= 0) {
+            return fail(FAIL);
+        }
+        return success(SUCCESS);
+    }
+
+    @ResponseBody
+    @RequestMapping("/export")
+    public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
+        String ids = httpServletRequest.getParameter("ids");
+        List<Loginaccount> mapList;
+        if (ids == null||ids.isEmpty()) {
+            mapList = sqlManager.all(Loginaccount.class);
+        }else {
+            mapList = selectByIds(Loginaccount.class,ids);
+        }
+        try {
+            exportExcel("用户信息",mapList,Loginaccount.class);
+        }catch (Exception e){
+            e.getStackTrace();
+            return fail(FAIL);
+        }
+        return success(SUCCESS);
+    }
+
+    @RequestMapping("/userCole")
+    public String userCole(HttpServletRequest request) {
+        String id = request.getParameter("id");
+        Map map = sqlManager.selectSingle("loginaccount.findOne",Dict.create().set("id",id),Map.class);
+        request.setAttribute("user",map);
+        return BASE_PATH + "/setuser_role";
+    }
+
+    @ResponseBody
+    @RequestMapping("/editPassword")
+    public AjaxResult editPassword(HttpServletRequest httpServletRequest) {
+        Loginaccount user = ShiroUtils.getInstence().getUser();
+        String password = httpServletRequest.getParameter("password");
+        String salt = Md5Util.getInstance().getSalt();
+        String md5 = Md5Util.getInstance().MD5(password, salt);
+        user.setPassWord(md5);
+        user.setSalt(salt);
+        int updateById = sqlManager.updateById(user);
+        if (updateById<=0){
             return fail(FAIL);
         }
         return success(SUCCESS);

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<div style="padding: 10px;">
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="left b">姓名：</td>
+        <td>
+            <input name="UserId" value="${user.Id!}" type="hidden">
+            <div>${user.RealName!}</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">用户名：</td>
+        <td>
+            <div>${user.UserName!}</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="left b">角色：</td>
+        <td>
+            <input class="easyui-combobox" name="RoleId" value="${user.RoleId!}" data-options="required:false,
+                                                                         valueField: 'Id',
+                                                                         textField: 'RoleName',
+                                                                         url: '/role/roleList'
+                                                                         ">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

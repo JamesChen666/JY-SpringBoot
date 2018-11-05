@@ -11,6 +11,11 @@
     <table class="tb1">
         <tbody>
         <tr>
+            <td class="left b">毕业年份</td>
+            <td>
+                <input class="easyui-textbox" name="graduationYear" id="bynf"
+                       data-options="required:true,validType:'number',prompt:'输入格式如2019'">
+            </td>
             <td class="left b">姓名</td>
             <td>
                 <input class="easyui-textbox" name="realName" data-options="required:true">
@@ -19,10 +24,20 @@
             <td>
                 <input class="easyui-textbox" name="studentNumber"
                        data-options="required:true,validType:'username',prompt:'只能输入字母和数字'">
-            <td class="left b">考生号</td>
+        </tr>
+        <tr>
+            <td class="left b">考生号：</td>
             <td>
                 <input class="easyui-textbox" name="examineNumber"
                        data-options="required:true,validType:'username',prompt:'只能输入字母和数字'">
+            </td>
+            <td class="left b">身高：</td>
+            <td>
+                <input class="easyui-numberspinner" name="height">
+            </td>
+            <td class="left b">体重：</td>
+            <td>
+                <input class="easyui-numberspinner" name="weight">
             </td>
         </tr>
         <tr>
@@ -63,12 +78,8 @@
             </td>
             <td class="left b">生源地</td>
             <td>
-                <input class="easyui-combotree" name="originCode" data-options="required:true,
-                                                                        panelWidth:200,
-                                                                        labelPosition:'left',
-                                                                        url:'/area/combotreeList',
-                                                                        idField:'AreaCode',
-                                                                        textField:'AreaName' ">
+                <input class="easyui-combotree" name="originCode" id="originCode" data-options="required:true,
+                                                                      ">
             </td>
         </tr>
         <tr>
@@ -133,46 +144,28 @@
             </td>
         </tr>
         <tr>
-            <td class="left b">班级</td>
+            <td class="left b">校区</td>
             <td>
-                <input class="easyui-combotree" name="classNumber" id="cls"
-                       data-options=" required:true,
-                                panelWidth:200,
-                                labelPosition:'left',
-                                url:'/class/combotreeList',
-                                idField:'Id',
-                                textField:'Name',
-                                onSelect:function(node){
-                                    if(node.children!='undefined'&&node.children!=null){
-                                        $('#cls').combotree('clear');
-                                    }
-                                },
-                                onClick: function(rowIndex, rowData){
-                                    $.post('/student/specialty',{classNo:rowIndex.Id},function(data){
-                                        $('#specialty').combobox('setValue',data.SpecialtyCode);
-                                        $('#faculty').textbox('setValue',data.FacultyName);
-                                        $('#campus').textbox('setValue',data.CampusName);
-                                    })
-                                }">
-            </td>
-            <td class="left b">专业</td>
-            <td>
-                <select class="easyui-combobox" name="specialtyCode" id="specialty"
-                        data-options="valueField:'SpecialtyCode',
-                        textField:'SpecialtyName',
-                        url:'/specialty/gridList',
-                        readonly:'true'">
-                </select>
+                <input class="easyui-textbox" id="campus" value="${school.CampusName}">
+                <input type="hidden" value="${school.CampusCode}" id="campuss">
             </td>
             <td class="left b">院系</td>
             <td>
-                <input class="easyui-textbox" value="${school.FacultyName}" id="faculty" data-options="required:false" disabled>
+                <input class="easyui-textbox" id="faculty">
+                <input type="hidden" value="${school.FacultyCode}" id="facultys">
+            </td>
+            <td class="left b">专业</td>
+            <td>
+                <input class="easyui-combobox" name="specialtyCode" id="specialty">
+                <input type="hidden" value="${school.SpecialtyCode}" id="specialtys">
             </td>
         </tr>
         <tr>
-            <td class="left b">校区</td>
+            <td class="left b">班级</td>
             <td>
-                <input class="easyui-textbox" value="${school.CampusName}" id="campus" data-options="required:false" disabled>
+                <input class="easyui-combotree" name="classNumber" id="cls"
+                       data-options=" required:true">
+                <input type="hidden" value="${school.ClassNo}" id="clss">
             </td>
             <td class="left b">专业方向</td>
             <td>

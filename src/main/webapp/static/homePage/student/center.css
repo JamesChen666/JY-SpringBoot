@@ -1,0 +1,65 @@
+.swiper-button-prev{
+    left: -8px;
+    background-image:url("/static/homePage/img/center-index_43-55.png");
+}
+.swiper-button-next{
+    right: 8px;
+    background-image:url("/static/homePage/img/center-index_43-56.png");
+}
+.swiper-button-next, .swiper-button-prev{
+    width: 30px;
+    height: 30px;
+    background-size:100%;
+    z-index: 1000;
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    display:none
+}
+
+input[type="radio"]{
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    display:none
+}
+
+label{
+    min-width:30px;
+    height:30px;
+    color:#323232;
+    display:inline-block;
+    cursor:pointer;
+    line-height:30px;
+    text-align: left;
+}
+label input[type="checkbox"] + span{
+    vertical-align:top;
+    width:30px;
+    height:30px;
+    display:inline-block;
+    background:url(/static/homePage/img/index-gsxx_10.png)  no-repeat;
+    background-position:-40px 0;
+    background-size: cover;
+}
+label input[type="radio"] + span{
+    vertical-align:top;
+    width:30px;
+    height:30px;
+    display:inline-block;
+    background:url(/static/homePage/img/index-gsxx_09.png)  no-repeat;
+    background-position:0 0;
+    background-size: cover;
+}
+
+.test3>input[type="text"]{
+    width: 250px;
+    border: none;
+    border-bottom: 1px  solid #C4C0BA;
+    outline: none;
+}
+.on{background-position:0 0 !important;}
+.on2{background-position:-40px 0 !important;}

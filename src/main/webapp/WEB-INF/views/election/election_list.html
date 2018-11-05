@@ -13,7 +13,7 @@
                 textField: 'Id',
                 treeGridModel: 'adjacency',
                 sortName: "Id",
-                colNames: ['Id', "招聘名称", "招聘会地点","面向行业","举办场地","职位","展位","举办日期", "报名截止时间","招聘要求/说明", "创建人","创建时间","是否启用"],
+                colNames: ['Id', "双选会名称", "招聘会地点","面向行业","举办场地",/*"职位","展位",*/"举办日期", "报名截止时间","招聘要求/说明", "创建人","创建时间","是否启用"],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
                     {name: 'Title', index: 'Title', align: "center", width: 100},
@@ -21,8 +21,8 @@
 
                     {name: 'RunDate', index: 'RunDate', align: "center", width: 100},
                     {name: 'SignEndDate', index: 'SignEndDate', align: "center", width: 100},
-                    {name: 'Description', index: 'Description', align: "center", width: 100},
-                    {name: 'RealName', index: 'RealName', align: "center", width: 100},
+                    /*{name: 'Description', index: 'Description', align: "center", width: 100},
+                    {name: 'RealName', index: 'RealName', align: "center", width: 100},*/
 
                     {name: 'RunDate', index: 'RunDate', align: "center", width: 100,formatter:fmtDate},
                     {name: 'SignEndDate', index: 'SignEndDate', align: "center", width: 100},

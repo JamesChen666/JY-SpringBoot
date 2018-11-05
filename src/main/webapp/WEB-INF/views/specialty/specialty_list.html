@@ -24,7 +24,11 @@
                     {name: 'SchoolLength', index: 'SchoolLength', align: "center", width: 100},
                     {name: 'CampusName', index: 'CampusName', align: "center", width: 100},
                     {name: 'FacultyName', index: 'FacultyName', align: "center", width: 100},
-                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200},
+                    {name: 'ManagerName', index: 'ManagerName', align: "center", width: 200,formatter:function (value, obj, row) {
+                            var displayText=value;
+                            if(!displayText||displayText=="") displayText="设置";
+                            return "<a class='btnA' href='javascript:' onclick=\"setManager('"+row.SpecialtyCode+"','"+row.SpecialtyName+"')\">"+displayText+"</a>"
+                        }},
                     {name: 'Remark', index: 'Remark', align: "center",  width: 200}
                 ],
                 pager: "#pager",
@@ -39,8 +43,8 @@
                                 iconCls: "icon-add",
                                 listId: "#list",
                                 href: "/specialty/add",
-                                save: "save",
-                                fit:true
+                                save: "save" ,
+                                height:350
                             },
                             {
                                 type: "AddOrUpdate",
@@ -50,8 +54,8 @@
                                 btnCode: "Edit",
                                 listId: "#list",
                                 href: "/specialty/edit?id={id}",
-                                save: "save",
-                                fit:true
+                                save: "save" ,
+                                height:350
                             },
                             {
                                 type: "Del",
@@ -73,7 +77,7 @@
                                 btnCode: "Export",
                                 listId: "#list",
                                 save: "/specialty/export"
-                            },
+                            }/*,
                             {
                                 type: "SetManager",
                                 btnName: "设置管理员",
@@ -83,10 +87,22 @@
                                 listId: "#list",
                                 btnCode: "SetManager",
                                 save:"/specialty/setManager"
-                            }
+                            }*/
                         ]
             });
-        })
+        });
+        function setManager(SpecialtyCode,SpecialtyName) {
+            School.showManager({
+                title:SpecialtyName+"-设置专业管理员",
+                moduleId: 1,
+                objectCode: SpecialtyCode,
+                save:"/specialty/setManager",
+                codeType:"specialty",
+                onLoad: function () {
+                    top.$('#labelDepartmentName').html('当前专业: ' + SpecialtyName);
+                }
+            })
+        }
     </script>
 </head>
 <body>

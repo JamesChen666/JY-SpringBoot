@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/resumePost/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+    <table class="tab1" cellpadding="3">
+        <tbody>
+            <tr>
+                <td class="left b">StudentId:</td>
+                <td>
+                    <input class="easyui-textbox" name="studentId" data-options="required:true"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">PostionId:</td>
+                <td>
+                    <input class="easyui-textbox" name="postionId" data-options="required:true"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="left b">CreateDate:</td>
+                <td>
+                    <input class="easyui-textbox" name="createDate" data-options="required:true"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+</body>
+</html>

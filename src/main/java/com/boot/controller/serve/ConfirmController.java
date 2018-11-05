@@ -1,8 +1,7 @@
 package com.boot.controller.serve;
 
-import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
-import com.boot.system.SqlIntercepter;
+import com.boot.model.Confirm;
 import com.boot.util.AjaxResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,16 +37,14 @@ public class ConfirmController extends BaseController{
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Confirm> mapList;
         if (ids == null||ids.isEmpty()) {
-            mapList = sqlManager.select("confirm.list",Map.class);
+            mapList = sqlManager.all(Confirm.class);
         }else {
-            mapList = appendToList("confirm.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Confirm.class,ids);
         }
         try {
-            simpleExport("Confirm", mapList );
+            exportExcel("学生信息确认", mapList ,Confirm.class);
         }catch (Exception e){
             e.getStackTrace();
             return fail(FAIL);

@@ -1,5 +1,6 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.LoginaccountRole;
 import com.boot.util.AjaxResult;
@@ -33,7 +34,15 @@ public class LoginaccountRoleController extends BaseController{
     @ResponseBody
     @RequestMapping("/save")
     public AjaxResult save(HttpServletRequest request) {
-        return null;
+        LoginaccountRole model = mapping(LoginaccountRole.class,request);
+        LoginaccountRole loginaccountRole = sqlManager.selectSingle("loginaccountRole.findByUserId",Dict.create().set("UserId",request.getParameter("UserId")),LoginaccountRole.class);
+        boolean isOk = false;
+        if(loginaccountRole==null){
+            isOk = sqlManager.insert(model)>0;
+        }else{
+           isOk = sqlManager.update("loginaccountRole.updateByUserId",Dict.create().set("RoleId",request.getParameter("RoleId")).set("UserId",request.getParameter("UserId"))) > 0;
+        }
+        return isOk ? success(SUCCESS) : fail(FAIL);
     }
 
     @ResponseBody

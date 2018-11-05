@@ -1,5 +1,10 @@
 package com.boot.model;
 
+import com.boot.util.excel.annotation.ExcelField;
+import com.boot.util.excel.converter.UserConverter.DateConvert;
+import com.boot.util.excel.converter.UserConverter.StudentConvert;
+import com.boot.util.excel.converter.UserConverter.UserConvert;
+import com.boot.util.excel.converter.UserConverter.WhetherConvert;
 import org.beetl.sql.core.annotatoin.Table;
 
 import java.io.Serializable;
@@ -12,9 +17,13 @@ import java.util.Date;
 public class Confirm implements Serializable {
 
     private Integer Id;
+    @ExcelField(title = "学号",order = 1,readConverter = StudentConvert.class,writeConverter = StudentConvert.class)
     private Integer StudentId;
+    @ExcelField(title = "是否确认",order = 2,readConverter = WhetherConvert.class,writeConverter = WhetherConvert.class)
     private Boolean IsConfirm;
+    @ExcelField(title = "确认时间",order =3,readConverter = DateConvert.class,writeConverter = DateConvert.class)
     private Date ConfirmDate;
+    @ExcelField(title = "确认人",order = 4,readConverter = UserConvert.class,writeConverter = UserConvert.class)
     private Integer UserId;
 
     public Integer getId() {

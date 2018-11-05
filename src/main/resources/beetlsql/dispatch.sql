@@ -13,8 +13,8 @@ THEN CONCAT(ba3.AreaName,ba2.AreaName,ba1.AreaName)
 ELSE CONCAT(ba4.AreaName,ba3.AreaName,ba2.AreaName,ba1.AreaName)
 END
 ) AS OriginCode
-FROM student_dispatch sd
-LEFT JOIN school_student ss ON sd.StudentId = ss.Id
+FROM school_student ss
+LEFT JOIN  student_dispatch sd ON sd.StudentId = ss.Id
 LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'JYBDZQFLBDM') bd ON  sd.IssueTypeCode= bd.MemberValue
 LEFT JOIN base_area ba1 ON sd.OriginCode = ba1.AreaCode
 LEFT JOIN base_area ba2 ON ba1.ParentId = ba2.Id

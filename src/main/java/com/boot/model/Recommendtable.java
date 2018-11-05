@@ -18,6 +18,9 @@ public class Recommendtable implements Serializable {
     private String HopeIndustryCode;
     private BigDecimal HopeSalary;
     private String HopeLocation;
+    private String PositionRemark;
+    private String RewardRemark;
+    private String PracticeRemark;
     private String SelfRecommendation;
     private String FacultyRecommendation;
     private Date CreateDate;
@@ -71,6 +74,30 @@ public class Recommendtable implements Serializable {
 
     public String getHopeLocation() {
         return HopeLocation;
+    }
+
+    public String getPositionRemark() {
+        return PositionRemark;
+    }
+
+    public void setPositionRemark(String positionRemark) {
+        PositionRemark = positionRemark;
+    }
+
+    public String getRewardRemark() {
+        return RewardRemark;
+    }
+
+    public void setRewardRemark(String rewardRemark) {
+        RewardRemark = rewardRemark;
+    }
+
+    public String getPracticeRemark() {
+        return PracticeRemark;
+    }
+
+    public void setPracticeRemark(String practiceRemark) {
+        PracticeRemark = practiceRemark;
     }
 
     public void setSelfRecommendation(String SelfRecommendation) {

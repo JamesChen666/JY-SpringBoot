@@ -6,9 +6,9 @@ import com.boot.controller.system.BaseController;
 import com.boot.model.Faculty;
 import com.boot.model.FacultyManager;
 import com.boot.model.Teacher;
-import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import com.boot.util.DictionaryType;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -63,6 +63,18 @@ public class FacultyController extends BaseController {
     public Object list(HttpServletRequest httpServletRequest) {
         Map map = pageQuery(LIST, httpServletRequest);
         return map;
+    }
+
+    /**
+     * 通过校区代码查询出院系
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findFacultyList")
+    public Object findFacultyList(HttpServletRequest httpServletRequest) {
+       List<Map> mapList = sqlManager.select("faculty.findFaculty",Map.class,Dict.create().set("CampusCode",httpServletRequest.getParameter("CampusCode")));
+       return mapList;
     }
 
     @ResponseBody
@@ -144,9 +156,23 @@ public class FacultyController extends BaseController {
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Faculty> facultys = importExcel(file, Faculty.class);
+            for (Faculty faculty : facultys) {
+                err++;
+                Faculty single = sqlManager.query(Faculty.class)
+                        .andEq("FacultyName", faculty.getFacultyName()).single();
+                if (ObjectUtil.isNotNull(single)){
+                    return error("第"+err+"行"+single.getFacultyName()+"重复");
+                }
+                Faculty facultyCode = sqlManager.query(Faculty.class)
+                        .andEq("FacultyCode", faculty.getFacultyCode()).single();
+                if (ObjectUtil.isNotNull(facultyCode)){
+                    return error("第"+err+"行"+facultyCode.getFacultyCode()+"重复");
+                }
+            }
             for (Faculty faculty : facultys) {
                 insert += sqlManager.insert(faculty);
             }
@@ -161,16 +187,14 @@ public class FacultyController extends BaseController {
     @RequestMapping("/export")
     public AjaxResult exportExcel(HttpServletRequest httpServletRequest) {
         String ids = httpServletRequest.getParameter("ids");
-        List<Map> mapList;
+        List<Faculty> mapList;
         if (ids == null || ids.isEmpty()) {
-            mapList = sqlManager.select("faculty.list", Map.class);
+            mapList = sqlManager.all(Faculty.class);
         } else {
-            mapList = appendToList("faculty.list",
-                    SqlIntercepter.create().set("WHERE FIND_IN_SET(Id,#{ids})"),
-                    Dict.create().set("ids", ids));
+            mapList = selectByIds(Faculty.class,ids);
         }
         try {
-            simpleExport("院系信息", mapList);
+            exportExcel("院系信息", mapList,Faculty.class);
         } catch (Exception e) {
             e.getStackTrace();
             return fail(FAIL);
@@ -199,10 +223,14 @@ public class FacultyController extends BaseController {
     @ResponseBody
     @RequestMapping("/setManager")
     public AjaxResult setManager(HttpServletRequest httpServletRequest) {
-        String manager = httpServletRequest.getParameter("manager");
-        String[] split = manager.split(",");
+        String code = httpServletRequest.getParameter("objectCode");
+        String jobNumberss = httpServletRequest.getParameter("jobNumber");
+        JSONArray array = JSONArray.fromObject(jobNumberss);
+        List<String> list =(ArrayList)JSONArray.toCollection(array, String.class);
+        /*String manager = httpServletRequest.getParameter("manager");
+        String[] split = manager.split(",");*/
         List<String> jobNumbers = new ArrayList();
-        for (String s : split) {
+        for (String s : list) {
             Teacher teacher = sqlManager.selectSingle("teacher.findByJobNumber",
                     Dict.create().set("JobNumber", s), Teacher.class);
             if (ObjectUtil.isNotNull(teacher)) {
@@ -210,14 +238,14 @@ public class FacultyController extends BaseController {
             }
         }
         int insert = 0;
-        String id = httpServletRequest.getParameter("id[]");
-        Faculty single = sqlManager.single(Faculty.class, id);
+        /*String id = httpServletRequest.getParameter("id[]");
+        Faculty single = sqlManager.single(Faculty.class, id);*/
         try {
             sqlManager.update("facultyManager.deleteByFacultyCode",
-                    Dict.create().set("FacultyCode", single.getFacultyCode()));
+                    Dict.create().set("FacultyCode", code/*single.getFacultyCode()*/));
             for (String jobNumber : jobNumbers) {
                 FacultyManager FacultyManager = new FacultyManager();
-                FacultyManager.setFacultyCode(single.getFacultyCode());
+                FacultyManager.setFacultyCode(code/*single.getFacultyCode()*/);
                 FacultyManager.setJobNumber(jobNumber);
                 insert += sqlManager.insert(FacultyManager);
             }

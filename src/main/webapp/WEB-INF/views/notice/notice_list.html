@@ -5,7 +5,14 @@
     <title></title>
     <meta charset="utf-8"/>
     <#include "../base/header.html">
+
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/ueditor.all.js"></script>
+    <script type="text/javascript" src="/static/main/Scripts/ueditor-1.4.3.3-jsp/lang/zh-cn/zh-cn.js"></script>
     <script>
+        var ue;
         $(function () {
             $("#list").ex_grid({
                 url: "/notice/list",
@@ -13,94 +20,118 @@
                 textField: 'Id',
                 treeGridModel: 'adjacency',
                 sortName: "CreateDate",
-                sortorder:"desc",
-                colNames: ['Id', "公告类型", "标题","副标题","封面","视频地址","是否置顶",/*"内容",*/"点击数","发布人","发布部门","发布时间"/*,"发布人Id"*/],
+                sortorder: "desc",
+                colNames: ['Id', "公告类型", "标题", "副标题", "封面", "视频地址", "是否置顶", /*"内容",*/"点击数", "发布人", "发布部门", "发布时间"/*,"发布人Id"*/],
                 colModel: [
                     {name: 'Id', index: 'Id', hidden: true},
-                    {name: 'TypeCode', index: 'TypeCode', align: "center", width: 100 , formatter:queryNoticeType},
+                    {name: 'TypeCode', index: 'TypeCode', align: "center", width: 100, formatter: queryNoticeType},
                     {name: 'Title', index: 'Title', align: "center", width: 100},
                     {name: 'SubTitle', index: 'SubTitle', align: "center", width: 100},
                     {name: 'Cover', index: 'Cover', align: "center", width: 100},
                     {name: 'VideoUrl', index: 'VideoUrl', align: "center", width: 100},
-                    {name: 'IsTop', index: 'IsTop', align: "center", width: 100,formatter: School.formatBIT},
+                    {name: 'IsTop', index: 'IsTop', align: "center", width: 100, formatter: School.formatBIT},
                     //{name: 'Content', index: 'Content', align: "center", width: 100},
                     {name: 'ClickCount', index: 'ClickCount', align: "center", width: 100},
                     {name: 'Author', index: 'Author', align: "center", width: 100},
                     {name: 'Resource', index: 'Resource', align: "center", width: 100},
-                    {name: 'CreateDate', index: 'CreateDate', align: "center", width: 100,formatter:fmtDate},
+                    {name: 'CreateDate', index: 'CreateDate', align: "center", width: 100, formatter: fmtDate},
                     //{name: 'UserId', index: 'UserId', align: "center", width: 100}
                 ],
                 pager: "#pager",
                 ExpandColumn: "Id",
                 buttons:
-                        [
-                            {
-                                type: "AddOrUpdate",
-                                title: "通知公告管理-新增通知公告",
-                                btnName: "新增通知公告",
-                                btnCode: "Add",
-                                iconCls: "icon-add",
-                                listId: "#list",
-                                href: "/notice/add",
-                                save: "save",
-                                height: 500,
-                                width:800
+                    [
+                        {
+                            type: "AddOrUpdate",
+                            title: "通知公告管理-新增通知公告",
+                            btnName: "新增通知公告",
+                            btnCode: "Add",
+                            iconCls: "icon-add",
+                            listId: "#list",
+                            href: "/notice/add",
+                            save: "save",
+                            fit: true,
+                            onLoad: function () {
+                                UE.delEditor('Content');
+                                ue = UE.getEditor("Content", {
+                                    initialFrameHeight: 300,
+                                    initialFrameWidth: window.innerWidth - 200
+                                });
                             },
-                            {
-                                type: "AddOrUpdate",
-                                iconCls: "icon-edit",
-                                title: "通知公告管理-修改通知公告",
-                                btnName: "修改通知公告",
-                                btnCode: "Edit",
-                                listId: "#list",
-                                href: "/notice/edit?id={id}",
-                                save: "save",
-                                height: 500,
-                                width:800
-                            },
-                            {
-                                type: "Del",
-                                btnName: "删除",
-                                btnCode: "Delete",
-                                listId: "#list",
-                                save: "delete"
-                            },
-                            /*{
-                                type: "Del",
-                                btnName: "启用",
-                                btnCode: "Enable",
-                                confirm: "您确定要启用选中的公告吗？",
-                                listId: "#list",
-                                args: {flag: true},
-                                save: "disableOrEnable"
-                            },
-                            {
-                                type: "Del",
-                                btnName: "禁用",
-                                btnCode: "Disable",
-                                confirm: "您确定要禁用选中的公告吗？",
-                                listId: "#list",
-                                args: {flag: false},
-                                save: "disableOrEnable"
-                            },*/
-                            {
-                                type: "Import",
-                                btnName: "导入",
-                                btnCode: "Import",
-                                listId: "#list",
-                                save: "/notice/import"
-                            },
-                            {
-                                type: "Export",
-                                btnName: "导出",
-                                btnCode: "Export",
-                                listId: "#list",
-                                save: "/notice/export"
+                            submit: function (args) {
+                                args["Content"] = encodeURIComponent(ue.getContent());
+                                return args;
                             }
-                        ]
+                        },
+                        {
+                            type: "AddOrUpdate",
+                            iconCls: "icon-edit",
+                            title: "通知公告管理-修改通知公告",
+                            btnName: "修改通知公告",
+                            btnCode: "Edit",
+                            listId: "#list",
+                            href: "/notice/edit?id={id}",
+                            save: "save",
+                            fit: true,
+                            onLoad: function () {
+                                UE.delEditor('content');
+                                ue = UE.getEditor("content", {
+                                    initialFrameHeight: 300,
+                                    initialFrameWidth: window.innerWidth - 200
+                                });
+                            },
+                            submit: function (args) {
+                                args["content"] = encodeURIComponent(ue.getContent());
+                                return args;
+                            }
+                        },
+                        {
+                            type: "Del",
+                            btnName: "删除",
+                            btnCode: "Delete",
+                            listId: "#list",
+                            save: "delete"
+                        },
+                        /*{
+                            type: "Del",
+                            btnName: "启用",
+                            btnCode: "Enable",
+                            confirm: "您确定要启用选中的公告吗？",
+                            listId: "#list",
+                            args: {flag: true},
+                            save: "disableOrEnable"
+                        },
+                        {
+                            type: "Del",
+                            btnName: "禁用",
+                            btnCode: "Disable",
+                            confirm: "您确定要禁用选中的公告吗？",
+                            listId: "#list",
+                            args: {flag: false},
+                            save: "disableOrEnable"
+                        },*/
+                        {
+                            type: "Import",
+                            btnName: "导入",
+                            btnCode: "Import",
+                            listId: "#list",
+                            save: "/notice/import"
+                        },
+                        {
+                            type: "Export",
+                            btnName: "导出",
+                            btnCode: "Export",
+                            listId: "#list",
+                            save: "/notice/export"
+                        }
+                    ]
             });
         })
 
+        function initFormCallback(data) {
+            var ue_content = data.content
+            ue.setContent(decodeURIComponent(ue_content))
+        }
     </script>
 </head>
 <body>
@@ -112,15 +143,13 @@
                                                                       textField: 'TypeName',
                                                                       url: '/noticeType/noticeTypeList'">
         <div class="adv-select-label">标题/副标题：</div>
-        <input id="s_title" name="sm_title-subTitle" type="text" value="" />
+        <input id="s_title" name="sm_title-subTitle" type="text" value=""/>
         <div class="adv-select-label">是否置顶：</div>
         <select class="easyui-combobox" name="s_isTop">
             <option value="">==所有==</option>
             <option value="1">是</option>
             <option value="0">否</option>
         </select>
-    </div>
-    <div class="form-search form-search-top" style="text-align:left;padding:10px 0 0 10px;">
         <button type="button" class="btn btn-primary" id="btnSearch">查 询</button>
         <button type="reset" class="btn btn-info" id="btnReset">重 置</button>
     </div>

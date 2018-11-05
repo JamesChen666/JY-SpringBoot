@@ -31,7 +31,7 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-       // , serverUrl: URL + "jsp/controller.jsp"
+        , serverUrl: URL + "jsp/controller.jsp"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
@@ -62,7 +62,7 @@
         //,theme:'default'
         //,themePath:URL +"themes/"
 
-      /*  ,zIndex : 1    //编辑器层级的基数,默认是900
+        //,zIndex : 1    //编辑器层级的基数,默认是900
 
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         ,charset:"utf-8"
@@ -71,7 +71,7 @@
         //,customDomain:false
 
         //常用配置项目
-        ,isShow : true    //默认显示编辑器
+        //,isShow : true    //默认显示编辑器
 
         //,textarea:'editorValue' // 提交表单时，服务器获取编辑器提交内容的所用的参数，多实例时可以给容器name属性，会将name给定的值最为每个实例的键值，不用每次实例化的时候都设置这个值
 
@@ -88,10 +88,10 @@
 
         //indentValue
         //首行缩进距离,默认是2em
-        ,indentValue:'2em'
+        //,indentValue:'2em'
 
         ,initialFrameWidth:700  //初始化编辑器宽度,默认1000
-        ,initialFrameHeight:400  //初始化编辑器高度,默认320
+        ,initialFrameHeight:300  //初始化编辑器高度,默认320
 
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
 
@@ -254,9 +254,9 @@
         //,wordCount:true          //是否开启字数统计
         //,maximumWords:10000       //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
-        //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
+       // ,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示
-        //,wordOverFlowMsg:''    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
+       // ,wordOverFlowMsg:''    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
 
         //tab
         //点击tab键时移动的距离,tabSize倍数，tabNode什么字符做为单位
@@ -427,7 +427,7 @@
 			u:      [],
 			ul:     ['class', 'style'],
 			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style']
-		}*/
+		}
     };
 
     function getUEBasePath(docUrl, confUrl) {

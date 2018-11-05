@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.5,user-scalable=no"/>
+    <title>微就业</title>
+    <link rel="stylesheet" href="/static/weixin/css/V_employment.css"/>
+    <style>
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+            display: none
+        }
+
+        label {
+            min-width: 1.2rem;
+            height: 1.2rem;
+            display: inline-block;
+            cursor: pointer;
+            line-height: 1.2rem;
+            text-align: left;
+            margin-top: 1.5rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        label input[type="checkbox"] + span {
+            width: 1.2rem;
+            height: 1.2rem;
+            display: inline-block;
+            background: url(/static/weixin/img/login_13.png) no-repeat;
+            background-position: 0 0;
+            vertical-align: middle
+        }
+
+        label input[type="checkbox"]:checked + span {
+            background-position: -40px 0
+        }
+
+        input::-webkit-input-placeholder {
+            color: #ffffff;
+        }
+
+        input::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #ffffff;
+        }
+
+        input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #ffffff;
+        }
+
+        input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #ffffff;
+        }
+
+        input::placeholder { /* Internet Explorer 10-11 */
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="login text-center">
+<div class="form">
+    <img class="touxiang" src="/static/weixin/img/login_03.png" alt="">
+    <form style="padding-top:120px" action="">
+        <input type="text" id="username" placeholder="请输入用户名，账号">
+        <input type="password" id="password" placeholder="输入密码">
+    </form>
+    <p id="msg" class="margintopone prompt" style="color: #ff0000"></p>
+    <div class="afterclear " style="color: #ffffff">
+        <label><input type="checkbox"><span style="margin-right:.4rem;"></span>记住密码</label>
+    </div>
+    <button class="sushe-btn" id="sub">登&nbsp&nbsp&nbsp录</button>
+    <a href="" class="com-login">公司注册</a>
+</div>
+<div class="bot botmenu">
+    <p>v-1010.002</p>
+    <p>Copyright © 2002-2018 成都易科士信息产业有限公司</p>
+</div>
+
+<script type="text/javascript" src="/static/weixin/js/jquery-2.1.1.js"></script>
+<script>
+    $(function () {
+        $("#sub").on("click", function () {
+            $.post("/weixin/login", {username: $("#username").val(), password: $("#password").val()}, function (data) {
+                $("#msg").text(data.msg);
+                if (data.flag) {
+                    setTimeout(function () {
+                        location.href = "/weixin/login";
+                    }, 1000)
+                }
+                setTimeout(function () {
+                    location.href = "/weixin/login";
+                }, 2000)
+
+            })
+        })
+    })
+    //alert($(window).height());
+    //alert(window.screen.availHeight);
+    var oHeight = $(document).height(); //浏览器当前的高度
+
+    $(window).resize(function () {
+
+        if ($(document).height() < oHeight) {
+
+            $(".botmenu").css("position", "static");
+        } else {
+
+            $(".botmenu").css("position", "absolute");
+        }
+
+    });
+</script>
+</body>
+</html>

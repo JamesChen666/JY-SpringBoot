@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+    <style>
+        .font_div {
+            font-size: 14px;
+            height: 100px;
+            width: 60px;
+            text-align: center; /* 水平居中 */
+            line-height: 100px; /* 垂直剧终 */
+        }
+
+    </style>
+    <script>//作业: 改成周期性定时器实现
+        function myClose() {//任务
+            //取出time中的数,保存在n中
+            var n = parseInt(time.innerHTML);
+            n -= 1//将n-1
+            if (n > 0) {//如果n>0
+                //将n+秒钟后自动关闭 再放回time中
+                time.innerHTML = n + "秒钟后自动关闭";
+                //再启动下一次定时器，将序号再保存在timer中
+                timer = setTimeout(arguments.callee, 1000);
+            } else {//否则
+                close();//关闭
+            }
+        }
+
+        var timer = null;//保存定时器序号
+        window.onload = function () {
+            timer = setTimeout(myClose, 1000);//启动一次性定时器
+        }
+    </script>
+</head>
+<body style="text-align: center;">
+<p style="color: red;font-size: 20px;">${msg}</p><br/><br/>
+<span id="time">30秒钟后自动关闭</span><br/><br/>
+<a href="javascript:clearTimeout(timer)">留在本页</a>
+<a href="javascript:history.back(-1);">返回问卷页</a>
+</body>
+</html>

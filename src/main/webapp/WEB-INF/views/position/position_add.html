@@ -9,17 +9,40 @@
 <table class="tb1">
     <tbody>
     <tr>
-        <td class="left b">专场招聘Id</td>
+        <td class="left b">单位名称</td>
         <td>
-            <input class="easyui-textbox"  name="specialId"
-                   data-options="required:true">
+            <input class="easyui-textbox" value="${corpName}" disabled>
+            <input  name="SpecialId" value="${specialId}" type="hidden">
         </td>
     </tr>
     <tr>
-        <td class="left b">职位Id</td>
-        <td>
-            <input class="easyui-textbox"  name="positionId"
-                   data-options="required:true">
+        <td class="right b">职位：</td>
+        <td colspan="3">
+            <input class="easyui-combogrid" name="positionId" data-options="required:true,
+                                                                        panelWidth:500,
+                                                                        width:500,
+                                                                        idField:'Id',
+                                                                        textField:'Title',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        url:'/postion/list?s_cp.CorpId=${corpId!}',
+                                                                        //multiple: true, //设置允许多选
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:50},
+                                                                        {field:'Title',title:'职位名称',width:100},
+                                                                        {field:'WorkAddress',title:'工作地点',width:50},
+                                                                        {field:'LevelCodeName',title:'学历要求',width:100},
+                                                                        {field:'PeopleCount',title:'招聘人数',width:50},
+                                                                        {field:'Salary',title:'月薪',width:100},
+                                                                        {field:'IsPortal',title:'是否自行联系',width:70,formatter:School.formatBIT},
+                                                                        ]]">
         </td>
     </tr>
     </tbody>

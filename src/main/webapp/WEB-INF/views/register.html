@@ -60,58 +60,81 @@
 </div>
 <div class="bt-box-1024 ">
     <p class="c1d " style="margin-top: 50px">注：*为必填</p>
-    <form action="" class="form2 text-l">
-        <label for="">
-            <span>* 用户名</span>
-            <input type="text">
-            <span class="c95">(大于6位的字母和数字组成)</span>
-        </label><br>
-        <label for="">
-            <span>* 密码</span>
-            <input type="password">
-            <span class="c95">(大于6位的字母和数字组成)</span>
-        </label><br>
-        <label for="">
-            <span>* 确认密码</span>
-            <input type="password">
-            <span class="c95">(大于6位的字母和数字组成)</span>
-        </label><br>
+    <form action="/corpRegister" method="post" class="form2 text-l" onsubmit="return check(this)">
         <label for="">
             <span>* 单位名称</span>
-            <input type="text">
-            <span class="c95">(大于6位的字母和数字组成)</span>
+            <input name="CorpName" type="text">
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
         </label><br>
         <label for="">
             <span>* 单位联系人</span>
-            <input type="text">
-            <span class="c95">(大于6位的字母和数字组成)</span>
+            <input name="Contactor" type="text">
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
         </label><br>
         <label for="">
             <span>* 联系人电话</span>
-            <input type="text">
-            <span class="c95">(大于6位的字母和数字组成)</span>
+            <input name="ContactPhone" id="ContactPhone" type="text">
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
         </label><br>
         <label for="">
             <span>* 电子邮箱</span>
-            <input type="text">
-            <span class="c95">(大于6位的字母和数字组成)</span>
+            <input name="Email" id="Email" type="text">
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
+        </label><br>
+        <label for="">
+            <span>* 单位营业执照</span>
+            <input name="BusinessImage"  type="text" id="BusinessImage" readonly="readonly">
+            <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file2" onchange="registerUploadPhoto('BusinessImage','upload-file2','cs2','yl2');"
+                       style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+            </a>
+            <a target="_blank" href="" id="cs2">
+                <img id="yl2" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+            </a>
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
+        </label><br>
+        <label for="">
+            <span>* 身份证正面照</span>
+            <input name="IdCardPicPos" type="text" readonly="readonly" id="IdCardPicPos">
+            <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file3" onchange="registerUploadPhoto('IdCardPicPos','upload-file3','cs3','yl3');"
+                       style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+            </a>
+            <a target="_blank" href="" id="cs3">
+                <img id="yl3" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+            </a>
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
+        </label><br>
+        <label for="">
+            <span>* 身份证反面照</span>
+            <input name="IdCardPicNeg" type="text" readonly="readonly" id="IdCardPicNeg">
+            <a href="javascript:;" class="file">选择文件
+                <input type="file" name="file" id="upload-file4" onchange="registerUploadPhoto('IdCardPicNeg','upload-file4','cs4','yl4');"
+                       style="width: 70px;height: 30px; margin-left: -52px;" accept="image/*">
+            </a>
+            <a target="_blank" href="" id="cs4">
+                <img id="yl4" src="/video/yqsh.jpg" style="width: 30px;height: 25px;margin-left: 5px;">点击查看大图
+            </a>
+            <!--<span class="c95">(大于6位的字母和数字组成)</span>-->
         </label><br>
         <label for="" class="clear">
             <span class="bt-l margintop15">* 验证码</span>
-            <input type="text" class="bt-l" style="width: 150px">
-            <span class="bt-l" style="width: 150px;height:50px;background: #f5f5f5"></span>
+            <input type="text" name="verifyCode" class="bt-l" style="width: 150px">
+            <!--<span ></span>-->
+            <img alt="验证码" onclick="this.src='/verifyCode?id='+new Date()*1" src="/verifyCode"
+                 class="bt-l" style="width: 150px;height:50px;background: #f5f5f5"/>
         </label><br>
         <div class="yuedu clear box">
             <label class="label"><input type="checkbox" ><span style="margin-right: 1rem;"></span>我已阅读注册协议</label>
             <a href="" class="c1d">单位使用手册</a>
         </div>
+        <div class="btn2 text-c">
+            <button class="text-c  cff">提&nbsp&nbsp交</button>
+            <button class="text-c   cff">重&nbsp&nbsp置</button>
+        </div>
     </form>
     <div class="tishi">
         <p class="cge">友情提示：单位注册.......</p>
-    </div>
-    <div class="btn2 text-c">
-        <button class="text-c  cff">提&nbsp&nbsp交</button>
-        <button class="text-c   cff">重&nbsp&nbsp置</button>
     </div>
 </div>
 <!--页尾-->
@@ -123,5 +146,94 @@
     </div>
 </div>
 <script src="/static/homePage/js/jquery-2.0.3.min.js"></script>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //验证手机号码
+        $("#ContactPhone").blur(function(){
+            var mobile = $("#ContactPhone").val();
+            if (!(/^((\d{3}-\d{8}|\d{4}-\d{7,8})|(1[3|5|7|8][0-9]{9}))$/.test(mobile))) {
+                alert("手机号填写的格式不对，请正确填写");
+                return false;
+            }
+        });
+
+        //验证邮箱
+        $("#Email").blur(function(){
+            var email = $("#Email").val();
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+            if(!reg.test(email)){
+                alert("邮箱格式不对");
+                return false;
+            }
+        });
+    });
+
+
+    function register() {
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/corpRegister" ,//url
+            data: $('#form1').serialize(),
+            success: function (result) {
+                debugger
+                console.log(result);//打印服务端返回的数据(调试用)
+                alert('消息提醒',result.msg);
+            },
+            error : function() {
+                alert("异常！");
+            }
+        });
+    }
+
+    
+    function check(from) {
+        if(from.CorpName.value =="" || from.CorpName.value ==null || from.CorpName.value ==undefined || from.CorpName.value =="undefined"){
+            alert("单位名称为空");
+            //$.messager.alert('消息提醒',"单位名称为空");
+            from.CorpName.focus();
+            return false;
+        }
+        if(from.Contactor.value =="" || from.Contactor.value ==null || from.Contactor.value ==undefined || from.Contactor.value =="undefined"){
+            alert("单位联系人为空");
+            from.Contactor.focus();
+            return false;
+        }
+        if(from.ContactPhone.value =="" || from.ContactPhone.value ==null || from.ContactPhone.value ==undefined || from.ContactPhone.value =="undefined"){
+            alert("联系人电话为空");
+            from.ContactPhone.focus();
+            return false;
+        }
+        if(from.Email.value =="" || from.Email.value ==null || from.Email.value ==undefined || from.Email.value =="undefined"){
+            alert("单位邮箱为空");
+            from.Email.focus();
+            return false;
+        }
+        if(from.BusinessImage.value =="" || from.BusinessImage.value ==null || from.BusinessImage.value ==undefined || from.BusinessImage.value =="undefined"){
+            alert("营业执照为空");
+            from.BusinessImage.focus();
+            return false;
+        }
+        if(from.IdCardPicPos.value =="" || from.IdCardPicPos.value ==null || from.IdCardPicPos.value ==undefined || from.IdCardPicPos.value =="undefined"){
+            alert("身份证正面照为空");
+            from.IdCardPicPos.focus();
+            return false;
+        }
+        if(from.IdCardPicNeg.value =="" || from.IdCardPicNeg.value ==null || from.IdCardPicNeg.value ==undefined || from.IdCardPicNeg.value =="undefined"){
+            alert("身份证反面照为空");
+            from.IdCardPicNeg.focus();
+            return false;
+        }
+        if(from.verifyCode.value =="" || from.verifyCode.value ==null || from.verifyCode.value ==undefined || from.verifyCode.value =="undefined"){
+            alert("验证码为空");
+            from.verifyCode.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.boot.model;
 
+import com.boot.util.excel.annotation.ExcelField;
+import com.boot.util.excel.converter.UserConverter.CampusConvert;
 import org.beetl.sql.core.annotatoin.Table;
 import java.io.Serializable;
 /**
@@ -9,11 +11,17 @@ import java.io.Serializable;
 public class Faculty implements Serializable{
 
 	  private Integer Id;
+	  @ExcelField(title = "院系代码",order = 2)
 	  private String FacultyCode;
+	  @ExcelField(title = "院系名称",order =1 )
 	  private String FacultyName;
+	  @ExcelField(title = "所属校区",order = 3,readConverter = CampusConvert.class,writeConverter = CampusConvert.class)
 	  private String CampusCode;
+	  @ExcelField(title = "类型",order = 4)
 	  private Integer TypeID;
+	  @ExcelField(title = "标准",order =5 )
 	  private String Remark;
+	  @ExcelField(title = "排序",order = 6)
 	  private Integer Sort;
 
 	  public void setId(Integer Id) {

@@ -1,5 +1,6 @@
 package com.boot.model;
 
+import com.boot.util.excel.annotation.ExcelField;
 import org.beetl.sql.core.annotatoin.Table;
 
 import java.io.Serializable;
@@ -11,9 +12,13 @@ import java.io.Serializable;
 public class Dictionary implements Serializable {
 
     private Integer Id;
+    @ExcelField(title = "类型代码",order = 1)
     private String TypeCode;
+    @ExcelField(title = "字段代码",order = 2)
     private String MemberValue;
+    @ExcelField(title = "字典值",order = 3)
     private String DisplayText;
+    @ExcelField(title = "排序",order = 4)
     private Integer Sort;
 
     public void setId(Integer Id) {

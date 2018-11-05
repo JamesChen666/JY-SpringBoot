@@ -1,7 +1,8 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
-import com.boot.model.CorpPart;
+import com.boot.model.*;
 import com.boot.util.AjaxResult;
 import com.boot.util.ShiroUtils;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author chenjiang
@@ -61,8 +60,10 @@ public class CorpPartController extends BaseController{
     @ResponseBody
     @RequestMapping("/edit/{id}")
     public Object edit(@PathVariable Integer id) {
-        CorpPart CorpPart = sqlManager.single(CorpPart.class,id);
-        return CorpPart;
+        /*CorpPart CorpPart = sqlManager.single(CorpPart.class,id);
+        return CorpPart;*/
+        Map map = sqlManager.selectSingle("corpPart.queryBoothIdandPositionId",Dict.create().set("id",id),Map.class);
+        return map;
     }
 
     @ResponseBody
@@ -71,14 +72,51 @@ public class CorpPartController extends BaseController{
         CorpPart model = mapping(CorpPart.class, request);
         int result;
         if (model.getId() == null) {
-            model.setStatus(3);
+            if(model.getStatus() == null || model.getStatus() == 0){
+                model.setStatus(0);
+            }else{
+                model.setExamineDate(new Date());
+                model.setExamineUserId(ShiroUtils.getInstence().getUser().getId());
+            }
             result = sqlManager.insert(model);
+            if(result>0){
+                //查询出刚刚添加的数据
+                CorpPart corpPart = sqlManager.selectSingle("corpPart.lastOne",new HashMap<>(),CorpPart.class);
+                //添加职位关联
+                addCorpPosition(request,corpPart.getId());
+                //添加展位关联
+                addCorpBooth(request,corpPart.getId());
+            }
         } else {
+            //查询出该条双选会参与单位对应的展位与职位
+           Map map = sqlManager.selectSingle("corpPart.queryBoothIdandPositionId",Dict.create().set("id",model.getId()),Map.class);
+            //对比展位与职位是否有修改
+            if(map!= null && map.get("boothId") !=null && !map.get("boothId").equals(request.getParameter("BoothId"))){
+                String[] ecbIds = (map.get("ecbId")+"").split(",");
+                //删除展位关联
+                for (int i = 0; i <ecbIds.length ; i++) {
+                    sqlManager.deleteById(CorpBooth.class,Integer.parseInt(ecbIds[i]));
+                }
+                addCorpBooth(request,model.getId());
+            }
+            if(map!= null && map.get("positionId")!=null && !map.get("positionId").equals(request.getParameter("PositionId"))){
+                String[] ecpIds = (map.get("ecpId")+"").split(",");
+                //删除职位关联
+                for (int i = 0; i <ecpIds.length ; i++) {
+                    sqlManager.deleteById(CorpPosition.class,Integer.parseInt(ecpIds[i]));
+                }
+                addCorpPosition(request,model.getId());
+            }
             CorpPart corpPart = sqlManager.single(CorpPart.class,model.getId());
-            model.setExamineRemark(corpPart.getExamineRemark());
-            model.setExamineDate(corpPart.getExamineDate());
-            model.setExamineUserId(corpPart.getExamineUserId());
-            model.setStatus(corpPart.getStatus());
+            if(model.getStatus() == null){
+                model.setExamineRemark(corpPart.getExamineRemark());
+                model.setExamineDate(corpPart.getExamineDate());
+                model.setExamineUserId(corpPart.getExamineUserId());
+                model.setStatus(corpPart.getStatus());
+            }else{
+                model.setExamineDate(new Date());
+                model.setExamineUserId(ShiroUtils.getInstence().getUser().getId());
+            }
             result = sqlManager.updateById(model);
         }
         if (result > 0) {
@@ -199,6 +237,58 @@ public class CorpPartController extends BaseController{
             return fail(FAIL);
         }
         return success(SUCCESS);
+    }
+
+    /**
+     * 添加展位关联
+     * @param request
+     * @param id
+     */
+    public void addCorpBooth(HttpServletRequest request,Integer id){
+        //添加展位关联
+        CorpBooth corpBooth = new CorpBooth();
+        String[] boothIds = request.getParameter("BoothId").split(",");
+        for (int i = 0; i < boothIds.length; i++) {
+            corpBooth.setElectionCorpId(id);
+            corpBooth.setBoothId(Integer.parseInt(boothIds[i]));
+            sqlManager.insert(corpBooth);
+        }
+    }
+
+    /**
+     * 添加职位关联
+     * @param request
+     * @param id
+     */
+    public void addCorpPosition(HttpServletRequest request,Integer id){
+        //添加职位
+        CorpPosition corpPosition = new CorpPosition();
+        String[] positionIds = request.getParameter("PositionId").split(",");
+        for (int i = 0; i < positionIds.length; i++) {
+            corpPosition.setElectionCorpId(id);
+            corpPosition.setPositionId(Integer.parseInt(positionIds[i]));
+            sqlManager.insert(corpPosition);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/applyElection")
+    public Object applyElection(HttpServletRequest request){
+        CorpPart model = mapping(CorpPart.class, request);
+        int result;
+        model.setStatus(0);
+        model.setApplyDate(new Date());
+        //判断是否已申请
+        Map map = sqlManager.selectSingle("corpPart.isExist",Dict.create().set("corpId",model.getCorpId()).set("electionId",model.getElectionId()),Map.class);
+        if(map != null && map.size()>0){
+            return fail("已申请过，请勿重复申请");
+        }
+        result = sqlManager.insert(model);
+        if(result>0){
+            return success(SUCCESS);
+        }else{
+            return fail(FAIL);
+        }
     }
 
 }

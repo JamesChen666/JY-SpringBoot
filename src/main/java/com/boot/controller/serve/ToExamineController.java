@@ -1,17 +1,20 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Corp;
 import com.boot.model.CorpPart;
 import com.boot.model.Postion;
-import com.boot.model.Specia;
+import com.boot.model.Recruit;
 import com.boot.util.AjaxResult;
 import com.boot.util.ShiroUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -29,10 +32,26 @@ public class ToExamineController extends BaseController {
     @ResponseBody
     @RequestMapping("/list")
     public Object list(HttpServletRequest httpServletRequest) {
-        Map map = pageQuery(LIST,httpServletRequest);
+        Map map = pageQuery("toExamine.newList",httpServletRequest);
         return map;
+
     }
 
+    @RequestMapping("/edit")
+    public String edit(HttpServletRequest httpServletRequest, ModelMap modelMap) {
+        String id  = httpServletRequest.getParameter("id");
+        modelMap.put("id", id);
+        //查询出单位信息
+        Map corp = sqlManager.selectSingle("corp.findOne",
+                Dict.create().set("id", id), Map.class);
+        //查询出职位审核信息
+        List<Map>  postion = sqlManager.select("corp.findPostion",Map.class,Dict.create().set("corpId",id));
+        //查询出专场招聘审核信息
+        //查询出双选会审核信息
+        modelMap.put("corp", corp);
+        modelMap.put("postion",postion!=null?postion.get(0):null);
+        return BASE_PATH + "/sign_edit";
+    }
 
     /**
      * 审核
@@ -85,7 +104,7 @@ public class ToExamineController extends BaseController {
                     String[] strings = id.split("-");
                     String flag = httpServletRequest.getParameter("flag");
                     String opinion = httpServletRequest.getParameter("opinion");
-                    Specia single = sqlManager.single(Specia.class, strings[0]);
+                    Recruit single = sqlManager.single(Recruit.class, strings[0]);
                     //审核通过
                     if (flag.equals("true")){
                         single.setStatus(1);

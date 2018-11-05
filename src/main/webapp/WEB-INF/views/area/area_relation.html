@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<div style="padding: 10px;">
+    <div>将为地区：${AreaName!}  地区代码：${AreaCode!}  关联派遣单位信息</div>
+<table class="tb1">
+    <tbody>
+    <tr>
+        <td class="right b">师范生关联派遣单位：</td>
+        <td>
+            <input name="AreaCode" value="${AreaCode!}" type="hidden">
+            <input name="IsNormal" value="true" type="hidden">
+            <input class="easyui-combogrid" name="DispatchUnitId" value="${DispatchUnitId!}" data-options="required:true,
+                                                                        panelWidth:450,
+                                                                        width:450,
+                                                                        idField:'Id',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        textField:'ProviderName',
+                                                                        url:'/dispatchunit/list?s_IsNormal=1&s_AreaCode=${AreaCode}',
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 20,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:100},
+                                                                        {field:'ProviderName',title:'派遣单位名称',width:200},
+                                                                        {field:'Address',title:'单位详细地址',width:100},
+                                                                        {field:'IsNormalName',title:'是否师范单位',width:80},
+                                                                        {field:'IsEnabledName',title:'是否启用',width:80}
+                                                                        ]]">
+        </td>
+    </tr>
+    <tr>
+        <td class="right b">非师范生关联派遣单位：</td>
+        <td>
+            <input class="easyui-combogrid" name="normalDispatchUnitId" value="${noDispatchUnitId!}" data-options="required:true,
+                                                                        panelWidth:450,
+                                                                        width:450,
+                                                                        idField:'Id',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        textField:'ProviderName',
+                                                                        url:'/dispatchunit/list?s_IsNormal=0&s_AreaCode=${AreaCode}',
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 20,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:100},
+                                                                        {field:'ProviderName',title:'派遣单位名称',width:200},
+                                                                        {field:'Address',title:'单位详细地址',width:100},
+                                                                        {field:'IsNormalName',title:'是否师范单位',width:80},
+                                                                        {field:'IsEnabledName',title:'是否启用',width:80}
+                                                                        ]]">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

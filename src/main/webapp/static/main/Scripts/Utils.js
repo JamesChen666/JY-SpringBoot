@@ -47,7 +47,7 @@ function formatWeekDay(d) {
 }
 
 var School = {
-    divdialog: top.window.dialogWindow,
+    divdialog: document.createElement("div"),
     formatBIT: function (val) {
         if (val)
             return "<span style='color:green'>√</span>";
@@ -123,6 +123,13 @@ var School = {
         }
     },
     showDiv: function (obj) {
+        var showPanel;
+        if (!obj.fit){
+            showPanel = top.$(top.window.dialogWindow);
+        } else
+        {
+            showPanel = $(School.divdialog);
+        }
         //弹出模式窗口 
         obj = $.extend({
             width: 700,
@@ -130,25 +137,24 @@ var School = {
             modal: true,
             div: School.divdialog,
             onClose: function () {
-                
-                top.$(obj.div).dialog("destroy");
+                showPanel.dialog("destroy");
             },
             buttons: [
                   {
                       iconCls: 'icon-cancel', text: "关闭", handler: function () {
-                          top.$(obj.div).dialog("close");
+                          showPanel.dialog("close");
                       }
                   }
             ]
         }, obj);
-        return top.$(obj.div).dialog(obj);
+        return showPanel.dialog(obj);
     },
     showDivHasSave: function (obj) {
         //弹出模式窗口
         //var divDialog = document.createElement("div");
         var showPanel;
         if (!obj.fit){
-            showPanel = top.$(School.divdialog);
+            showPanel = top.$(top.window.dialogWindow);
         } else
         {
             showPanel = $(School.divdialog);
@@ -214,7 +220,13 @@ var School = {
     showDivHasDelete: function (obj) {
         //弹出模式窗口
         //var divDialog = document.createElement("div");
-        var showPanel = top.$(School.divdialog);
+        var showPanel;
+        if (!obj.fit){
+            showPanel = top.$(top.window.dialogWindow);
+        } else
+        {
+            showPanel = $(School.divdialog);
+        }
         obj = $.extend({
             width: 700,
             height: 300,
@@ -302,7 +314,13 @@ var School = {
     },
     showPrintDiv: function (obj) {
         //弹出模式窗口 
-        var showPanel = top.$(School.divdialog);
+        var showPanel;
+        if (!obj.fit){
+            showPanel = top.$(top.window.dialogWindow);
+        } else
+        {
+            showPanel = $(School.divdialog);
+        }
         obj = $.extend({
             width: 700,
             height: 300,
@@ -334,7 +352,13 @@ var School = {
         return showPanel.dialog(obj);
     },
     showManager: function (obj) {
-        var showPanel = top.$(School.divdialog);
+        var showPanel;
+        if (!obj.fit){
+            showPanel = top.$(top.window.dialogWindow);
+        } else
+        {
+            showPanel = $(School.divdialog);
+        }
         obj = $.extend({
             width: 900,
             height: 580,
@@ -356,13 +380,12 @@ var School = {
                                 School.waitPanel.showWait("", 9999);
                                 var args = showPanel.find("input,textarea,select").formJsonSerialize();
                                 args["objectCode"] = obj.objectCode
-
                                 var jobNumber = []
                                 var list = showPanel.find("#selectR").find("option")
                                 for (var i = 0; i < list.length; i++) {
                                     jobNumber.push($(list[i]).attr("value"))
                                 }
-                                args["jobNumber"] = jobNumber
+                                args["jobNumber"] = JSON.stringify(jobNumber)
                                 if (item.submit) {
                                     args = item.submit(args);
                                 }
@@ -398,7 +421,80 @@ var School = {
                   }
             ]
         }, obj);
-        obj.href = "/Manager/Tools/ChooseManager?objectCode=" + obj.objectCode + "&moduleId=" + obj.moduleId
+        obj.href = "/tools/SetManager?objectCode=" + obj.objectCode + "&moduleId=" + obj.moduleId + "&type=" +obj.codeType
+        return showPanel.dialog(obj);
+    },
+    showManagers: function (obj) {
+        var showPanel;
+        if (!obj.fit){
+            showPanel = top.$(top.window.dialogWindow);
+        } else
+        {
+            showPanel = $(School.divdialog);
+        }
+        obj = $.extend({
+            width: 900,
+            height: 580,
+            iconCls: "icon-setting",
+            onClose: function () {
+                showPanel.dialog("destroy");
+            },
+            modal: true,
+            buttons: [
+                {
+                    iconCls: 'icon-save', text: (obj.ButtonText ? obj.ButtonText : "保存"), handler: function () {
+                        var item = obj;
+                        if (item.validateing) {
+                            if (item.validateing(item) == false)
+                                return;
+                        }
+                        if (item.save) {
+                            if (showPanel.form('validate')) {
+                                School.waitPanel.showWait("", 9999);
+                                var args = showPanel.find("input,textarea,select").formJsonSerialize();
+                                args["objectCode"] = obj.objectCode
+                                /*var jobNumber = []
+                                var list = showPanel.find("#selectR").find("option")
+                                for (var i = 0; i < list.length; i++) {
+                                    jobNumber.push($(list[i]).attr("value"))
+                                }
+                                args["jobNumber"] = JSON.stringify(jobNumber)*/
+                                if (item.submit) {
+                                    args = item.submit(args);
+                                }
+                                $.post(item.save, args, function (result) {
+                                    if (result.flag) {
+                                        if (item.callback)
+                                            item.callback();
+                                        $("#list").trigger("reloadGrid");
+                                        School.waitPanel.closeWait()
+                                        showPanel.dialog("close");
+                                    }
+                                    else {
+                                        School.waitPanel.closeWait()
+                                        top.$.messager.alert("系统提示", result.msg == null ? "操作失败，对此抱歉！" : result.msg, "error");
+                                    }
+                                });
+
+                            }
+                        } else {
+                            showPanel.dialog("close");
+                            School.waitPanel.closeWait()
+                            if (!item.fit)
+                                showPanel.dialog("destroy")
+                        }
+                    }
+                },
+                {
+                    iconCls: 'icon-cancel', text: "关闭", handler: function () {
+                        if (obj.onCancel)
+                            obj.onCancel()
+                        showPanel.dialog("close");
+                    }
+                }
+            ]
+        }, obj);
+        obj.href = "/loginaccount/userCole?id="+obj.codeType;
         return showPanel.dialog(obj);
     },
     showStudent: function (obj) {

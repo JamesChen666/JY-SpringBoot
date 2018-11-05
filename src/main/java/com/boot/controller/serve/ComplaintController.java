@@ -39,6 +39,19 @@ public class ComplaintController extends BaseController{
         Map map = pageQuery(LIST,httpServletRequest);
         return map;
     }
+    @ResponseBody
+    @RequestMapping("/myList")
+    public Object myList() {
+        List<Map> mapList = sqlManager.select("complaint.myList", Map.class);
+        return mapList;
+    }
+    @ResponseBody
+    @RequestMapping("/searchList")
+    public Object searchList(HttpServletRequest httpServletRequest) {
+        List<Map> mapList = sqlManager.select("complaint.searchList", Map.class,
+                Dict.create().set("search", httpServletRequest.getParameter("content")));
+        return mapList;
+    }
 
     @RequestMapping("/add")
     public String add() {

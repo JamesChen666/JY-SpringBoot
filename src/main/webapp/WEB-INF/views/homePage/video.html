@@ -59,21 +59,21 @@
     $(function () {
         var notice = JSON.parse('${notice}');
         $("#lbdz").attr("href","/home/videoList?code="+notice.typeCode);
-        var html = '<p class="news-pro-t text-c">'+notice.title+'</p>\n' +
+        var html = '<p class="news-pro-t text-c">'+shieldNull(notice.title)+'</p>\n' +
             '    <div class="text-c c95 news-pro-data">\n' +
             '        <span>'+fmtDate(notice.createDate)+'</span>\n' +
-            '        <span class="xcb"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+notice.resource+'</span>\n' +
+            '        <span class="xcb"><img src="../../../static/homePage/img/news-data-bg.png" alt="">来源 ：'+shieldNull(notice.resource)+'</span>\n' +
             '        <span><img src="../../../static/homePage/img/news-data-bg01.png" alt="">阅读 ：'+notice.clickCount+'</span>\n' +
             '    </div>\n' +
             '    <div class="line2"></div>\n' +
             '    <!--video-->\n' +
             '    <div style="height: 650px">\n' +
-            '<video src="/'+notice.videoUrl +'" controls="true" controlslist="nodownload" style="width:100%; 600px; object-fit: fill">+\n' +
+            '<video src="'+notice.videoUrl +'" controls="true" controlslist="nodownload" style="width:100%; 600px; object-fit: fill">+\n' +
             '</video>'+
             /*'        <img style="margin: 30px auto" src="/'+notice.videoUrl+'" height="600px" width="100%" alt="">\n' +*/
             '    </div>\n' +
             '    <div class="news-zw">\n' +
-            '        <p class="margintop20">'+notice.content+'</p>\n' +
+            '        <p class="margintop20">'+decodeURIComponent(notice.content)+'</p>\n' +
             '    </div>';
         $("#spxq").append(html);
     });

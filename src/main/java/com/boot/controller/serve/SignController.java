@@ -66,7 +66,7 @@ public class SignController extends BaseController{
         Sign model = mapping(Sign.class, request);
         //查询出是否存在签约信息
         Sign studentId = sqlManager.query(Sign.class)
-                .andEq("StudentId", model.getId()).single();
+                .andEq("StudentId", model.getStudentId()).single();
         int result=0;
         if (ObjectUtil.isNull(studentId)) {
             //不存在签约信息新增

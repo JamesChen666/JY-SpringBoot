@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Menu;
+import com.boot.model.TreeModel;
 import com.boot.system.SqlIntercepter;
 import com.boot.util.AjaxResult;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +47,23 @@ public class MenuController extends BaseController{
     public Object combotreeList() {
         List<Map> map = sqlManager.select(LIST, Map.class);
         List<Map> combotree = combotree(map);
+        return combotree;
+    }
+
+    @ResponseBody
+    @RequestMapping("/treeList")
+    public Object treeList() {
+        List<TreeModel> map = sqlManager.select("menu.treeList", TreeModel.class);
+        List<TreeModel> combotree = buildTree(map,"0");
+        return combotree;
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateTreeList")
+    public Object updateTreeList(HttpServletRequest request) {
+        List<TreeModel> map = sqlManager.select("menu.treeList", TreeModel.class);
+        //查询出
+        List<TreeModel> combotree = buildTree(map,"0");
         return combotree;
     }
 
@@ -169,10 +188,25 @@ public class MenuController extends BaseController{
     public AjaxResult importExcel(MultipartHttpServletRequest request) {
         MultiValueMap<String, MultipartFile> multiFileMap = request.getMultiFileMap();
         int insert = 0;
+        int err = 0;
         for (String s : multiFileMap.keySet()) {
             MultipartFile file = request.getFile(s);
             List<Menu> Menus = importExcel(file, Menu.class);
             for (Menu menu : Menus) {
+                err++;
+                Menu menuName = sqlManager.query(Menu.class)
+                        .andEq("MenuName", menu.getMenuName()).single();
+                if (ObjectUtil.isNotNull(menuName)){
+                    return error("第"+err+"行"+menu.getMenuName()+"重复");
+                }
+                Menu MenuCode = sqlManager.query(Menu.class)
+                        .andEq("MenuCode", menu.getMenuCode()).single();
+                if (ObjectUtil.isNotNull(MenuCode)){
+                    return error("第"+err+"行"+menu.getMenuCode()+"重复");
+                }
+            }
+            for (Menu menu : Menus) {
+                menu.setIsEnabled(true);
                 insert += sqlManager.insert(menu);
             }
         }
@@ -206,6 +240,28 @@ public class MenuController extends BaseController{
     public Object parentList(){
         List<Map> list = appendToList(LIST,SqlIntercepter.create().set("WHERE sm.ParentId = 0") );
         return list;
+    }
+
+
+    public  List<TreeModel> updateBuildTree(List<TreeModel> list,String pId){
+        List<TreeModel> menus=new ArrayList<TreeModel>();
+        //查询出该角色的权限
+        for (TreeModel menu : list) {
+            String menuId = menu.getId();
+            String ParentId = menu.getPid();
+            if("0".equals(menu.getPid())){
+                menu.setState("closed");
+            }
+            if (pId.equals(ParentId)) {
+                List<TreeModel> menuLists = buildTree(list, menuId);
+                menu.setChildren(menuLists);
+                menus.add(menu);
+            }
+            if(menuId.equals("but_1")){
+                menu.setChecked(true);
+            }
+        }
+        return menus;
     }
 
 }

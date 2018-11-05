@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <#include "../base/header.html">
+</head>
+<body>
+<from id="from" action="/recruit/edit/${id}" class="easyui-form">
+    <input type="hidden" name="Id" value="${id}">
+
+    <table class="tb1">
+        <tbody>
+        <tr>
+            <td class="right b width120">单位：</td>
+            <td colspan="3">
+                <input class="easyui-combogrid" name="CorpId" data-options="required:true,
+                                                                        panelWidth:500,
+                                                                        width:500,
+                                                                        idField:'Id',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        textField:'CorpName',
+                                                                        url:'/corp/list',
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:100},
+                                                                        {field:'CorpName',title:'单位名称',width:100},
+                                                                        {field:'Address',title:'单位地址',width:100},
+                                                                        {field:'EstablishmentDate',title:'单位成立日期',width:130},
+                                                                        ]]">
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">场地：</td>
+            <td colspan="3">
+                <input class="easyui-combogrid" name="PlaceId" data-options="required:true,
+                                                                        panelWidth:500,
+                                                                        width:500,
+                                                                        idField:'Id',
+                                                                        textField:'Title',
+                                                                        sortName:'Id',
+                                                                        sortOrder:'asc',
+                                                                        url:'/place/list',
+                                                                        //multiple: true, //设置允许多选
+                                                                        pagination : true,//是否分页
+                                                                        rownumbers:true,//序号
+                                                                        collapsible:false,//是否可折叠的
+                                                                        //fit: true,//自动大小
+                                                                        pageSize: 10,//每页显示的记录条数，默认为10
+                                                                        pageList: [10,20,50,100,500],//可以设置每页记录条数的列表
+                                                                        method:'post',
+                                                                        columns:[[
+                                                                        //{field:'Id',title:'ID',width:50},
+                                                                        {field:'Title',title:'场地名称',width:100},
+                                                                        {field:'Capacity',title:'容纳人数',width:100},
+                                                                        {field:'StartDate',title:'开放时间段（开始）',width:100},
+                                                                        {field:'EndDate',title:'开放时间段（结束）',width:100},
+                                                                        {field:'StartHour',title:'每天开始时间',width:100},
+                                                                        {field:'EndHour',title:'每天结束时间',width:100},
+                                                                        {field:'IsEnabled',title:'是否可用',width:50,formatter:School.formatBIT},
+                                                                        ]]">
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">召开类型：</td>
+            <td style="width: 200px">
+                <select class="easyui-combobox" name="OpenTypeId" data-options="required:true">
+                    <option value="1">宣讲</option>
+                    <option value="2">面试</option>
+                </select>
+            </td>
+            <td class="right b width120">使用日期：</td>
+            <td>
+                <input class="easyui-datebox" name="UseDate" data-options="required:true">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="right b">开始时间：</td>
+            <td>
+                <input class="easyui-timespinner" name="StartHour"
+                       data-options="required:true,min:'07:00',max:'20:00'">
+            </td>
+            <td class="right b">结束时间：</td>
+            <td>
+                <input class="easyui-timespinner" name="EndHour"
+                       data-options="required:true,min:'07:00',max:'20:00'">
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td class="right b">招聘简章：</td>
+            <td colspan="3">
+            <textarea cols="60" data-options="validType:'maxLength[1000]'"
+                      name="RecuitFiles" rows="5" style="width:400px !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">附件：</td>
+            <td colspan="3">
+                <input class="easyui-textbox" name="Files"
+                       data-options="required:false" id="fmtp" style="width: 150px !important;">
+                <a href="javascript:;" class="file">选择文件
+                    <input type="file" name="file" id="upload-file1" onchange="show1();"
+                           style="width: 70px;height: 30px; margin-left: -52px;">
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">招聘类型：</td>
+            <td colspan="3">
+                <select class="easyui-combobox" name="TypeId" data-options="required:true">
+                    <option value="1">自行联系</option>
+                    <option value="2">来校招聘</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">审核状态：</td>
+            <td colspan="3">
+                <select class="easyui-combobox" name="Status" data-options="required:true">
+                    <option value="0">待审核</option>
+                    <option value="1">通过</option>
+                    <option value="2">拒绝</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="right b">审核意见：</td>
+            <td colspan="3">
+                <textarea cols="60"   name="ExamineRemark" rows="5" style="width:400px !important;height:80px !important;"></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</from>
+<script src="/static/main/EditFrom.js"></script>
+<link rel="stylesheet" href="/static/homePage/css/upload.css">
+<script type="text/javascript" src="/static/homePage/js/upload.js"></script>
+</body>
+</html>

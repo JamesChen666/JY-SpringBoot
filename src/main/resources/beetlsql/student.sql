@@ -21,7 +21,9 @@ WHEN ba4.AreaName IS NULL
 THEN CONCAT(ba3.AreaName,ba2.AreaName,ba1.AreaName)
 ELSE CONCAT(ba4.AreaName,ba3.AreaName,ba2.AreaName,ba1.AreaName)
 END
-)  as OriginCode
+)  as OriginCode,
+st.Title as TagName,
+st.Id as TagId
  FROM school_student ss
 LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'MZDM') na ON ss.NationCode = na.MemberValue
 LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'ZZMMDM') po ON ss.PoliticalCode = po.MemberValue
@@ -38,6 +40,8 @@ LEFT JOIN base_area ba1 ON ss.OriginCode = ba1.AreaCode
 LEFT JOIN base_area ba2 ON ba1.ParentId = ba2.Id
 LEFT JOIN base_area ba3 ON ba2.ParentId = ba3.Id
 LEFT JOIN base_area ba4 ON ba3.ParentId = ba4.Id
+LEFT JOIN student_student_tag sst ON sst.StudentId = ss.Id
+LEFT JOIN school_tag st ON st.Id = sst.TagId
 
 findOne
 ===
@@ -157,3 +161,62 @@ ss.CorpOrginCode
 FROM school_student sst
 LEFT JOIN student_sign ss ON sst.Id = ss.StudentId
 WHERE ss.GraduationWhereAboutCode=10 AND sst.Id = #{Id}
+
+findTag
+===
+select ss.Id,ss.RealName,ss.StudentNumber,sct.Title,sct.Id as TagId from school_student ss
+left join student_student_tag sst on ss.Id = sst.StudentId
+left join school_tag sct on sct.Id = sst.TagId
+where ss.Id = #{id}
+
+findStudent
+===
+select ss.*,ed.DisplayText AS stulevel,cu.DisplayText AS Culture from school_student ss
+LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'XLDM') ed ON ss.LevelCode = ed.MemberValue
+LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'JYPYFSDM') cu ON ss.CultureCode = cu.MemberValue
+where ss.StudentNumber = #{userName}
+findByStudentNumber
+===
+SELECT ss.*,
+       na.DisplayText as NationCode,
+       po.DisplayText as PoliticalCode,
+       ed.DisplayText as LevelCode,
+       cu.DisplayText as CultureCode,
+       nor.DisplayText as NormalCode,
+       di.DisplayText as DifficultCode,
+       ur.DisplayText as UrbanOrRuralCode,
+       su.DisplayText as SubsistenceCode,
+       ma.DisplayText as MajorLanguageCode,
+       sc.ClassName AS ClassNumber,
+       ssp.SpecialtyName AS SpecialtyCode,
+       (CASE
+        WHEN ba3.AreaName IS NULL AND ba3.AreaName IS NULL AND ba2.AreaName IS NULL
+         THEN CONCAT(ba1.AreaName)
+        WHEN ba4.AreaName IS NULL AND ba3.AreaName IS NULL
+         THEN CONCAT(ba2.AreaName,ba1.AreaName)
+        WHEN ba4.AreaName IS NULL
+         THEN CONCAT(ba3.AreaName,ba2.AreaName,ba1.AreaName)
+        ELSE CONCAT(ba4.AreaName,ba3.AreaName,ba2.AreaName,ba1.AreaName)
+        END
+        )  as OriginCode,
+       st.Title as TagName,
+       st.Id as TagId
+FROM school_student ss
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'MZDM') na ON ss.NationCode = na.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'ZZMMDM') po ON ss.PoliticalCode = po.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'XLDM') ed ON ss.LevelCode = ed.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'JYPYFSDM') cu ON ss.CultureCode = cu.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'ZXWYYZDM') ma ON ss.MajorLanguageCode = ma.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'JYSFSLBDM') nor ON ss.NormalCode = nor.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'JYKNLXDM') di ON ss.DifficultCode = di.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'CXJMDBJTLXDM') su ON ss.SubsistenceCode = su.MemberValue
+      LEFT JOIN (SELECT MemberValue,DisplayText FROM base_dictionary WHERE TypeCode = 'CXSYDM') ur ON ss.UrbanOrRuralCode = ur.MemberValue
+      LEFT JOIN school_class sc ON ss.ClassNumber = sc.ClassNo
+      LEFT JOIN school_specialty ssp ON ss.SpecialtyCode = ssp.SpecialtyCode
+      LEFT JOIN base_area ba1 ON ss.OriginCode = ba1.AreaCode
+      LEFT JOIN base_area ba2 ON ba1.ParentId = ba2.Id
+      LEFT JOIN base_area ba3 ON ba2.ParentId = ba3.Id
+      LEFT JOIN base_area ba4 ON ba3.ParentId = ba4.Id
+      LEFT JOIN student_student_tag sst ON sst.StudentId = ss.Id
+      LEFT JOIN school_tag st ON st.Id = sst.TagId
+WHERE ss.StudentNumber = #{StudentNumber}

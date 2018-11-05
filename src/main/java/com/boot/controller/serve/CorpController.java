@@ -1,11 +1,11 @@
 package com.boot.controller.serve;
 
+import cn.hutool.core.lang.Dict;
 import com.boot.controller.system.BaseController;
 import com.boot.model.Corp;
 import com.boot.model.Loginaccount;
 import com.boot.util.AjaxResult;
 import com.boot.util.Md5Util;
-import com.boot.util.PublicClass;
 import com.boot.util.ShiroUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +52,13 @@ public class CorpController extends BaseController{
         return list;
     }
 
+    @ResponseBody
+    @RequestMapping("/zxlx")
+    public Object zxlx(HttpServletRequest httpServletRequest) {
+        List<Map> list = sqlManager.select("corp.findZxlx",Map.class);
+        return list;
+    }
+
     @RequestMapping("/add")
     public String add() {
         return BASE_PATH + "/corp_add";
@@ -78,49 +86,73 @@ public class CorpController extends BaseController{
     public AjaxResult save(HttpServletRequest request) {
         Corp model = mapping(Corp.class, request);
         Loginaccount loginaccount = mapping(Loginaccount.class, request);
-        Map map = new HashMap();
-        map.put("UserName",loginaccount.getUserName());
+        loginaccount.setRealName(model.getContactor());
         int result;
         if (model.getId() == null) {
-            //添加单位登录信息
-            loginaccount.setIsEnabled(false);
-            loginaccount.setUserTypeId(4);
-            loginaccount.setCreateDate(new Date());
-            String salt = Md5Util.getInstance().getSalt();
-            String md5 = Md5Util.getInstance().MD5(loginaccount.getPassWord(), salt);
-            loginaccount.setPassWord(md5);
-            loginaccount.setSalt(salt);
-            boolean isOk = sqlManager.insert(loginaccount)>0;
-            if(isOk){
-                Loginaccount login = sqlManager.selectSingle("loginaccount.findByUserName",map,Loginaccount.class);
-                model.setStatus(3);
-                model.setUserId(login.getId());
-                result = sqlManager.insert(model);
-            }else{
-                return fail("单位登录信息添加失败");
+            Map loginMap = sqlManager.selectSingle("loginaccount.findByUserName",Dict.create().
+                    set("UserName",loginaccount.getUserName()),Map.class);
+            if(loginMap != null && loginMap.size()>0){
+                  return fail("登录账户已存在");
+            }else {
+                //添加单位登录信息
+                loginaccount.setIsEnabled(false);
+                loginaccount.setUserTypeId(4);
+                loginaccount.setCreateDate(new Date());
+                String salt = Md5Util.getInstance().getSalt();
+                String md5 = Md5Util.getInstance().MD5(loginaccount.getPassWord(), salt);
+                loginaccount.setPassWord(md5);
+                loginaccount.setSalt(salt);
+                boolean isOk = sqlManager.insert(loginaccount)>0;
+                if(isOk){
+                    Loginaccount login = sqlManager.selectSingle("loginaccount.findByUserName",Dict.create().
+                            set("UserName",loginaccount.getUserName()),Loginaccount.class);
+                    if(model.getStatus() == null || model.getStatus() == 0){
+                        model.setStatus(0);
+                    }else{
+                        model.setExamineDate(new Date());
+                        model.setExamineUserId(ShiroUtils.getInstence().getUser().getId());
+                    }
+                    model.setUserId(login.getId());
+                    result = sqlManager.insert(model);
+                }else{
+                    return fail("单位登录信息添加失败");
+                }
             }
         } else {
             Corp corp = sqlManager.single(Corp.class,model.getId());
-            model.setStatus(corp.getStatus());
-            model.setExamineRemark(corp.getExamineRemark());
-            model.setExamineDate(corp.getExamineDate());
-            model.setExamineUserId(corp.getExamineUserId());
+            if(model.getStatus() == null){
+                model.setStatus(corp.getStatus());
+                model.setExamineRemark(corp.getExamineRemark());
+                model.setExamineDate(corp.getExamineDate());
+                model.setExamineUserId(corp.getExamineUserId());
+            }else{
+                model.setExamineDate(new Date());
+                model.setExamineUserId(ShiroUtils.getInstence().getUser().getId());
+            }
             model.setUserId(corp.getUserId());
             result = sqlManager.updateById(model);
             if(result > 0){
-                /*List<Map> list = sqlManager.select("",Map.class,map);
-                Loginaccount loginaccount1 = (Loginaccount) list.get(0);*/
-                Loginaccount loginaccount1 = sqlManager.selectSingle("loginaccount.findByUserName",map,Loginaccount.class);
-                loginaccount1.setRealName(loginaccount.getRealName());
-                loginaccount1.setUserName(loginaccount.getUserName());
-                if(!loginaccount1.getPassWord().equals(loginaccount.getPassWord())){
-                    String salt = Md5Util.getInstance().getSalt();
-                    String md5 = Md5Util.getInstance().MD5(loginaccount.getPassWord(), salt);
-                    loginaccount1.setPassWord(md5);
-                    loginaccount1.setSalt(salt);
+                String loginId = request.getParameter("loginId");
+                if(loginId != null && !"".equals(loginId) && !"null".equals(loginId)){
+                    Loginaccount loginaccount1 = sqlManager.selectSingle("loginaccount.findIsRepeat",Dict.create().
+                            set("UserName",loginaccount.getUserName()).set("id",loginId),Loginaccount.class);
+                    if(loginaccount1 != null){
+                        return fail("登录账户已存在");
+                    }else{
+                        //修改
+                        Loginaccount login = sqlManager.single(Loginaccount.class,loginId);
+                        login.setRealName(loginaccount.getRealName());
+                        login.setUserName(loginaccount.getUserName());
+                        if(!login.getPassWord().equals(loginaccount.getPassWord())){
+                            String salt = Md5Util.getInstance().getSalt();
+                            String md5 = Md5Util.getInstance().MD5(loginaccount.getPassWord(), salt);
+                            login.setPassWord(md5);
+                            login.setSalt(salt);
+                        }
+                        boolean isOk = sqlManager.updateById(login)>0;
+                        return isOk? success(SUCCESS) : fail("单位登录信息更新失败");
+                    }
                 }
-                boolean isOk = sqlManager.updateById(loginaccount1)>0;
-                return isOk? success(SUCCESS) : fail("单位登录信息更新失败");
             }
         }
         if (result > 0) {

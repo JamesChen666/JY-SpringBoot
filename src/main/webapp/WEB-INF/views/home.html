@@ -55,13 +55,13 @@
             <img src="/static/homePage/img/index-02_14-18.png" alt="">
             <b>用户登录</b>
         </div>
-        <a href="/login" >
+        <a href="/login?type=3" >
             <img class="margintop20" src="/static/homePage/img/index-02_24.png" alt="">
         </a>
-        <a href="/login" >
+        <a href="/login?type=2" >
             <img class="margintop10" src="/static/homePage/img/index-02_34.png" alt="">
         </a>
-        <a href="/login" >
+        <a href="/login?type=4" >
             <img class="margintop10" src="/static/homePage/img/index-02_36.png" alt="">
         </a>
     </div>
@@ -106,7 +106,7 @@
                 <img src="/static/homePage/img/index-xg02_39rl.png" alt="">
                 <b class="cff">来校招聘单位日程</b>
             </div>
-            <a href="" class="bt-r cff">
+            <a href="/home/zczpList?code=1" class="bt-r cff">
                 更多 > >
             </a>
         </div>
@@ -119,7 +119,7 @@
                 <img src="/static/homePage/img/index-jr02_39-42%20.png" alt="">
                 <b class="cff">今日来校招聘</b>
             </div>
-            <a href="/home/?code=3" class="bt-r cff">
+            <a href="/home/zczpList?code=2" class="bt-r cff">
                 更多 > >
             </a>
         </div>
@@ -182,7 +182,7 @@
                 <img src="/static/homePage/img/index-02_39-42.png" alt="">
                 <b class="cff">自行联系</b>
             </div>
-            <a href="/home/?code=2" class="bt-r cff">
+            <a href="/home/zczpList?code=3" class="bt-r cff">
                 更多 > >
             </a>
         </div>
@@ -397,6 +397,19 @@
         border: 1px solid #ccc;
         outline: none;
     }
+   .tooltip {
+       position: absolute;
+       display: none;
+       z-index: 9999999999999999;
+       outline: none;
+       padding: 5px;
+       border-width: 1px;
+       border-style: solid;
+       border-radius: 5px;
+       -moz-border-radius: 5px 5px 5px 5px;
+       -webkit-border-radius: 5px 5px 5px 5px;
+       border-radius: 5px 5px 5px 5px;
+   }
 </style>
 <script>
     var swiper1 = new Swiper('#swiper1',{
@@ -432,7 +445,25 @@
         }
     });
 
-    $('#dd').calendar({
+    function mouseOver(t,e,data){
+        debugger
+        //参数含义
+        //t:指当前对象，即超链接<a>
+        //e:event事件
+        //data:要显示的内容
+        var tooltipHtml = "<div id='tooltip' class='tooltip'>"+data+"</div>";
+        $(t).append(tooltipHtml); //添加到页面中
+        $("#tooltip").css({
+            "top": (e.pageY) + "px",
+            "left": (e.pageX) + "px"
+        }).show("fast"); //设置提示框的坐标，并显示
+    }
+
+    function mouseOut(){
+        $("#tooltip").remove();
+    }
+
+ /*   $('#dd').calendar({
         trigger: '#dt',
         zIndex: 999,
         format: 'yyyy-mm-dd',
@@ -444,8 +475,12 @@
             console.log('view:' + view);
             console.log('date:' + date);
             console.log('data:' + (data || 'None'));
-        }
-    });
+        },
+        onMouseOver:mouseOver(this,event,"+s+"),
+        onMouseOut:mouseOut()
+    });*/
+
+
 
 </script>
 </body>
